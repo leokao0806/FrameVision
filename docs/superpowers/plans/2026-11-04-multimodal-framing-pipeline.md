@@ -38,7 +38,7 @@
 - Consumes: `course_split.json`, `data_official/labels.txt`, `data_official/initial-training-data/subtask2/`, `data_official/training-second-batch-oct/EN/`
 - Produces: `FramingDataset(split: str, data_root: str, split_file: str) -> Dataset` yielding dict `{id: str, image_name: str, image_path: str, text: str, labels: List[str], target: torch.Tensor}`
 
-- [ ] **Step 1: Write test for dataset split loading and label integrity**
+- [x] **Step 1: Write test for dataset split loading and label integrity**
 
 ```python
 # tests/test_dataset.py
@@ -71,21 +71,21 @@ def test_dataset_sample_item():
     assert item["target"].shape == (14,)
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `pytest tests/test_dataset.py -v`  
 Expected: FAIL with ModuleNotFoundError or dataset not defined.
 
-- [ ] **Step 3: Implement `FramingDataset` in `src/dataset.py`**
+- [x] **Step 3: Implement `FramingDataset` in `src/dataset.py`**
 
 Parse `course_split.json`, join with Batch 1 (`EN_doc_{N}_image.jpg` + `EN_M_TRAIN_doc_{N}.txt`) and Batch 2 (`EN_M_TRAIN_{N}.*` and `EN_TRAIL_*`), load 14 labels from `data_official/labels.txt`, and generate binary multi-hot targets.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `pytest tests/test_dataset.py -v`  
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/dataset.py tests/test_dataset.py
@@ -105,7 +105,7 @@ git commit -m "feat(dataset): implement course split dataset loader with label m
 - Consumes: Logits tensor `(B, 14)`, targets tensor `(B, 14)`, prediction files, gold files
 - Produces: `AsymmetricLoss(gamma_neg=4.0, gamma_pos=1.0, clip=0.05) -> nn.Module`, `evaluate_predictions(pred_path: str, gold_path: str, frame_file: str) -> Tuple[float, float]` (micro-F1, macro-F1), `optimize_threshold(val_probs: np.ndarray, val_targets: np.ndarray, label_names: List[str]) -> Tuple[float, float, float]`
 
-- [ ] **Step 1: Write test for ASL calculation and official scorer evaluation wrapper**
+- [x] **Step 1: Write test for ASL calculation and official scorer evaluation wrapper**
 
 ```python
 # tests/test_losses_and_metrics.py
@@ -135,21 +135,21 @@ def test_metrics_empty_prediction_none_mapping():
     assert "macro_f1" in metrics
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `pytest tests/test_losses_and_metrics.py -v`  
 Expected: FAIL.
 
-- [ ] **Step 3: Implement `AsymmetricLoss` in `src/losses/asymmetric_loss.py` and `compute_metrics` / `optimize_threshold` in `src/metrics.py`**
+- [x] **Step 3: Implement `AsymmetricLoss` in `src/losses/asymmetric_loss.py` and `compute_metrics` / `optimize_threshold` in `src/metrics.py`**
 
 Implement ASL with probability shifting margin. In `src/metrics.py`, wrap the official `starter-kit/subtask2a_2b/scorer-subtask-2.py` logic, including mapping all-zero instances to `"None"` across 15 classes.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `pytest tests/test_losses_and_metrics.py -v`  
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/losses/asymmetric_loss.py src/metrics.py tests/test_losses_and_metrics.py
@@ -169,7 +169,7 @@ git commit -m "feat(loss,metrics): implement Asymmetric Loss and official 15-cla
 - Consumes: PIL Image or image file path
 - Produces: `extract_salient_regions(img: Image.Image, top_k: int = 3) -> Tuple[List[Image.Image], List[List[int]]]` returning $K$ PIL crops and their `[x1, y1, x2, y2]` bounding box coordinates.
 
-- [ ] **Step 1: Write test for entity extraction and deterministic fallback**
+- [x] **Step 1: Write test for entity extraction and deterministic fallback**
 
 ```python
 # tests/test_entity_extractor.py
@@ -191,21 +191,21 @@ def test_extract_salient_regions_returns_k_crops():
         assert 0 <= y1 < y2 <= 480
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `pytest tests/test_entity_extractor.py -v`  
 Expected: FAIL.
 
-- [ ] **Step 3: Implement `src/entity_extractor.py` and batch script `scripts/01_extract_regions.py`**
+- [x] **Step 3: Implement `src/entity_extractor.py` and batch script `scripts/01_extract_regions.py`**
 
 Implement salient region detector (using MobileSAM / OWL-ViT / FastSAM with news queries, falling back to multi-scale focal crops when no confident foreground entity exists). Save crops into `cache/crops/{img_name}_crop_{k}.jpg` and metadata in `cache/crops/metadata.json`.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `pytest tests/test_entity_extractor.py -v`  
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/entity_extractor.py scripts/01_extract_regions.py tests/test_entity_extractor.py
@@ -225,7 +225,7 @@ git commit -m "feat(crops): implement salient entity extractor with deterministi
 - Consumes: Raw text, full image, Top-$K$ region crops
 - Produces: `cache/features/{doc_id}.pt` containing dict `{visual_tokens: (1+K, 768), text_tokens: (Lt, 768), text_mask: (Lt,), target: (14,), label_names: List[str]}`
 
-- [ ] **Step 1: Write test for feature extraction tensor shapes and float32 precision**
+- [x] **Step 1: Write test for feature extraction tensor shapes and float32 precision**
 
 ```python
 # tests/test_feature_extractor.py
@@ -252,21 +252,21 @@ def test_feature_extractor_shapes():
     assert feats["text_mask"].shape == (256,)
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `pytest tests/test_feature_extractor.py -v`  
 Expected: FAIL.
 
-- [ ] **Step 3: Implement `FeatureExtractor` in `src/feature_extractor.py` and `scripts/02_extract_features.py`**
+- [x] **Step 3: Implement `FeatureExtractor` in `src/feature_extractor.py` and `scripts/02_extract_features.py`**
 
 Instantiate `AutoModel` for SigLIP and DeBERTa-v3 in `torch.float32`. Encode global image and crops into visual tokens, text into contextual token sequence with attention mask. Pre-encode and save all samples in `cache/features/{doc_id}.pt`.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `pytest tests/test_feature_extractor.py -v`  
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/feature_extractor.py scripts/02_extract_features.py tests/test_feature_extractor.py
@@ -286,7 +286,7 @@ git commit -m "feat(features): implement SigLIP and DeBERTa feature extractor an
 - Consumes: `visual_tokens: (B, 1+K, 768)`, `text_tokens: (B, Lt, 768)`, `text_mask: (B, Lt)`
 - Produces: `CrossModalFramingModel(embed_dim=512, num_heads=8, num_classes=14) -> (logits: (B, 14), attn_weights: (B, Lt, 1+K))` and unimodal models (`TextOnlyModel`, `VisionGlobalModel`, `VisionRegionModel`).
 
-- [ ] **Step 1: Write test for forward pass, gradient flow, and attention weight shapes**
+- [x] **Step 1: Write test for forward pass, gradient flow, and attention weight shapes**
 
 ```python
 # tests/test_models.py
@@ -319,21 +319,21 @@ def test_vision_region_baseline_forward():
     assert logits.shape == (2, 14)
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `pytest tests/test_models.py -v`  
 Expected: FAIL.
 
-- [ ] **Step 3: Implement `CrossModalFramingModel` and baseline models**
+- [x] **Step 3: Implement `CrossModalFramingModel` and baseline models**
 
 Implement linear projections, PyTorch `MultiheadAttention`, LayerNorm, GELU feed-forward network, masked mean-pooling across active text queries, and 14-class classification head.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `pytest tests/test_models.py -v`  
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/models/fusion_model.py src/models/baselines.py tests/test_models.py
@@ -352,7 +352,7 @@ git commit -m "feat(models): implement CrossModalFramingModel and unimodal ablat
 - Consumes: Cached `.pt` feature files, `course_split.json`
 - Produces: Model checkpoint in `checkpoints/best_model.pt`, predictions TSV `checkpoints/predictions_test_subtask2.tsv`, logged micro-F1/macro-F1 metrics.
 
-- [ ] **Step 1: Write test for training pipeline execution and TSV generation**
+- [x] **Step 1: Write test for training pipeline execution and TSV generation**
 
 ```python
 # tests/test_train_pipeline.py
@@ -377,21 +377,21 @@ def test_checkpoint_and_tsv_export(tmp_path):
     assert macro == 1.0
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `pytest tests/test_train_pipeline.py -v`  
 Expected: FAIL.
 
-- [ ] **Step 3: Implement `scripts/03_train.py`**
+- [x] **Step 3: Implement `scripts/03_train.py`**
 
 Load cached features partitioned by `course_split.json`. Train `CrossModalFramingModel` using AdamW and CosineAnnealingLR. Evaluate on Dev (20 samples) each epoch, optimize threshold $\tau^*$, and checkpoint the model with top Micro-F1/Macro-F1. Generate 40-test predictions TSV.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `pytest tests/test_train_pipeline.py -v`  
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add scripts/03_train.py tests/test_train_pipeline.py
@@ -410,7 +410,7 @@ git commit -m "feat(train): implement fast training loop on cached features with
 - Consumes: Cached features and training pipeline
 - Produces: Markdown comparison table (`reports/ablation_results.md`) covering Experiments 1 through 5, juxtaposed directly against the Intermediate Report Table 1 baselines.
 
-- [ ] **Step 1: Write test for ablation runner result formatting**
+- [x] **Step 1: Write test for ablation runner result formatting**
 
 ```python
 # tests/test_ablations.py
@@ -427,12 +427,12 @@ def test_ablation_table_formatting():
     assert "Exp 5: Full Cross-Modal (ASL)" in md
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `pytest tests/test_ablations.py -v`  
 Expected: FAIL.
 
-- [ ] **Step 3: Implement `scripts/04_run_ablations.py`**
+- [x] **Step 3: Implement `scripts/04_run_ablations.py`**
 
 Execute:
 1. Exp 1: Text-Only (DeBERTa-v3 + ASL)
@@ -442,12 +442,12 @@ Execute:
 5. Exp 5: Multimodal Cross-Attention with ASL (Proposed Full Model)
 Write summary results to `reports/ablation_results.md`.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `pytest tests/test_ablations.py -v`  
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add scripts/04_run_ablations.py tests/test_ablations.py
@@ -467,7 +467,7 @@ git commit -m "feat(ablations): implement automated ablation benchmark suite"
 - Consumes: Trained model checkpoint, input sample (`image_path`, `text`, crop coordinates)
 - Produces: Attention overlay figure saved to `reports/figures/{doc_id}_attention.png` displaying image bounding boxes weighted by attention scores alongside top attended text keywords.
 
-- [ ] **Step 1: Write test for attention weight extraction and heatmap generation**
+- [x] **Step 1: Write test for attention weight extraction and heatmap generation**
 
 ```python
 # tests/test_explain.py
@@ -495,21 +495,21 @@ def test_visualize_attention_generates_figure(tmp_path):
     assert os.path.getsize(out_file) > 0
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `pytest tests/test_explain.py -v`  
 Expected: FAIL.
 
-- [ ] **Step 3: Implement `src/explain.py` and `scripts/05_visualize_attention.py`**
+- [x] **Step 3: Implement `src/explain.py` and `scripts/05_visualize_attention.py`**
 
 Use matplotlib/cv2/PIL to draw bounding boxes with alpha opacity scaled by cross-attention weights, plot attended text words, and save high-resolution figures.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `pytest tests/test_explain.py -v`  
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/explain.py scripts/05_visualize_attention.py tests/test_explain.py
