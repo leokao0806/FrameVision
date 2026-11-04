@@ -1,0 +1,281 @@
+{
+  "subtask1": [
+    {
+      "a": "Always None",
+      "b": "Most frequent label",
+      "ci95_low": 0.03890947463942473,
+      "ci95_high": 0.1544855804346553
+    },
+    {
+      "a": "TF-IDF + LR",
+      "b": "Most frequent label",
+      "ci95_low": 0.06243495636305556,
+      "ci95_high": 0.15878187901406576
+    },
+    {
+      "a": "Frozen DeBERTa-v3 + LR",
+      "b": "Most frequent label",
+      "ci95_low": 0.025496336621840074,
+      "ci95_high": 0.11867913685278608
+    },
+    {
+      "a": "Starter XLM-RoBERTa",
+      "b": "Most frequent label",
+      "ci95_low": 0.13595949482036243,
+      "ci95_high": 0.22797725273870922
+    },
+    {
+      "a": "Fine-tuned DeBERTa-v3 (BCE)",
+      "b": "Most frequent label",
+      "ci95_low": 0.0811247583631586,
+      "ci95_high": 0.19183571213285083
+    },
+    {
+      "a": "Fine-tuned DeBERTa-v3 (ASL)",
+      "b": "Most frequent label",
+      "ci95_low": 0.07671913800258014,
+      "ci95_high": 0.17560566241695774
+    },
+    {
+      "a": "TF-IDF + LR",
+      "b": "Always None",
+      "ci95_low": -0.0460287917457276,
+      "ci95_high": 0.07290697147464838
+    },
+    {
+      "a": "Frozen DeBERTa-v3 + LR",
+      "b": "Always None",
+      "ci95_low": -0.053190203744743494,
+      "ci95_high": 0.0038631047488225565
+    },
+    {
+      "a": "Starter XLM-RoBERTa",
+      "b": "Always None",
+      "ci95_low": 0.02423178611178393,
+      "ci95_high": 0.14549991391887826
+    },
+    {
+      "a": "Fine-tuned DeBERTa-v3 (BCE)",
+      "b": "Always None",
+      "ci95_low": -0.017764578064116358,
+      "ci95_high": 0.10150075323116213
+    },
+    {
+      "a": "Fine-tuned DeBERTa-v3 (ASL)",
+      "b": "Always None",
+      "ci95_low": 0.005238015162966074,
+      "ci95_high": 0.05579930124289234
+    },
+    {
+      "a": "Fine-tuned DeBERTa-v3 (ASL)",
+      "b": "Fine-tuned DeBERTa-v3 (BCE)",
+      "ci95_low": -0.07097640036261546,
+      "ci95_high": 0.04252492850735258
+    },
+    {
+      "a": "Fine-tuned DeBERTa-v3 (BCE)",
+      "b": "Starter XLM-RoBERTa",
+      "ci95_low": -0.08486470712879897,
+      "ci95_high": -0.0062354703098916435
+    },
+    {
+      "a": "Fine-tuned DeBERTa-v3 (BCE)",
+      "b": "Frozen DeBERTa-v3 + LR",
+      "ci95_low": 0.017275888297889272,
+      "ci95_high": 0.11630458360152386
+    }
+  ],
+  "subtask1_by_seed": [
+    {
+      "seed": 13,
+      "a": "Starter XLM-RoBERTa",
+      "b": "Always None",
+      "ci95_low": 0.009899317955126814,
+      "ci95_high": 0.12842797557723074
+    },
+    {
+      "seed": 13,
+      "a": "Fine-tuned DeBERTa-v3 (BCE)",
+      "b": "Always None",
+      "ci95_low": -0.0154748168075815,
+      "ci95_high": 0.11633288453901802
+    },
+    {
+      "seed": 13,
+      "a": "Fine-tuned DeBERTa-v3 (ASL)",
+      "b": "Always None",
+      "ci95_low": 0.0047851862697122945,
+      "ci95_high": 0.11469439590718046
+    },
+    {
+      "seed": 13,
+      "a": "Fine-tuned DeBERTa-v3 (BCE)",
+      "b": "Starter XLM-RoBERTa",
+      "ci95_low": -0.06669828715827657,
+      "ci95_high": 0.02104778657807962
+    },
+    {
+      "seed": 13,
+      "a": "Fine-tuned DeBERTa-v3 (ASL)",
+      "b": "Fine-tuned DeBERTa-v3 (BCE)",
+      "ci95_low": -0.024730363119428,
+      "ci95_high": 0.047062742159038384
+    },
+    {
+      "seed": 42,
+      "a": "Starter XLM-RoBERTa",
+      "b": "Always None",
+      "ci95_low": 0.02423178611178393,
+      "ci95_high": 0.14549991391887826
+    },
+    {
+      "seed": 42,
+      "a": "Fine-tuned DeBERTa-v3 (BCE)",
+      "b": "Always None",
+      "ci95_low": -0.017764578064116358,
+      "ci95_high": 0.10150075323116213
+    },
+    {
+      "seed": 42,
+      "a": "Fine-tuned DeBERTa-v3 (ASL)",
+      "b": "Always None",
+      "ci95_low": 0.005238015162966074,
+      "ci95_high": 0.05579930124289234
+    },
+    {
+      "seed": 42,
+      "a": "Fine-tuned DeBERTa-v3 (BCE)",
+      "b": "Starter XLM-RoBERTa",
+      "ci95_low": -0.08486470712879897,
+      "ci95_high": -0.0062354703098916435
+    },
+    {
+      "seed": 42,
+      "a": "Fine-tuned DeBERTa-v3 (ASL)",
+      "b": "Fine-tuned DeBERTa-v3 (BCE)",
+      "ci95_low": -0.07097640036261546,
+      "ci95_high": 0.04252492850735258
+    },
+    {
+      "seed": 2026,
+      "a": "Starter XLM-RoBERTa",
+      "b": "Always None",
+      "ci95_low": 0.013838605274933406,
+      "ci95_high": 0.14399435428872176
+    },
+    {
+      "seed": 2026,
+      "a": "Fine-tuned DeBERTa-v3 (BCE)",
+      "b": "Always None",
+      "ci95_low": 0.025343923663370946,
+      "ci95_high": 0.1264803968959164
+    },
+    {
+      "seed": 2026,
+      "a": "Fine-tuned DeBERTa-v3 (ASL)",
+      "b": "Always None",
+      "ci95_low": -0.03672446895033865,
+      "ci95_high": 0.07600143423109436
+    },
+    {
+      "seed": 2026,
+      "a": "Fine-tuned DeBERTa-v3 (BCE)",
+      "b": "Starter XLM-RoBERTa",
+      "ci95_low": -0.03957894820942217,
+      "ci95_high": 0.03726986961403702
+    },
+    {
+      "seed": 2026,
+      "a": "Fine-tuned DeBERTa-v3 (ASL)",
+      "b": "Fine-tuned DeBERTa-v3 (BCE)",
+      "ci95_low": -0.1003615506505819,
+      "ci95_high": -0.015489907745641806
+    }
+  ],
+  "subtask2": [
+    {
+      "a": "Copy text frames (2b)",
+      "b": "Most frequent label",
+      "ci95_low": -0.1819316378701639,
+      "ci95_high": 0.06563635170223177
+    },
+    {
+      "a": "Image LR (SigLIP)",
+      "b": "Most frequent label",
+      "ci95_low": -0.07110160965794769,
+      "ci95_high": 0.2000009825582496
+    },
+    {
+      "a": "Text LR (DeBERTa-v3)",
+      "b": "Most frequent label",
+      "ci95_low": -0.28032761828814456,
+      "ci95_high": 0.004359494962943179
+    },
+    {
+      "a": "Late fusion (image + text)",
+      "b": "Most frequent label",
+      "ci95_low": -0.07431945505474918,
+      "ci95_high": 0.21298717226051622
+    },
+    {
+      "a": "Late fusion + text frames (2b)",
+      "b": "Most frequent label",
+      "ci95_low": -0.14112375165588956,
+      "ci95_high": 0.13474417149115941
+    },
+    {
+      "a": "VLM image_only",
+      "b": "Most frequent label",
+      "ci95_low": -0.03282859749001464,
+      "ci95_high": 0.2807561485214839
+    },
+    {
+      "a": "VLM subtask_2a",
+      "b": "Most frequent label",
+      "ci95_low": -0.12179944887542787,
+      "ci95_high": 0.19478959580246258
+    },
+    {
+      "a": "VLM subtask_2b",
+      "b": "Most frequent label",
+      "ci95_low": -0.09833036473594584,
+      "ci95_high": 0.19546392685351546
+    },
+    {
+      "a": "VLM subtask_2a",
+      "b": "VLM image_only",
+      "ci95_low": -0.15974859410878456,
+      "ci95_high": -0.015678173969108394
+    },
+    {
+      "a": "VLM subtask_2b",
+      "b": "VLM image_only",
+      "ci95_low": -0.17970994595498205,
+      "ci95_high": 0.02326691235190447
+    },
+    {
+      "a": "VLM subtask_2b",
+      "b": "VLM subtask_2a",
+      "ci95_low": -0.08348644248983636,
+      "ci95_high": 0.09391079093775687
+    },
+    {
+      "a": "VLM image_only",
+      "b": "Image LR (SigLIP)",
+      "ci95_low": -0.0503505353638306,
+      "ci95_high": 0.17278144549473062
+    },
+    {
+      "a": "Late fusion (image + text)",
+      "b": "Image LR (SigLIP)",
+      "ci95_low": -0.10389346698645019,
+      "ci95_high": 0.12062835341005208
+    },
+    {
+      "a": "Late fusion + text frames (2b)",
+      "b": "Late fusion (image + text)",
+      "ci95_low": -0.16337827084706122,
+      "ci95_high": 0.0085981199860554
+    }
+  ]
+}

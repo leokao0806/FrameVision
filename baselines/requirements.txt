@@ -1,0 +1,14 @@
+# Install PyTorch from https://download.pytorch.org/whl/cu128 for NVIDIA GPUs.
+# The exact tested versions are listed in requirements.lock.txt.
+torch
+transformers
+sentencepiece
+tiktoken
+protobuf
+safetensors
+scikit-learn
+pillow
+matplotlib
+python-docx
+requests
+pypdf
