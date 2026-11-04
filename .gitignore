@@ -1,10 +1,34 @@
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
 .pytest_cache/
 venv/
 venv_sandbox/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Heavy Datasets & Starter Kit
+data_official/
+data_trial/
+starter-kit/
+data/
+
+# Model Checkpoints & Large Artifacts
 checkpoints/
 crops/
 cache/
+*.pt
+*.pth
+*.bin
+*.safetensors
+
+# Archives
+*.zip
+*.tar.gz

@@ -1,0 +1,99 @@
+EN_M_TRAIN_15.jpg	Security_and_defense
+EN_doc_74_image.jpg	Political
+EN_doc_232_image.jpg	Public_opinion	Health_and_safety	Quality_of_life
+EN_doc_176_image.jpg
+EN_doc_238_image.jpg	Cultural_identity	Fairness_and_equality	Quality_of_life	Public_opinion	Policy_prescription_and_evaluation	Political
+EN_M_TRAIN_55.jpg	Security_and_defense
+EN_doc_156_image.jpg	Political
+EN_doc_56_image.jpg	Quality_of_life
+EN_doc_323_image.jpg	Economic
+EN_doc_10_image.jpg	Quality_of_life
+EN_doc_105_image.jpg
+EN_doc_262_image.jpg	Political
+EN_doc_352_image.jpg
+EN_doc_193_image.jpg	Health_and_safety
+EN_doc_102_image.jpg	Economic
+EN_M_TRAIN_45.jpg	Political
+EN_M_TRAIN_52.jpg	Economic
+EN_doc_31_image.jpg	Economic	Security_and_defense	Public_opinion	Political
+EN_doc_138_image.jpg	Cultural_identity	Economic
+EN_M_TRAIN_40.jpg	Security_and_defense
+EN_doc_267_image.jpg	Security_and_defense	Quality_of_life	Capacity_and_resources	Health_and_safety
+EN_doc_290_image.jpg	Cultural_identity	Quality_of_life
+EN_M_TRAIN_77.png	Security_and_defense
+EN_doc_73_image.jpg	Health_and_safety	Quality_of_life
+EN_doc_64_image.jpg	Public_opinion	Fairness_and_equality
+EN_doc_94_image.jpg
+EN_doc_370_image.jpg	Political	Security_and_defense	Public_opinion	Morality
+EN_M_TRAIN_75.jpg	Political
+EN_doc_78_image.jpg
+EN_doc_69_image.jpg
+EN_M_TRAIN_80.jpg	Public_opinion
+EN_doc_77_image.jpg	Quality_of_life
+EN_doc_141_image.jpg
+EN_doc_3_image.jpg	Morality
+EN_doc_333_image.jpg	Crime_and_punishment
+EN_doc_80_image.jpg	Political
+EN_doc_210_image.jpg
+EN_doc_183_image.jpg	Cultural_identity	Security_and_defense	Economic	Fairness_and_equality	Crime_and_punishment	Quality_of_life	Capacity_and_resources	Public_opinion	External_regulation_and_reputation	Policy_prescription_and_evaluation	Political	Health_and_safety	Morality
+EN_M_TRAIN_57.jpg	Security_and_defense
+EN_doc_288_image.jpg	Health_and_safety	Capacity_and_resources
+EN_doc_196_image.jpg
+EN_M_TRAIN_4.jpeg	Security_and_defense
+EN_doc_34_image.jpg
+EN_doc_317_image.jpg	Health_and_safety
+EN_doc_1_image.jpg	Economic	Health_and_safety	Quality_of_life
+EN_doc_12_image.jpg	Cultural_identity	Morality	Fairness_and_equality
+EN_doc_334_image.jpg
+EN_doc_174_image.jpg	Economic
+EN_doc_85_image.jpg	Health_and_safety
+EN_doc_355_image.jpg	Cultural_identity
+EN_doc_266_image.jpg	Policy_prescription_and_evaluation	Political	Fairness_and_equality
+EN_M_TRAIN_46.jpg	Security_and_defense
+EN_M_TRAIN_71.jpg	Quality_of_life
+EN_doc_118_image.jpg	Health_and_safety	Quality_of_life
+EN_doc_19_image.jpg	Political
+EN_doc_361_image.jpg	Health_and_safety
+EN_M_TRAIN_6.webp	Political
+EN_M_TRAIN_21.jpg	Security_and_defense
+EN_doc_385_image.jpg	Capacity_and_resources	Quality_of_life
+EN_doc_219_image.jpg	Cultural_identity	Political	Quality_of_life
+EN_doc_387_image.jpg	Security_and_defense
+EN_doc_40_image.jpg	Cultural_identity
+EN_M_TRAIN_16.jpg	Security_and_defense
+EN_doc_204_image.jpg
+EN_doc_279_image.jpg	Crime_and_punishment	Security_and_defense	Health_and_safety
+EN_doc_154_image.jpg
+EN_M_TRAIN_19.jpg	Security_and_defense
+EN_doc_71_image.jpg	Cultural_identity	Economic
+EN_TRAIL_1.png	Political
+EN_doc_249_image.jpg	Crime_and_punishment	Security_and_defense	Health_and_safety
+EN_M_TRAIN_47.jpg
+EN_doc_133_image.jpg	Policy_prescription_and_evaluation	Public_opinion
+EN_doc_91_image.jpg	Political
+EN_doc_70_image.jpg	Economic
+EN_M_TRAIN_64.jpg
+EN_doc_272_image.jpg
+EN_doc_246_image.jpg	Political
+EN_doc_79_image.jpg	Health_and_safety	Quality_of_life
+EN_doc_83_image.jpg	Political
+EN_M_TRAIN_85.jpg	Morality	Public_opinion
+EN_doc_321_image.jpg	Economic	Quality_of_life
+EN_M_TRAIN_58.jpg	Political
+EN_doc_132_image.jpg
+EN_M_TRAIN_42.jpg	Health_and_safety	Quality_of_life
+EN_doc_303_image.jpg
+EN_doc_125_image.jpg	Quality_of_life
+EN_doc_343_image.jpg	Cultural_identity
+EN_M_TRAIN_67.jpg	Political
+EN_doc_127_image.jpg	Quality_of_life
+EN_doc_269_image.jpg	Political	Public_opinion	Quality_of_life
+EN_M_TRAIN_65.jpg	Political
+EN_doc_87_image.jpg	Cultural_identity	Public_opinion	Quality_of_life
+EN_doc_76_image.jpg	Public_opinion	Fairness_and_equality
+EN_M_TRAIN_51.jpg
+EN_doc_16_image.jpg	Economic	Capacity_and_resources
+EN_doc_248_image.jpg
+EN_doc_384_image.jpg	Cultural_identity
+EN_doc_20_image.jpg
+EN_doc_322_image.jpg	Economic	Quality_of_life

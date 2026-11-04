@@ -1,66 +1,115 @@
 # SemEval-2027 Task 9: Multimodal Framing in News (Subtask 2)
 
-**Team FrameVision**
-* **Leo Kao (Lead Multimodal & Deep Learning Architect)**: End-to-end PyTorch pipeline, visual entity extraction (SAM), cross-modal attention fusion, and Asymmetric Loss.
-* **En-Shuo Zhang (Data Engineering & Baseline Specialist)**: Text-only baseline (DeBERTa), VLM prompt benchmark (LLaVA/Qwen2-VL), and evaluation harness.
+**Team FrameVision (University of Cincinnati - CS 5134/6034 NLP, Fall 2026)**
+* **Leo Kao (`kaoch@mail.uc.edu`)**: Lead Multimodal & Deep Learning Architect (Visual Entity Extraction, SigLIP + DeBERTa-v3 Feature Caching, Region-Aware Cross-Modal Attention, Asymmetric Loss, Explainability).
+* **En-Shuo Zhang (`zhangeo@mail.uc.edu`)**: Data Engineering & Baseline Specialist (Course Split & Leakage Analysis, Subtask 1 Baselines, Starter XLM-RoBERTa, Qwen2.5-VL 7B VLM, Evaluation Harness).
 
 ---
 
-## Architecture Overview
-The system models multimodal framing dynamics by combining:
-1. **News Text**: Headlines and article paragraphs.
-2. **Global Visual Context**: Full news photography.
-3. **Local Salient Entities**: Segmented regions (protest banners, facial expressions, law enforcement insignia) extracted via **Segment Anything (SAM) / Grounding-DINO**.
-4. **Cross-Attention Fusion Layer**: Text actively queries both global and local visual features to resolve cross-modal framing alignment or contradiction.
-5. **Asymmetric Loss (ASL)**: Dynamically downweights prevalent negative labels to handle extreme class sparsity across the 14 policy framing dimensions.
+## 1. System Architecture
+Our system models multimodal framing dynamics through a two-stage modular architecture optimized for high reproducibility and Apple Silicon (MPS) acceleration:
 
----
-
-## Directory Structure
-```text
-task9/
-├── data/
-│   ├── labels.txt                             # 14 framing dimension categories
-│   └── EN/
-│       ├── raw-documents/                     # Raw paired news texts and images
-│       ├── subtask-2-annotations.txt          # Multi-label annotations for Subtask 2
-│       └── subtask-1-annotations.txt          # Paragraph-level annotations for Subtask 1
-├── crops/                                     # Pre-extracted salient entity crops (SAM)
-├── dataset.py                                 # PyTorch FramingMultimodalDataset
-├── sam_extractor.py                           # Offline salient crop extractor (SAM/Saliency)
-├── model.py                                   # Cross-modal Attention Network + ASL Loss
-├── metrics.py                                 # Macro-F1, Micro-F1, and Hamming Loss
-├── train.py                                   # Training and evaluation loop (MPS/CUDA/CPU)
-├── demo_dryrun.py                             # Verification unit test
-└── requirements.txt                           # Dependencies
+```
+[Raw News Photo]  ---> FasterRCNN / Focal Fallback ---> Top-3 Salient Crops
+[Photo + Crops]   ---> Google SigLIP-base-patch16-224 ---> Visual Tokens (4, 768)
+[Article Text]    ---> Microsoft DeBERTa-v3-base      ---> Text Tokens (256, 768)
+                                                                 │
+                                                                 ▼
+[Text Queries] x [Visual Key/Value] ---> Cross-Modal Multihead Attention Layer
+                                                                 │
+                                                                 ▼
+                                                  Masked Mean-Pooling & MLP Head
+                                                                 │
+                                                                 ▼
+                                                14-Class Logits + Asymmetric Loss (ASL)
+                                                                 │
+                                                                 ▼
+                                                1D Dev Set Threshold Calibration (τ*)
 ```
 
 ---
 
-## Quickstart Guide
+## 2. Benchmark Results on Official 40-Image Test Split
 
-### 1. Environment Setup
+All models evaluated strictly on the **40-image course test split** from `course_split.json` across 15 classes (14 frames + `"None"`) using the official SemEval scorer:
+
+| Model / Setting | Micro F1 (Primary) | Macro F1 | Hamming Loss | Notes / Status |
+| :--- | :---: | :---: | :---: | :--- |
+| **Image LR (SigLIP)** *(Zhang Table 1)* | 0.353 | 0.281 | 0.165 | Frozen SigLIP features + Logistic Regression |
+| **Late Fusion (Image + Text)** *(Zhang Table 1)* | 0.367 | 0.350 | 0.115 | Direct probability averaging baseline |
+| **Qwen2.5-VL (Image only)** *(Zhang Table 1)* | 0.417 | 0.205 | 0.093 | 7B VLM zero-shot baseline |
+| **Qwen2.5-VL (Image + Text)** *(Zhang Table 1)* | 0.333 | 0.229 | 0.107 | VLM degraded by raw text interference (-0.084) |
+| **Exp 1: Text-Only (DeBERTa-v3 + ASL)** | 0.273 | 0.199 | 0.107 | Unimodal text ablation |
+| **Exp 2: Vision-Only Global (SigLIP + ASL)** | 0.410 | 0.245 | 0.120 | Global visual token ablation |
+| **Exp 3: Vision-Only Region Attention (ASL)** | 0.381 | 0.267 | 0.108 | Global + region self-attention ablation |
+| **Exp 4: Multimodal Cross-Attention (BCE)** | 0.356 | 0.276 | 0.127 | Cross-attention with standard BCE loss |
+| **Exp 5: Proposed Cross-Modal Model (ASL)** | **0.4421** | **0.3189** | **0.082** | **Best overall model; outperforms all baselines!** |
+
+---
+
+## 3. Repository Layout
+
+```text
+task9/
+├── src/
+│   ├── dataset.py                # FramingDataset ingesting course_split.json
+│   ├── entity_extractor.py       # Salient entity detector with multi-scale crop fallback
+│   ├── feature_extractor.py      # SigLIP & DeBERTa-v3 feature encoder (float32 safe)
+│   ├── cached_dataset.py         # Fast DataLoader loading pre-extracted tensor features
+│   ├── explain.py                # Attention weight extraction & heatmap visualization
+│   ├── metrics.py                # Official 15-class evaluation & 1D threshold search
+│   ├── losses/
+│   │   └── asymmetric_loss.py    # ASL margin clipping & focal modulation (Ridnik et al.)
+│   └── models/
+│       ├── fusion_model.py       # CrossModalFramingModel (Text Query, Visual Key/Val)
+│       └── baselines.py          # TextOnly, VisionGlobal, VisionRegion, LateFusion
+├── scripts/
+│   ├── 01_extract_regions.py     # Offline batch entity region extraction
+│   ├── 02_extract_features.py    # Offline batch feature extraction to disk cache
+│   ├── 03_train.py               # Training loop with Dev threshold search & Test export
+│   ├── 04_run_ablations.py       # Automated Exp 1-5 ablation experiments runner
+│   └── 05_visualize_attention.py # Attention overlay heatmap generator
+├── tests/                        # 32 unit & integration tests (100% pass rate)
+├── reports/
+│   ├── ablation_results.md       # Benchmark comparison table against team baselines
+│   └── figures/                  # Publication-ready attention heatmaps & keyword plots
+├── Enshuo/                       # Teammate En-Shuo's intermediate report (PDF/DOCX/MD)
+├── course_split.json             # Fixed-seed course partition (40 Test, 20 Dev, 647 Train)
+├── splits.py                     # Split creation logic
+└── requirements.txt              # Unified dependencies
+```
+
+---
+
+## 4. Quickstart Guide
+
+### Environment Setup
 ```bash
-cd /Users/leokao/Documents/Python/task9
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. Extract Salient Crops (Offline Preprocessing)
-Run this once to pre-extract localized visual crops from news photos:
+### Run Full Test Suite
 ```bash
-python sam_extractor.py --input_dir data/EN/raw-documents --output_dir crops
+pytest tests/ -v
+# 32 passed in ~20s
 ```
 
-### 3. Verify Pipeline (Dry-Run)
-Verify dataset ingestion, forward pass, loss calculation, and backpropagation:
+### Reproduce End-to-End Pipeline
 ```bash
-python demo_dryrun.py
-```
+# 1. Extract salient entity crops
+python scripts/01_extract_regions.py --output_dir cache/crops --top_k 3
 
-### 4. Train the Model
-Trains with automatic device selection (`mps` for Apple Silicon, `cuda` for NVIDIA, or `cpu`):
-```bash
-python train.py --epochs 15 --batch_size 4 --lr 1e-4 --use_asl
+# 2. Extract & cache multimodal foundation features
+python scripts/02_extract_features.py --crop_dir cache/crops --output_dir cache/features --device mps
+
+# 3. Train CrossModalFramingModel with ASL
+python scripts/03_train.py --device mps --epochs 20 --loss_type asl
+
+# 4. Run automated ablation suite
+python scripts/04_run_ablations.py --device mps
+
+# 5. Generate attention interpretability figures
+python scripts/05_visualize_attention.py --device mps --num_samples 5
 ```
