@@ -160,8 +160,9 @@ def test_export_predictions_tsv_and_evaluate(tmp_path):
 
 
 def test_evaluate_predictions_matches_official_scorer():
-    pred_file = "predictions_test_subtask2.txt"
-    gold_file = "gold_test_subtask2.txt"
+    fixture_dir = os.path.join(os.path.dirname(__file__), "fixtures")
+    pred_file = os.path.join(fixture_dir, "predictions_test_subtask2.txt")
+    gold_file = os.path.join(fixture_dir, "gold_test_subtask2.txt")
     labels_file = "data_official/labels.txt"
     
     # Official scorer command

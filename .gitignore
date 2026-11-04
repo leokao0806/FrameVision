@@ -1,4 +1,4 @@
-# Python
+# Python & Bytecode
 __pycache__/
 *.py[cod]
 *$py.class
@@ -10,9 +10,15 @@ venv_sandbox/
 dist/
 build/
 
-# OS
+# OS & IDE
 .DS_Store
 Thumbs.db
+.idea/
+.vscode/
+
+# Teammate & Legacy Directories (Keep local, do not track on main)
+Enshuo/
+legacy/
 
 # Heavy Datasets & Starter Kit
 data_official/
