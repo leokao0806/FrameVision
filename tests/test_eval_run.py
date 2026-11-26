@@ -122,6 +122,14 @@ def test_partial_seeds_are_reported(tmp_path):
     assert out["selection"]["best_trained_model"] == "e5_fusion_coco_asl"
 
 
+def test_each_split_records_the_seeds_it_averages(tmp_path):
+    root, scorer = _root(tmp_path, {"e8_fusion_gdino_asl": {13: ["dev", "test"], 42: ["dev", "test"], 2026: ["dev"]}})
+    model = evaluate_all(root, scorer)["models"]["e8_fusion_gdino_asl"]
+    assert model["seeds"] == [13, 42, 2026]
+    assert model["dev"]["seeds"] == [13, 42, 2026]
+    assert model["test"]["seeds"] == [13, 42]
+
+
 def test_mismatched_images_stop_evaluation(tmp_path):
     root, scorer = _root(tmp_path, {"e5_fusion_coco_asl": {13: ["dev", "test"]}})
     _write(tmp_path / "pred" / "e5_fusion_coco_asl" / "seed13" / "test.tsv", "t1.jpg\nt2.jpg\n")

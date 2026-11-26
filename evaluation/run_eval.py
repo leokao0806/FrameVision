@@ -64,8 +64,9 @@ def select_best(models, candidates=None):
     return min(tied, key=_complexity_rank)
 
 
-def _dev_summary(scores):
+def _dev_summary(scores, seeds):
     return {
+        "seeds": seeds,
         "micro_mean": float(np.mean(scores["micro"])),
         "micro_std": float(np.std(scores["micro"])),
         "macro_mean": float(np.mean(scores["macro"])),
@@ -73,10 +74,11 @@ def _dev_summary(scores):
     }
 
 
-def _test_summary(scores):
+def _test_summary(scores, seeds):
     groups = [group_of(name) for name in scores["image_names"]]
     lo, hi = bootstrap_ci(scores["y_true"], scores["matrices"], groups)
     return {
+        "seeds": seeds,
         "micro_mean": float(np.mean(scores["micro"])),
         "micro_std": float(np.std(scores["micro"])),
         "micro_ci95": [lo, hi],
@@ -115,16 +117,17 @@ def evaluate_all(pred_root, scorer_path):
     for model, seeds in discover_runs(pred_root).items():
         entry = {"seeds": sorted(seeds), "scorer_mismatches": 0}
         for split in ("dev", "test"):
-            paths = [seeds[s][split] for s in sorted(seeds) if split in seeds[s]]
+            split_seeds = [s for s in sorted(seeds) if split in seeds[s]]
+            paths = [seeds[s][split] for s in split_seeds]
             if not paths:
                 continue
             scores = score_split(paths, gold[split], labels_path, scorer_path)
             sizes[split] = len(scores["image_names"])
             entry["scorer_mismatches"] += scores["mismatches"]
             if split == "dev":
-                entry["dev"] = _dev_summary(scores)
+                entry["dev"] = _dev_summary(scores, split_seeds)
             else:
-                entry["test"] = _test_summary(scores)
+                entry["test"] = _test_summary(scores, split_seeds)
                 test_scores[model] = scores
         models[model] = entry
 

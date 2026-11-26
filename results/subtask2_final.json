@@ -25,12 +25,18 @@
       ],
       "scorer_mismatches": 0,
       "dev": {
+        "seeds": [
+          0
+        ],
         "micro_mean": 0.24347826086956523,
         "micro_std": 0.0,
         "macro_mean": 0.13822954822954825,
         "hamming_mean": 0.29
       },
       "test": {
+        "seeds": [
+          0
+        ],
         "micro_mean": 0.23809523809523808,
         "micro_std": 0.0,
         "micro_ci95": [
@@ -82,12 +88,18 @@
       ],
       "scorer_mismatches": 0,
       "dev": {
+        "seeds": [
+          0
+        ],
         "micro_mean": 0.41935483870967744,
         "micro_std": 0.0,
         "macro_mean": 0.4561998132586368,
         "hamming_mean": 0.12
       },
       "test": {
+        "seeds": [
+          0
+        ],
         "micro_mean": 0.35294117647058826,
         "micro_std": 0.0,
         "micro_ci95": [
@@ -139,12 +151,18 @@
       ],
       "scorer_mismatches": 0,
       "dev": {
+        "seeds": [
+          0
+        ],
         "micro_mean": 0.4444444444444444,
         "micro_std": 0.0,
         "macro_mean": 0.6560410830999067,
         "hamming_mean": 0.1
       },
       "test": {
+        "seeds": [
+          0
+        ],
         "micro_mean": 0.3669724770642202,
         "micro_std": 0.0,
         "micro_ci95": [
@@ -196,12 +214,18 @@
       ],
       "scorer_mismatches": 0,
       "dev": {
+        "seeds": [
+          0
+        ],
         "micro_mean": 0.45614035087719296,
         "micro_std": 0.0,
         "macro_mean": 0.6511829782418018,
         "hamming_mean": 0.10333333333333333
       },
       "test": {
+        "seeds": [
+          0
+        ],
         "micro_mean": 0.2905982905982906,
         "micro_std": 0.0,
         "micro_ci95": [
@@ -253,12 +277,18 @@
       ],
       "scorer_mismatches": 0,
       "dev": {
+        "seeds": [
+          0
+        ],
         "micro_mean": 0.23809523809523808,
         "micro_std": 0.0,
         "macro_mean": 0.49333333333333335,
         "hamming_mean": 0.10666666666666667
       },
       "test": {
+        "seeds": [
+          0
+        ],
         "micro_mean": 0.29545454545454547,
         "micro_std": 0.0,
         "micro_ci95": [
@@ -310,12 +340,18 @@
       ],
       "scorer_mismatches": 0,
       "dev": {
+        "seeds": [
+          0
+        ],
         "micro_mean": 0.44,
         "micro_std": 0.0,
         "macro_mean": 0.3378510378510378,
         "hamming_mean": 0.09333333333333334
       },
       "test": {
+        "seeds": [
+          0
+        ],
         "micro_mean": 0.3333333333333333,
         "micro_std": 0.0,
         "micro_ci95": [
@@ -367,12 +403,18 @@
       ],
       "scorer_mismatches": 0,
       "dev": {
+        "seeds": [
+          0
+        ],
         "micro_mean": 0.425531914893617,
         "micro_std": 0.0,
         "macro_mean": 0.5740740740740741,
         "hamming_mean": 0.09
       },
       "test": {
+        "seeds": [
+          0
+        ],
         "micro_mean": 0.34,
         "micro_std": 0.0,
         "micro_ci95": [
@@ -424,12 +466,18 @@
       ],
       "scorer_mismatches": 0,
       "dev": {
+        "seeds": [
+          0
+        ],
         "micro_mean": 0.4782608695652174,
         "micro_std": 0.0,
         "macro_mean": 0.46444444444444444,
         "hamming_mean": 0.08
       },
       "test": {
+        "seeds": [
+          0
+        ],
         "micro_mean": 0.4166666666666667,
         "micro_std": 0.0,
         "micro_ci95": [
@@ -481,12 +529,18 @@
       ],
       "scorer_mismatches": 0,
       "dev": {
+        "seeds": [
+          0
+        ],
         "micro_mean": 0.40816326530612246,
         "micro_std": 0.0,
         "macro_mean": 0.5825396825396825,
         "hamming_mean": 0.09666666666666666
       },
       "test": {
+        "seeds": [
+          0
+        ],
         "micro_mean": 0.1523809523809524,
         "micro_std": 0.0,
         "micro_ci95": [

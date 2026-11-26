@@ -128,6 +128,40 @@ def test_scorer_without_output_raises_with_pred_path(tmp_path):
         run_official_scorer(silent, gold, pred, labels)
 
 
+def test_scorer_receives_canonical_rows_in_gold_order(tmp_path):
+    labels, gold, _ = _fixture(tmp_path)
+    pred = _write(tmp_path / "m" / "seed0" / "dev.tsv",
+                  "﻿c.jpg\tPolitical  \nb.jpg\tNone\na.jpg\tEconomic\t\n")
+    seen = tmp_path / "seen.tsv"
+    spy = _write(tmp_path / "spy_scorer.py",
+                 "import shutil, sys\n"
+                 f"shutil.copy(sys.argv[sys.argv.index('-p') + 1], {str(seen)!r})\n"
+                 'print("0.5\\t0.4")\n')
+    score_split([pred], gold, labels, spy)
+    assert seen.read_bytes() == b"a.jpg\tEconomic\nb.jpg\nc.jpg\tPolitical\n"
+
+
+def test_scorer_crash_reports_stderr_and_pred_path(tmp_path):
+    labels, gold, pred = _fixture(tmp_path)
+    crash = _write(tmp_path / "crash_scorer.py", "import sys\nsys.stderr.write('boom')\nsys.exit(2)\n")
+    with pytest.raises(RuntimeError, match=r"(?s)test\.tsv.*boom"):
+        run_official_scorer(crash, gold, pred, labels)
+
+
+@pytest.mark.skipif(not os.path.isfile(REAL_SCORER), reason="official starter kit not linked at repo root")
+@pytest.mark.parametrize("pred_text", [
+    "a.jpg\tEconomic\nb.jpg\tNone\nc.jpg\tPolitical\n",
+    "a.jpg\tEconomic\t\nb.jpg\t\nc.jpg\tPolitical\n",
+    "﻿a.jpg\tEconomic\nb.jpg\nc.jpg\tPolitical  \n",
+], ids=["literal_none", "trailing_tabs", "bom_and_spaces"])
+def test_lenient_forms_are_scored_by_the_real_scorer(tmp_path, pred_text):
+    labels, gold, _ = _fixture(tmp_path)
+    pred = _write(tmp_path / "m" / "seed0" / "dev.tsv", pred_text)
+    out = score_split([pred], gold, labels, REAL_SCORER)
+    assert out["mismatches"] == 0
+    assert out["micro"][0] == pytest.approx(micro_f1(out["y_true"], out["matrices"][0]), abs=1e-6)
+
+
 @pytest.mark.skipif(not os.path.isfile(REAL_SCORER), reason="official starter kit not linked at repo root")
 def test_real_scorer_agrees_with_micro_f1(tmp_path):
     labels, gold, pred = _fixture(tmp_path)
