@@ -166,7 +166,7 @@ the 20-image development set makes selection noisy, which the selected best mode
 
 ## 11. Contributions
 
-Our team has two members; the instructor approved a two-person team. **Leo Kao** built the PyTorch training pipeline and the SigLIP features, the region-aware cross-attention model with ASL, the COCO and Grounding DINO region extraction, experiments E1–E8 [[and E11]], the region and attention analysis (C5) and the architecture figure. **En-Shuo Zhang** built the data preprocessing and splits, the baselines (logistic regression, late fusion with Leo, Subtask 1 models), the VLM pipeline with its prompt and text-length variants (E10, E12), the shared evaluation layer with the pre-registered rules and bootstrap intervals, the combination (E9), analyses C1–C4 and C6, and the report tooling. [[LEO: check and edit your part.]]
+Our team has two members; the instructor approved a two-person team. **Leo Kao** built the PyTorch training pipeline and the SigLIP features, the region-aware cross-attention model with ASL, the COCO and Grounding DINO region extraction, experiments E1–E8 [[LEO: and E11?]], the region and attention analysis (C5) and the architecture figure. **En-Shuo Zhang** built the data preprocessing and splits, the baselines (logistic regression, late fusion with Leo, Subtask 1 models), the VLM pipeline with its prompt and text-length variants (E10, E12), the shared evaluation layer with the pre-registered rules and bootstrap intervals, the combination (E9), analyses C1–C4 and C6, and the report tooling. [[LEO: check and edit your part.]]
 
 ## References
 

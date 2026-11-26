@@ -47,3 +47,4 @@ report/*.docx
 report/*.pdf
 report/*.zip
 .superpowers/
+report/final_report.built.md

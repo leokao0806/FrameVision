@@ -1,0 +1,391 @@
+{
+ "labels": [
+  "Economic",
+  "Political",
+  "Morality"
+ ],
+ "n_dev": 20,
+ "n_test": 40,
+ "models": {
+  "most_frequent": {
+   "seeds": [
+    0
+   ],
+   "scorer_mismatches": 0,
+   "dev": {
+    "seeds": [
+     0
+    ],
+    "micro_mean": 0.391,
+    "micro_std": 0.0,
+    "macro_mean": 0.2,
+    "hamming_mean": 0.1
+   },
+   "test": {
+    "seeds": [
+     0
+    ],
+    "micro_mean": 0.295,
+    "micro_std": 0.0,
+    "micro_ci95": [
+     0.169,
+     0.422
+    ],
+    "macro_mean": 0.2,
+    "macro_std": 0.0,
+    "hamming_mean": 0.1,
+    "per_label_f1": {
+     "Economic": 0.0,
+     "Political": 0.7,
+     "Morality": null,
+     "None": 0.0
+    },
+    "support": {
+     "Economic": 1,
+     "Political": 13,
+     "Morality": 0,
+     "None": 5
+    }
+   }
+  },
+  "qwen_image_only": {
+   "seeds": [
+    0
+   ],
+   "scorer_mismatches": 0,
+   "dev": {
+    "seeds": [
+     0
+    ],
+    "micro_mean": 0.478,
+    "micro_std": 0.0,
+    "macro_mean": 0.2,
+    "hamming_mean": 0.1
+   },
+   "test": {
+    "seeds": [
+     0
+    ],
+    "micro_mean": 0.417,
+    "micro_std": 0.0,
+    "micro_ci95": [
+     0.292,
+     0.553
+    ],
+    "macro_mean": 0.2,
+    "macro_std": 0.0,
+    "hamming_mean": 0.1,
+    "per_label_f1": {
+     "Economic": 0.0,
+     "Political": 0.7,
+     "Morality": null,
+     "None": 0.0
+    },
+    "support": {
+     "Economic": 1,
+     "Political": 13,
+     "Morality": 0,
+     "None": 5
+    }
+   }
+  },
+  "qwen_2a_title": {
+   "seeds": [
+    0
+   ],
+   "scorer_mismatches": 0,
+   "dev": {
+    "seeds": [
+     0
+    ],
+    "micro_mean": 0.458,
+    "micro_std": 0.0,
+    "macro_mean": 0.2,
+    "hamming_mean": 0.1
+   },
+   "test": {
+    "seeds": [
+     0
+    ],
+    "micro_mean": 0.37,
+    "micro_std": 0.0,
+    "micro_ci95": [
+     0.25,
+     0.49
+    ],
+    "macro_mean": 0.2,
+    "macro_std": 0.0,
+    "hamming_mean": 0.1,
+    "per_label_f1": {
+     "Economic": 0.0,
+     "Political": 0.7,
+     "Morality": null,
+     "None": 0.0
+    },
+    "support": {
+     "Economic": 1,
+     "Political": 13,
+     "Morality": 0,
+     "None": 5
+    }
+   }
+  },
+  "qwen_2a": {
+   "seeds": [
+    0
+   ],
+   "scorer_mismatches": 0,
+   "dev": {
+    "seeds": [
+     0
+    ],
+    "micro_mean": 0.44,
+    "micro_std": 0.0,
+    "macro_mean": 0.2,
+    "hamming_mean": 0.1
+   },
+   "test": {
+    "seeds": [
+     0
+    ],
+    "micro_mean": 0.333,
+    "micro_std": 0.0,
+    "micro_ci95": [
+     0.216,
+     0.463
+    ],
+    "macro_mean": 0.2,
+    "macro_std": 0.0,
+    "hamming_mean": 0.1,
+    "per_label_f1": {
+     "Economic": 0.0,
+     "Political": 0.7,
+     "Morality": null,
+     "None": 0.0
+    },
+    "support": {
+     "Economic": 1,
+     "Political": 13,
+     "Morality": 0,
+     "None": 5
+    }
+   }
+  },
+  "qwen_2a_fulltext": {
+   "seeds": [
+    0
+   ],
+   "scorer_mismatches": 0,
+   "dev": {
+    "seeds": [
+     0
+    ],
+    "micro_mean": 0.48,
+    "micro_std": 0.0,
+    "macro_mean": 0.2,
+    "hamming_mean": 0.1
+   },
+   "test": {
+    "seeds": [
+     0
+    ],
+    "micro_mean": 0.34,
+    "micro_std": 0.0,
+    "micro_ci95": [
+     0.22,
+     0.47
+    ],
+    "macro_mean": 0.2,
+    "macro_std": 0.0,
+    "hamming_mean": 0.1,
+    "per_label_f1": {
+     "Economic": 0.0,
+     "Political": 0.7,
+     "Morality": null,
+     "None": 0.0
+    },
+    "support": {
+     "Economic": 1,
+     "Political": 13,
+     "Morality": 0,
+     "None": 5
+    }
+   }
+  },
+  "qwen_2b": {
+   "seeds": [
+    0
+   ],
+   "scorer_mismatches": 0,
+   "dev": {
+    "seeds": [
+     0
+    ],
+    "micro_mean": 0.426,
+    "micro_std": 0.0,
+    "macro_mean": 0.2,
+    "hamming_mean": 0.1
+   },
+   "test": {
+    "seeds": [
+     0
+    ],
+    "micro_mean": 0.34,
+    "micro_std": 0.0,
+    "micro_ci95": [
+     0.222,
+     0.468
+    ],
+    "macro_mean": 0.2,
+    "macro_std": 0.0,
+    "hamming_mean": 0.1,
+    "per_label_f1": {
+     "Economic": 0.0,
+     "Political": 0.7,
+     "Morality": null,
+     "None": 0.0
+    },
+    "support": {
+     "Economic": 1,
+     "Political": 13,
+     "Morality": 0,
+     "None": 5
+    }
+   }
+  },
+  "e2_vision_global": {
+   "seeds": [
+    13,
+    42,
+    2026
+   ],
+   "scorer_mismatches": 0,
+   "dev": {
+    "seeds": [
+     13,
+     42,
+     2026
+    ],
+    "micro_mean": 0.41,
+    "micro_std": 0.02,
+    "macro_mean": 0.2,
+    "hamming_mean": 0.1
+   },
+   "test": {
+    "seeds": [
+     13,
+     42,
+     2026
+    ],
+    "micro_mean": 0.4,
+    "micro_std": 0.015,
+    "micro_ci95": [
+     0.3,
+     0.51
+    ],
+    "macro_mean": 0.2,
+    "macro_std": 0.0,
+    "hamming_mean": 0.1,
+    "per_label_f1": {
+     "Economic": 0.0,
+     "Political": 0.7,
+     "Morality": null,
+     "None": 0.0
+    },
+    "support": {
+     "Economic": 1,
+     "Political": 13,
+     "Morality": 0,
+     "None": 5
+    }
+   }
+  },
+  "e5_fusion_coco_asl": {
+   "seeds": [
+    13,
+    42,
+    2026
+   ],
+   "scorer_mismatches": 0,
+   "dev": {
+    "seeds": [
+     13,
+     42,
+     2026
+    ],
+    "micro_mean": 0.43,
+    "micro_std": 0.01,
+    "macro_mean": 0.2,
+    "hamming_mean": 0.1
+   },
+   "test": {
+    "seeds": [
+     13,
+     42,
+     2026
+    ],
+    "micro_mean": 0.39,
+    "micro_std": 0.02,
+    "micro_ci95": [
+     0.28,
+     0.5
+    ],
+    "macro_mean": 0.2,
+    "macro_std": 0.0,
+    "hamming_mean": 0.1,
+    "per_label_f1": {
+     "Economic": 0.0,
+     "Political": 0.7,
+     "Morality": null,
+     "None": 0.0
+    },
+    "support": {
+     "Economic": 1,
+     "Political": 13,
+     "Morality": 0,
+     "None": 5
+    }
+   }
+  },
+  "e6_fusion_global_asl": {
+   "seeds": [
+    13
+   ],
+   "scorer_mismatches": 0,
+   "dev": {
+    "seeds": [
+     13
+    ],
+    "micro_mean": 0.42,
+    "micro_std": 0.0,
+    "macro_mean": 0.2,
+    "hamming_mean": 0.1
+   }
+  }
+ },
+ "reference_only": {
+  "random_prior": {
+   "micro_f1": 0.132
+  }
+ },
+ "selection": {
+  "best_model": "qwen_2a_fulltext",
+  "best_trained_model": "e5_fusion_coco_asl",
+  "rule": "docs/preregistration.md",
+  "exploratory_not_selectable": []
+ },
+ "primary_comparisons": [
+  {
+   "spec_a": "best",
+   "spec_b": "most_frequent",
+   "a": "qwen_2a_fulltext",
+   "b": "most_frequent",
+   "diff_mean": 0.045,
+   "ci95": [
+    -0.104,
+    0.195
+   ],
+   "status": "ok"
+  }
+ ]
+}
