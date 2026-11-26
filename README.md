@@ -73,11 +73,19 @@ task9/
 ├── reports/
 │   ├── ablation_results.md       # Benchmark comparison table against team baselines
 │   └── figures/                  # Publication-ready attention heatmaps & keyword plots
-├── Enshuo/                       # Teammate En-Shuo's intermediate report (PDF/DOCX/MD)
+├── baselines/                    # En-Shuo's baselines (LR, late fusion, Qwen2.5-VL, Subtask 1); run from inside this folder
+├── evaluation/                   # Shared evaluation layer: reads prediction TSVs, calls the official scorer
+├── predictions/subtask2/         # Official-format predictions: <model>/seed<k>/{dev,test}.tsv (_gold, _reference are not models)
+├── results/subtask2_final.json   # Every reported number is generated from this file
+├── docs/                         # Final spec, plan, pre-registration, notes
 ├── course_split.json             # Fixed-seed course partition (40 Test, 20 Dev, 647 Train)
 ├── splits.py                     # Split creation logic
 └── requirements.txt              # Unified dependencies
 ```
+
+The two pipelines only meet through `predictions/subtask2/`; `evaluation/` imports neither `src/` nor `baselines/src/`.
+Data is not tracked: the root pipeline reads `data_official/` and `starter-kit/`, and `baselines/` reads `baselines/data/`
+(on Windows these can be junctions to one local copy of the official release).
 
 ---
 

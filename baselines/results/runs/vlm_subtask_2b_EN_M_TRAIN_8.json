@@ -1,0 +1,1 @@
+{"doc_id": "EN_M_TRAIN_8", "variant": "subtask_2b", "raw_reply": "{\"frames\": [\"Health_and_safety\", \"Morality\", \"Security_and_defense\"]}", "frames": ["Health_and_safety", "Morality", "Security_and_defense"], "parse_ok": true, "labels": [0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0]}
