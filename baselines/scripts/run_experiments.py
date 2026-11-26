@@ -242,7 +242,7 @@ def run_subtask2(documents):
                "n_train_en_articles": len(train_en), "n_train_with_text_frames": len(train_frames),
                "test_gold_labels": int(y_test.sum()), "test_none": int((y_test.sum(axis=1) == 0).sum()),
                "doc_order": [d["doc_id"] for d in test], "models": {}, "predictions": {}, "gold": y_test.tolist(),
-               "dev_doc_order": [d["doc_id"] for d in dev], "dev_predictions": {}}
+               "dev_doc_order": [d["doc_id"] for d in dev], "dev_predictions": {}, "probs": {}}
     groups = [d["doc_id"] for d in test]
 
     def add(name, tag, preds, extra=None, dev_preds=None):
@@ -258,6 +258,9 @@ def run_subtask2(documents):
         threshold, dev_f1 = select_threshold_on_dev(probs[0], y_dev)
         add(name, tag, (probs[1] >= threshold).astype(int), {"threshold": threshold, "dev_micro_f1": dev_f1},
             dev_preds=(probs[0] >= threshold).astype(int))
+        # Kept for combinations such as ensemble/combine.py (exploratory combo_qwen_image_lr).
+        results["probs"][name] = {"dev": np.asarray(probs[0]).tolist(), "test": np.asarray(probs[1]).tolist(),
+                                  "threshold": float(threshold)}
 
     results["models"]["Random (training prior)"] = mean_random_metrics(stack_labels(train_all), y_test)
     add("Most frequent label", "most_frequent", most_frequent_label_predict(stack_labels(train_all), len(test)),

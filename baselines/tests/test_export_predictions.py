@@ -61,6 +61,26 @@ class ExportCase(unittest.TestCase):
         self.assertEqual(self.read("image_lr", "seed0", "test.tsv"), f"T2.jpg\t{POL}\nT1.jpg\n")
         self.assertEqual(self.read("image_lr", "seed0", "dev.tsv"), f"D1.jpeg\t{ECON}\t{POL}\n")
 
+    def test_probability_files_follow_the_l1_format(self):
+        probs_dev = [[0.1] * len(FRAME_TAXONOMY)]
+        probs_test = [[0.2] * len(FRAME_TAXONOMY), [0.3] * len(FRAME_TAXONOMY)]
+        st2 = {"doc_order": ["T2", "T1"], "dev_doc_order": ["D1"],
+               "predictions": {"Image LR (SigLIP)": [_vec([POL]), _vec([])]},
+               "dev_predictions": {"Image LR (SigLIP)": [_vec([ECON])]},
+               "probs": {"Image LR (SigLIP)": {"dev": probs_dev, "test": probs_test, "threshold": 0.2}}}
+        ep.export_baselines(st2, {d["doc_id"]: d for d in self.docs}, self.out)
+        test = json.loads(self.read("image_lr", "seed0", "test.probs.json"))
+        self.assertEqual(test, {"image_names": ["T2.jpg", "T1.jpg"], "classes": FRAME_TAXONOMY,
+                                "probs": probs_test, "threshold": 0.2})
+        self.assertEqual(json.loads(self.read("image_lr", "seed0", "dev.probs.json"))["image_names"], ["D1.jpeg"])
+
+    def test_models_without_probabilities_get_no_probs_file(self):
+        st2 = {"doc_order": ["T1"], "dev_doc_order": ["D1"],
+               "predictions": {"Most frequent label": [_vec([POL])]},
+               "dev_predictions": {"Most frequent label": [_vec([POL])]}, "probs": {}}
+        ep.export_baselines(st2, {d["doc_id"]: d for d in self.docs}, self.out)
+        self.assertFalse(os.path.exists(os.path.join(self.out, "most_frequent", "seed0", "test.probs.json")))
+
     def test_missing_dev_predictions_says_to_rerun_subtask2(self):
         st2 = {"doc_order": ["T1"], "predictions": {"Most frequent label": [_vec([POL])]}}
         with self.assertRaisesRegex(KeyError, "run_experiments.py subtask2"):

@@ -86,8 +86,21 @@ def export_baselines(st2, by_id, out_root):
             continue
         _write_model(out_root, model, "test", _rows(st2["doc_order"], st2["predictions"][name], by_id))
         _write_model(out_root, model, "dev", _rows(st2["dev_doc_order"], st2["dev_predictions"][name], by_id))
+        if name in st2.get("probs", {}):
+            _write_probs(out_root, model, st2, name, by_id)
         written.append(model)
     return written
+
+
+def _write_probs(out_root, model, st2, name, by_id):
+    """Same format as the trained models (plan Task L1), so ensemble/combine.py can read either."""
+    probs = st2["probs"][name]
+    for split, order_key in (("dev", "dev_doc_order"), ("test", "doc_order")):
+        payload = {"image_names": [by_id[d]["image_name"] for d in st2[order_key]], "classes": list(FRAME_TAXONOMY),
+                   "probs": probs[split], "threshold": probs["threshold"]}
+        with open(os.path.join(out_root, model, "seed0", f"{split}.probs.json"), "w", encoding="utf-8", newline="\n") as f:
+            json.dump(payload, f)
+            f.write("\n")
 
 
 def export_vlm(vlm_by_split, by_id, out_root):
