@@ -35,7 +35,16 @@ Public_opinion: attitudes of the general public, protests, polling.
 Political: political actors, maneuvering, elections, lobbying, party stances.
 External_regulation_and_reputation: foreign relations, treaties, international reputation."""
 
-VARIANTS = ("image_only", "subtask_2a", "subtask_2b")
+VARIANTS = ("image_only", "subtask_2a", "subtask_2b", "image_only_v2")
+
+# E10: image_only with an explicit None option and its definition; only the last paragraph differs.
+NONE_INSTRUCTION_V2 = (
+    "None: the image shows no clear visual evidence for any category above (for example, a generic "
+    "portrait, a logo, or scenery unrelated to the issue).\n"
+    "Select the framings conveyed by the IMAGE itself. Choose only framings with clear visual evidence. "
+    'If no category has clear visual evidence, answer {"frames": ["None"]}. Answer with JSON only, '
+    'in the form {"frames": ["Category_name"]}.'
+)
 
 
 def build_prompt(document, variant):
@@ -48,11 +57,14 @@ def build_prompt(document, variant):
         parts.append("Article text (it may be in any language):\n" + document["text"][:MAX_TEXT_CHARS])
     if variant == "subtask_2b":
         parts.append("Human-annotated framings of the article text: " + (", ".join(document["text_frames"]) or "None"))
-    parts.append(
-        "Select the framings conveyed by the IMAGE itself. Choose only framings with clear visual "
-        "evidence; most images convey zero to three. Answer with JSON only, in the form "
-        '{"frames": ["Category_name"]}. Use an empty list if no framing applies.'
-    )
+    if variant == "image_only_v2":
+        parts.append(NONE_INSTRUCTION_V2)
+    else:
+        parts.append(
+            "Select the framings conveyed by the IMAGE itself. Choose only framings with clear visual "
+            "evidence; most images convey zero to three. Answer with JSON only, in the form "
+            '{"frames": ["Category_name"]}. Use an empty list if no framing applies.'
+        )
     return "\n\n".join(parts)
 
 

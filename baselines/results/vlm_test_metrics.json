@@ -2927,6 +2927,754 @@
         ]
       ],
       "parse_failures": 0
+    },
+    "image_only_v2": {
+      "micro_f1": 0.4044943820224719,
+      "macro_f1": 0.244040404040404,
+      "macro_f1_present": 0.20466200466200463,
+      "micro_precision": 0.43902439024390244,
+      "micro_recall": 0.375,
+      "hamming_loss": 0.08833333333333333,
+      "n_examples": 40,
+      "per_label": {
+        "Economic": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 1
+        },
+        "Capacity_and_resources": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0
+        },
+        "Morality": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 3
+        },
+        "Fairness_and_equality": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 3
+        },
+        "Legality_Constitutionality_and_jurisprudence": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0
+        },
+        "Policy_prescription_and_evaluation": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 1
+        },
+        "Crime_and_punishment": {
+          "f1": 0.5,
+          "precision": 0.5,
+          "recall": 0.5,
+          "support": 2
+        },
+        "Security_and_defense": {
+          "f1": 0.6666666666666666,
+          "precision": 0.75,
+          "recall": 0.6,
+          "support": 10
+        },
+        "Health_and_safety": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 2
+        },
+        "Quality_of_life": {
+          "f1": 0.26666666666666666,
+          "precision": 0.16666666666666666,
+          "recall": 0.6666666666666666,
+          "support": 3
+        },
+        "Cultural_identity": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 1
+        },
+        "Public_opinion": {
+          "f1": 0.5,
+          "precision": 0.5,
+          "recall": 0.5,
+          "support": 2
+        },
+        "Political": {
+          "f1": 0.7272727272727273,
+          "precision": 0.8888888888888888,
+          "recall": 0.6153846153846154,
+          "support": 13
+        },
+        "External_regulation_and_reputation": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 2
+        },
+        "None": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5
+        }
+      },
+      "micro_f1_ci95": [
+        0.2727272727272727,
+        0.547374686716792
+      ],
+      "predictions": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "parse_failures": 0
     }
   },
   "raw_replies": [
@@ -5936,6 +6684,1007 @@
     {
       "doc_id": "EN_M_TRAIN_92",
       "variant": "subtask_2b",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_1",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_11",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\"]}",
+      "frames": [
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_13",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_14",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Crime_and_punishment\"]}",
+      "frames": [
+        "Crime_and_punishment"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_2",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_21",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\"]}",
+      "frames": [
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_24",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\"]}",
+      "frames": [
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_27",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_28",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_34",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_35",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_36",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_39",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Crime_and_punishment\"]}",
+      "frames": [
+        "Crime_and_punishment"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_4",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\"]}",
+      "frames": [
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_42",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_45",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_48",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_5",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Public_opinion\"]}",
+      "frames": [
+        "Public_opinion"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_52",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_56",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_59",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_63",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_64",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_66",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Legality_Constitutionality_and_jurisprudence\"]}",
+      "frames": [
+        "Legality_Constitutionality_and_jurisprudence"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_67",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Policy_prescription_and_evaluation\"]}",
+      "frames": [
+        "Policy_prescription_and_evaluation"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_68",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Cultural_identity\"]}",
+      "frames": [
+        "Cultural_identity"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_71",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_73",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_75",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\"]}",
+      "frames": [
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_76",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_77",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_78",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Public_opinion\"]}",
+      "frames": [
+        "Public_opinion"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_79",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\"]}",
+      "frames": [
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_8",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\"]}",
+      "frames": [
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_82",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Policy_prescription_and_evaluation\"]}",
+      "frames": [
+        "Policy_prescription_and_evaluation"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_84",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Economic\"]}",
+      "frames": [
+        "Economic"
+      ],
+      "parse_ok": true,
+      "labels": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_89",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\"]}",
+      "frames": [
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_9",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Health_and_safety\"]}",
+      "frames": [
+        "Health_and_safety"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_91",
+      "variant": "image_only_v2",
+      "raw_reply": "{\"frames\": [\"Morality\", \"Policy_prescription_and_evaluation\"]}",
+      "frames": [
+        "Morality",
+        "Policy_prescription_and_evaluation"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_92",
+      "variant": "image_only_v2",
       "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
       "frames": [
         "Quality_of_life"

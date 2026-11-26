@@ -33,7 +33,8 @@ MODEL_NAMES = {
     "Late fusion (image + text)": "late_fusion_2a",
     "Late fusion + text frames (2b)": "late_fusion_2b",
 }
-VLM_NAMES = {"image_only": "qwen_image_only", "subtask_2a": "qwen_2a", "subtask_2b": "qwen_2b"}
+VLM_NAMES = {"image_only": "qwen_image_only", "subtask_2a": "qwen_2a", "subtask_2b": "qwen_2b",
+             "image_only_v2": "qwen_image_only_v2"}
 RANDOM_NAME = "Random (training prior)"
 
 

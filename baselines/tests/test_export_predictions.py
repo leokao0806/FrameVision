@@ -82,7 +82,7 @@ class ExportCase(unittest.TestCase):
     def test_every_name_is_a_planned_model_folder(self):
         self.assertEqual(sorted(ep.MODEL_NAMES.values()) + sorted(ep.VLM_NAMES.values()),
                          ["copy_text_frames_2b", "image_lr", "late_fusion_2a", "late_fusion_2b", "most_frequent",
-                          "text_lr", "qwen_2a", "qwen_2b", "qwen_image_only"])
+                          "text_lr", "qwen_2a", "qwen_2b", "qwen_image_only", "qwen_image_only_v2"])
 
 
 if __name__ == "__main__":

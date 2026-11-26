@@ -5,6 +5,7 @@ Authors: Leo Kao, En-Shuo Zhang
 """
 
 import hashlib
+import json
 import os
 import re
 import sys
@@ -22,7 +23,7 @@ from src.loss import AsymmetricLoss
 from src.metrics import add_none_column, bootstrap_micro_difference, bootstrap_micro_f1, compute_multilabel_metrics, compute_mismatch_matrix
 from src.models.cross_attention_model import RegionAwareCrossModalAttention
 from src.models.linear_baselines import tfidf_fit_predict
-from src.models.vlm_pipeline import build_prompt, parse_frames
+from src.models.vlm_pipeline import VARIANTS, build_prompt, parse_frames
 from src.official_scorer import score_subtask1, score_subtask2
 from src.splits import LINKED_ARTICLES, N_DEV_ARTICLES, N_TEST_ARTICLES, TRIAL_ARTICLES, make_course_split
 
@@ -169,6 +170,33 @@ class TestVLM(unittest.TestCase):
     def test_parser_rejects_bad_output(self):
         self.assertEqual(parse_frames('{"frames": ["Political", "Made_up"]}'), (["Political"], True))
         self.assertEqual(parse_frames("not json"), ([], False))
+
+    def test_existing_prompts_unchanged(self):
+        # Cached replies in results/runs are keyed by variant, so the old prompts must stay byte-identical.
+        with open(os.path.join(project_root, "tests", "fixtures", "prompts_before_e12.json"), encoding="utf-8") as f:
+            fixture = json.load(f)
+        for variant, prompt in fixture["prompts"].items():
+            self.assertEqual(build_prompt(fixture["doc"], variant), prompt, variant)
+
+    def test_v2_prompt_offers_none(self):
+        self.assertIn("image_only_v2", VARIANTS)
+        self.assertIn('{"frames": ["None"]}', build_prompt(self.doc, "image_only_v2"))
+        self.assertNotIn("Article text", build_prompt(self.doc, "image_only_v2"))
+        self.assertNotIn("ARTICLE BODY", build_prompt(self.doc, "image_only_v2"))
+
+    def test_v2_changes_only_the_last_paragraph(self):
+        v1 = build_prompt(self.doc, "image_only").split("\n\n")
+        v2 = build_prompt(self.doc, "image_only_v2").split("\n\n")
+        self.assertEqual(v2[:-1], v1[:-1])
+        self.assertEqual(v2[-1], (
+            "None: the image shows no clear visual evidence for any category above (for example, a generic "
+            "portrait, a logo, or scenery unrelated to the issue).\n"
+            "Select the framings conveyed by the IMAGE itself. Choose only framings with clear visual evidence. "
+            'If no category has clear visual evidence, answer {"frames": ["None"]}. Answer with JSON only, '
+            'in the form {"frames": ["Category_name"]}.'))
+
+    def test_parse_none_is_valid_empty(self):
+        self.assertEqual(parse_frames('{"frames": ["None"]}'), ([], True))
 
 
 class TestModels(unittest.TestCase):
