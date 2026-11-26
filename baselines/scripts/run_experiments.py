@@ -241,23 +241,28 @@ def run_subtask2(documents):
     results = {"n_test_images": len(test), "n_dev_images": len(dev), "n_train_images": len(train_all),
                "n_train_en_articles": len(train_en), "n_train_with_text_frames": len(train_frames),
                "test_gold_labels": int(y_test.sum()), "test_none": int((y_test.sum(axis=1) == 0).sum()),
-               "doc_order": [d["doc_id"] for d in test], "models": {}, "predictions": {}, "gold": y_test.tolist()}
+               "doc_order": [d["doc_id"] for d in test], "models": {}, "predictions": {}, "gold": y_test.tolist(),
+               "dev_doc_order": [d["doc_id"] for d in dev], "dev_predictions": {}}
     groups = [d["doc_id"] for d in test]
 
-    def add(name, tag, preds, extra=None):
+    def add(name, tag, preds, extra=None, dev_preds=None):
         metrics = score_with_official(score_subtask2, test, y_test, preds, tag)
         metrics["micro_f1_ci95"] = bootstrap_micro_f1(y_test, preds, groups)
         results["models"][name] = {**metrics, **(extra or {})}
         results["predictions"][name] = np.asarray(preds).tolist()
+        results["dev_predictions"][name] = np.asarray(dev_preds).astype(int).tolist()
         print(f"  {name}: test micro={metrics['micro_f1']:.3f} macro={metrics['macro_f1']:.3f} {extra or ''}", flush=True)
 
     def add_thresholded(name, tag, probs):
+        # The dev predictions use the same threshold that was selected on dev.
         threshold, dev_f1 = select_threshold_on_dev(probs[0], y_dev)
-        add(name, tag, (probs[1] >= threshold).astype(int), {"threshold": threshold, "dev_micro_f1": dev_f1})
+        add(name, tag, (probs[1] >= threshold).astype(int), {"threshold": threshold, "dev_micro_f1": dev_f1},
+            dev_preds=(probs[0] >= threshold).astype(int))
 
     results["models"]["Random (training prior)"] = mean_random_metrics(stack_labels(train_all), y_test)
-    add("Most frequent label", "most_frequent", most_frequent_label_predict(stack_labels(train_all), len(test)))
-    add("Copy text frames (2b)", "copy_frames", frame_matrix(test).astype(int))
+    add("Most frequent label", "most_frequent", most_frequent_label_predict(stack_labels(train_all), len(test)),
+        dev_preds=most_frequent_label_predict(stack_labels(train_all), len(dev)))
+    add("Copy text frames (2b)", "copy_frames", frame_matrix(test).astype(int), dev_preds=frame_matrix(dev).astype(int))
     add_thresholded("Image LR (SigLIP)", "image_lr", image_probs)
     add_thresholded("Text LR (DeBERTa-v3)", "text_lr", text_probs)
     add_thresholded("Late fusion (image + text)", "late_fusion", tuple((a + b) / 2 for a, b in zip(image_probs, text_probs)))
