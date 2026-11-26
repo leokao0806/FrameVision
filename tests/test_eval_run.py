@@ -152,3 +152,15 @@ def test_cli_writes_json(tmp_path):
     lo, hi = data["models"]["most_frequent"]["test"]["micro_ci95"]
     assert 0.0 <= lo <= hi <= 1.0
     assert data["selection"]["rule"] == "docs/preregistration.md"
+
+
+def test_exploratory_models_are_evaluated_but_never_selected(tmp_path):
+    from evaluation.run_eval import EXPLORATORY_MODELS
+    assert "combo_qwen_image_lr" in EXPLORATORY_MODELS
+    models = {"image_lr": {"dev": {"micro_mean": 0.4}}, "combo_qwen_image_lr": {"dev": {"micro_mean": 0.9}}}
+    assert select_best(models) == "image_lr"
+    root, scorer = _root(tmp_path, {"most_frequent": {0: ["dev", "test"]}, "combo_qwen_image_lr": {0: ["dev", "test"]}})
+    out = evaluate_all(root, scorer)
+    assert "test" in out["models"]["combo_qwen_image_lr"]
+    assert out["selection"]["best_model"] == "most_frequent"
+    assert out["selection"]["exploratory_not_selectable"] == ["combo_qwen_image_lr"]

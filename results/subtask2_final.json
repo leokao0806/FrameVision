@@ -787,7 +787,8 @@
   "selection": {
     "best_model": "qwen_2a_fulltext",
     "best_trained_model": null,
-    "rule": "docs/preregistration.md"
+    "rule": "docs/preregistration.md",
+    "exploratory_not_selectable": []
   },
   "primary_comparisons": [
     {

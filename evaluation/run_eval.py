@@ -48,6 +48,10 @@ PRIMARY_COMPARISONS = [
 RULE_FILE = "docs/preregistration.md"
 TIE_TOLERANCE = 1e-12
 
+# Added after the pre-registration as exploratory (docs/preregistration.md, amendment of 2026-11-26):
+# evaluated and reported like any model, but never candidates for best model or best trained model.
+EXPLORATORY_MODELS = ["combo_qwen_image_lr"]
+
 
 def _complexity_rank(name):
     if name in COMPLEXITY_ORDER:
@@ -56,7 +60,8 @@ def _complexity_rank(name):
 
 
 def select_best(models, candidates=None):
-    names = [m for m in (candidates if candidates is not None else models) if "dev" in models.get(m, {})]
+    pool = candidates if candidates is not None else models
+    names = [m for m in pool if "dev" in models.get(m, {}) and m not in EXPLORATORY_MODELS]
     if not names:
         return None
     top = max(models[m]["dev"]["micro_mean"] for m in names)
@@ -139,7 +144,7 @@ def evaluate_all(pred_root, scorer_path):
         "models": models,
         "reference_only": {},
         "selection": {"best_model": best, "best_trained_model": select_best(models, TRAINED_MODELS),
-                      "rule": RULE_FILE},
+                      "rule": RULE_FILE, "exploratory_not_selectable": [m for m in EXPLORATORY_MODELS if m in models]},
         "primary_comparisons": [_compare(a, b, best, models, test_scores) for a, b in PRIMARY_COMPARISONS],
     }
     prior_path = os.path.join(pred_root, "_reference", "random_prior.json")

@@ -30,6 +30,16 @@ reference point. Results that existed before it — the Intermediate Report base
   dev-only rule as every other model. "E12 selects nothing" (below) means that no text length is picked for
   reporting: all three are reported on dev and test.
 
+## Amendment of 2026-11-26: exploratory models
+
+Committed before any of these models was run. Models added after the original registration as exploratory are
+evaluated and reported like every other model, but they are **never candidates** for best model or best trained
+model, so they cannot change the primary comparisons. They are listed in `EXPLORATORY_MODELS` in
+`evaluation/run_eval.py`:
+
+- `combo_qwen_image_lr`: Qwen image-only combined with Image LR probabilities, with the same procedure as E9
+  (α ∈ {0.25, 0.5, 0.75} and the threshold chosen on dev only).
+
 ## Primary comparisons (4, specified in advance)
 
 1. Best model vs. always predicting the most frequent label.
