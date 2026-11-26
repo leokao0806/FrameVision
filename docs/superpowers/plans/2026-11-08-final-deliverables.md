@@ -756,8 +756,18 @@ Expected：check_numbers 結束代碼 0；PDF ≤10 頁；zip ≤10 MB（腳本�
 - Create: `slides/outline.md`、`slides/FrameVision_Final_Slides.pdf`（加上所選工具的原始檔）
 
 - [ ] **Step 1:** 依 spec 第 7 節寫 `slides/outline.md`：每頁的標題、要講的一句重點、使用的圖（路徑指到 `results/figures/` 或 `slides/figures/`）、主講人。最佳模型頁依 `selection.best_model` 決定內容。
+  - 借鏡其他組的版面（2026-11-26 看 Group 11 的 CLaS 簡報後記下）：
+    1. 動機頁用一個大數字開場（回應評論 1），從 `results/c1_image_text.json`（文字與圖片平均 frame 數）或 `results/subtask2_final.json`（Qwen image-only 與加文章的 test 差距）取一個。
+    2. 方法對照表：每個模型一列，欄位為輸入、要不要訓練、在 dev 上選了什麼、角色（baseline／ours／exploratory）。
+    3. 「試了哪些、最後選哪個」表：列出 dev 上搜尋的範圍（prompt、門檻、α）與選定值，加上預先註冊的選擇規則一句話。
+    4. 用一張真實新聞圖走一遍 pipeline：同一張圖比較 image-only 與加文章的輸出，案例取自 `results/case_table.md`，直接回答評論 2。
+    5. Limitations 頁用「左邊短標題、右邊一句話」，不用多層條列（回應評論 3）。
 - [ ] **Step 2:** 用前置條件決定的工具製作投影片；數字只引用 `results/subtask2_final.json`（可用 `check_numbers.py` 檢查講稿或投影片匯出的文字）。
-- [ ] **Step 3: 對照評分項檢查**：Team（含 Team number 與分工）、Task、Resources（附 URL）、Best Model、Results、Analysis、Lessons Learned、沒有整張大表格。
+- [ ] **Step 3: 對照評分項檢查**：Team（含 Team number 與分工）、Task、Resources（附 URL）、Best Model、Results、Analysis、Lessons Learned、沒有整張大表格。另外確認沒有犯 Group 11 簡報的四個問題：
+  - 同一個數字在不同頁寫法一致（整份講稿跑過 `check_numbers.py`）。
+  - 比較模型的圖都附 bootstrap CI 誤差線，差距小時明講「不顯著」。
+  - 標題級的結論用預先註冊的主要比較（`primary_comparisons`），不拿比賽不允許或不公平的對手撐場面。
+  - 每個「最好」的說法都限定在實際跑過的模型與資料上。
 - [ ] **Step 4: 計時排練**（12/1–12/2）：Expected：19–20 分鐘；超時就把細節移到備用頁。準備 QA 可能問題：為什麼不用 SAM、為什麼不微調影像與文字骨幹、為什麼加文字變差（給的是標題還是全文）、40 張圖的 CI、dev 只有 20 張怎麼選模型。
 - [ ] **Step 5:** 匯出 PDF 並 commit：`git commit -m "docs(slides): final slides"`
 
