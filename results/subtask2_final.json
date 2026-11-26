@@ -19,6 +19,69 @@
   "n_dev": 20,
   "n_test": 40,
   "models": {
+    "combo_qwen_image_lr": {
+      "seeds": [
+        0
+      ],
+      "scorer_mismatches": 0,
+      "dev": {
+        "seeds": [
+          0
+        ],
+        "micro_mean": 0.4782608695652174,
+        "micro_std": 0.0,
+        "macro_mean": 0.46444444444444444,
+        "hamming_mean": 0.08
+      },
+      "test": {
+        "seeds": [
+          0
+        ],
+        "micro_mean": 0.4166666666666667,
+        "micro_std": 0.0,
+        "micro_ci95": [
+          0.29213483146067415,
+          0.5531914893617021
+        ],
+        "macro_mean": 0.20515151515151514,
+        "macro_std": 0.0,
+        "hamming_mean": 0.09333333333333334,
+        "per_label_f1": {
+          "Economic": 0.0,
+          "Capacity_and_resources": 0.0,
+          "Morality": 0.0,
+          "Fairness_and_equality": 0.0,
+          "Legality_Constitutionality_and_jurisprudence": 0.0,
+          "Policy_prescription_and_evaluation": 0.0,
+          "Crime_and_punishment": 0.5,
+          "Security_and_defense": 0.6666666666666666,
+          "Health_and_safety": 0.25,
+          "Quality_of_life": 0.26666666666666666,
+          "Cultural_identity": 0.0,
+          "Public_opinion": 0.6666666666666666,
+          "Political": 0.7272727272727273,
+          "External_regulation_and_reputation": 0.0,
+          "None": 0.0
+        },
+        "support": {
+          "Economic": 1,
+          "Capacity_and_resources": 0,
+          "Morality": 3,
+          "Fairness_and_equality": 3,
+          "Legality_Constitutionality_and_jurisprudence": 0,
+          "Policy_prescription_and_evaluation": 1,
+          "Crime_and_punishment": 2,
+          "Security_and_defense": 10,
+          "Health_and_safety": 2,
+          "Quality_of_life": 3,
+          "Cultural_identity": 1,
+          "Public_opinion": 2,
+          "Political": 13,
+          "External_regulation_and_reputation": 2,
+          "None": 5
+        }
+      }
+    },
     "copy_text_frames_2b": {
       "seeds": [
         0
@@ -788,7 +851,9 @@
     "best_model": "qwen_2a_fulltext",
     "best_trained_model": null,
     "rule": "docs/preregistration.md",
-    "exploratory_not_selectable": []
+    "exploratory_not_selectable": [
+      "combo_qwen_image_lr"
+    ]
   },
   "primary_comparisons": [
     {
