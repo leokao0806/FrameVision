@@ -727,6 +727,11 @@ def test_build_tables_replaces_markers(tmp_path): ...
     - 各模型的訓練集不同（Leo 的模型用 437 張英文圖，Image LR 用 647 張含多語圖，以 `RUNS.md` 與 `subtask2_metrics.json` 的實際數字為準）
     - 兩人一組已獲教授同意
     - dev 只有 20 張的限制
+    - 最佳模型照預先註冊的規則選（2026-11-26 決定，見 `docs/notes/2026-11-26-best-model-rule-decision.md`）：
+      - Experimental Setup 寫明規則 commit 早於 E12、E12 設定也是候選。
+      - Results 照規則報告 4 項主要比較。
+      - 若最佳模型是 dev 上與 image-only 近乎平手、test 卻較差的模型，在 Limitations 用它說明 20 張 dev 的選擇雜訊。
+      - 數字一律來自 `results/subtask2_final.json`。
     - README 舊數字 0.4421 為何作廢
     - 回應老師期中評論（spec 8.1）：
       1. Introduction 的設計動機段落：M1–M4 各一句「觀察 → 設計選擇」；M1 的數字引用 `results/c1_image_text.json`；M3、M4 寫成假設，並指向 E5–E8 的結果
