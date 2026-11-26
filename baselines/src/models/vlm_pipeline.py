@@ -35,7 +35,7 @@ Public_opinion: attitudes of the general public, protests, polling.
 Political: political actors, maneuvering, elections, lobbying, party stances.
 External_regulation_and_reputation: foreign relations, treaties, international reputation."""
 
-VARIANTS = ("image_only", "subtask_2a", "subtask_2b", "image_only_v2")
+VARIANTS = ("image_only", "subtask_2a", "subtask_2b", "image_only_v2", "subtask_2a_title", "subtask_2a_fulltext")
 
 # E10: image_only with an explicit None option and its definition; only the last paragraph differs.
 NONE_INSTRUCTION_V2 = (
@@ -47,6 +47,11 @@ NONE_INSTRUCTION_V2 = (
 )
 
 
+def article_title(text):
+    """The first non-empty line; every article text starts with its title."""
+    return next((line.strip() for line in text.splitlines() if line.strip()), "")
+
+
 def build_prompt(document, variant):
     """Builds the prompt; only subtask_2b sees the gold framings of the article text."""
     parts = [
@@ -55,6 +60,11 @@ def build_prompt(document, variant):
     ]
     if variant in ("subtask_2a", "subtask_2b"):
         parts.append("Article text (it may be in any language):\n" + document["text"][:MAX_TEXT_CHARS])
+    # E12: same prompt as subtask_2a; only the amount of article text differs.
+    if variant == "subtask_2a_title":
+        parts.append("Article title (it may be in any language):\n" + article_title(document["text"]))
+    if variant == "subtask_2a_fulltext":
+        parts.append("Article text (it may be in any language):\n" + document["text"])
     if variant == "subtask_2b":
         parts.append("Human-annotated framings of the article text: " + (", ".join(document["text_frames"]) or "None"))
     if variant == "image_only_v2":
@@ -98,7 +108,10 @@ def query_vlm(document, variant, seed=42):
         }],
     })
     response.raise_for_status()
-    reply = response.json()["message"]["content"]
+    body = response.json()
+    reply = body["message"]["content"]
     frames, parse_ok = parse_frames(reply)
+    # prompt_eval_count shows whether the prompt fit in num_ctx (Ollama silently truncates longer prompts).
     return {"doc_id": document["doc_id"], "variant": variant, "raw_reply": reply,
-            "frames": frames, "parse_ok": parse_ok, "labels": labels_to_vector(frames).tolist()}
+            "frames": frames, "parse_ok": parse_ok, "labels": labels_to_vector(frames).tolist(),
+            "prompt_eval_count": body.get("prompt_eval_count")}

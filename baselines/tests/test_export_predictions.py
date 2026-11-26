@@ -80,9 +80,10 @@ class ExportCase(unittest.TestCase):
         self.assertEqual(json.loads(self.read("_reference", "random_prior.json")), prior)
 
     def test_every_name_is_a_planned_model_folder(self):
-        self.assertEqual(sorted(ep.MODEL_NAMES.values()) + sorted(ep.VLM_NAMES.values()),
-                         ["copy_text_frames_2b", "image_lr", "late_fusion_2a", "late_fusion_2b", "most_frequent",
-                          "text_lr", "qwen_2a", "qwen_2b", "qwen_image_only", "qwen_image_only_v2"])
+        self.assertEqual(sorted(list(ep.MODEL_NAMES.values()) + list(ep.VLM_NAMES.values())),
+                         sorted(["copy_text_frames_2b", "image_lr", "late_fusion_2a", "late_fusion_2b", "most_frequent",
+                                 "text_lr", "qwen_2a", "qwen_2b", "qwen_image_only", "qwen_image_only_v2",
+                                 "qwen_2a_title", "qwen_2a_fulltext"]))
 
 
 if __name__ == "__main__":

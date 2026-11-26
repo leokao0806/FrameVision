@@ -9,6 +9,7 @@ import json
 import os
 import re
 import sys
+import tempfile
 import unittest
 
 import numpy as np
@@ -197,6 +198,48 @@ class TestVLM(unittest.TestCase):
 
     def test_parse_none_is_valid_empty(self):
         self.assertEqual(parse_frames('{"frames": ["None"]}'), ([], True))
+
+    def _fixture_doc(self):
+        with open(os.path.join(project_root, "tests", "fixtures", "prompts_before_e12.json"), encoding="utf-8") as f:
+            return json.load(f)["doc"]
+
+    def test_title_variant_has_title_only(self):
+        p = build_prompt(self._fixture_doc(), "subtask_2a_title")
+        self.assertIn("subtask_2a_title", VARIANTS)
+        self.assertIn("Article title (it may be in any language):\nA Title", p)
+        self.assertNotIn("First paragraph.", p)
+
+    def test_fulltext_variant_is_not_truncated(self):
+        doc = self._fixture_doc()
+        self.assertIn("subtask_2a_fulltext", VARIANTS)
+        self.assertIn("Article text (it may be in any language):\n" + doc["text"], build_prompt(doc, "subtask_2a_fulltext"))
+        self.assertNotIn(" END", build_prompt(doc, "subtask_2a"))
+
+    def test_e12_variants_share_everything_else_with_2a(self):
+        doc = self._fixture_doc()
+        base = build_prompt(doc, "subtask_2a").split("\n\n")
+        for variant in ("subtask_2a_title", "subtask_2a_fulltext"):
+            parts = build_prompt(doc, variant).split("\n\n")
+            self.assertEqual(parts[:2], base[:2], variant)
+            self.assertEqual(parts[-1], base[-1], variant)
+            self.assertNotIn("Human-annotated", build_prompt(doc, variant))
+
+    def test_query_vlm_keeps_prompt_eval_count(self):
+        from unittest import mock
+        from PIL import Image
+        import src.models.vlm_pipeline as vlm
+
+        with tempfile.TemporaryDirectory() as tmp:
+            image_path = os.path.join(tmp, "img.png")
+            Image.new("RGB", (8, 8)).save(image_path)
+            doc = {"doc_id": "D1", "image_path": image_path, "text": "T", "text_frames": []}
+            for payload, expected in (({"prompt_eval_count": 1234}, 1234), ({}, None)):
+                response = mock.Mock()
+                response.json.return_value = {"message": {"content": '{"frames": ["Political"]}'}, **payload}
+                with mock.patch.object(vlm.requests, "post", return_value=response):
+                    reply = vlm.query_vlm(doc, "subtask_2a_fulltext")
+                self.assertEqual(reply["prompt_eval_count"], expected)
+                self.assertEqual(reply["frames"], ["Political"])
 
 
 class TestModels(unittest.TestCase):

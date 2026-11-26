@@ -3675,6 +3675,1502 @@
         ]
       ],
       "parse_failures": 0
+    },
+    "subtask_2a_title": {
+      "micro_f1": 0.3695652173913043,
+      "macro_f1": 0.23506592568377466,
+      "macro_f1_present": 0.1943068373274323,
+      "micro_precision": 0.38636363636363635,
+      "micro_recall": 0.3541666666666667,
+      "hamming_loss": 0.09666666666666666,
+      "n_examples": 40,
+      "per_label": {
+        "Economic": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 1
+        },
+        "Capacity_and_resources": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0
+        },
+        "Morality": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 3
+        },
+        "Fairness_and_equality": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 3
+        },
+        "Legality_Constitutionality_and_jurisprudence": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0
+        },
+        "Policy_prescription_and_evaluation": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 1
+        },
+        "Crime_and_punishment": {
+          "f1": 0.5,
+          "precision": 0.5,
+          "recall": 0.5,
+          "support": 2
+        },
+        "Security_and_defense": {
+          "f1": 0.631578947368421,
+          "precision": 0.6666666666666666,
+          "recall": 0.6,
+          "support": 10
+        },
+        "Health_and_safety": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 2
+        },
+        "Quality_of_life": {
+          "f1": 0.2857142857142857,
+          "precision": 0.18181818181818182,
+          "recall": 0.6666666666666666,
+          "support": 3
+        },
+        "Cultural_identity": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 1
+        },
+        "Public_opinion": {
+          "f1": 0.5,
+          "precision": 0.5,
+          "recall": 0.5,
+          "support": 2
+        },
+        "Political": {
+          "f1": 0.6086956521739131,
+          "precision": 0.7,
+          "recall": 0.5384615384615384,
+          "support": 13
+        },
+        "External_regulation_and_reputation": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 2
+        },
+        "None": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5
+        }
+      },
+      "micro_f1_ci95": [
+        0.24741688868296074,
+        0.5052631578947369
+      ],
+      "predictions": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "parse_failures": 0
+    },
+    "subtask_2a_fulltext": {
+      "micro_f1": 0.3404255319148936,
+      "macro_f1": 0.31299719887955185,
+      "macro_f1_present": 0.20730446024563673,
+      "micro_precision": 0.34782608695652173,
+      "micro_recall": 0.3333333333333333,
+      "hamming_loss": 0.10333333333333333,
+      "n_examples": 40,
+      "per_label": {
+        "Economic": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 1
+        },
+        "Capacity_and_resources": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0
+        },
+        "Morality": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 3
+        },
+        "Fairness_and_equality": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 3
+        },
+        "Legality_Constitutionality_and_jurisprudence": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 0
+        },
+        "Policy_prescription_and_evaluation": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 1
+        },
+        "Crime_and_punishment": {
+          "f1": 0.5,
+          "precision": 0.5,
+          "recall": 0.5,
+          "support": 2
+        },
+        "Security_and_defense": {
+          "f1": 0.5882352941176471,
+          "precision": 0.7142857142857143,
+          "recall": 0.5,
+          "support": 10
+        },
+        "Health_and_safety": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 2
+        },
+        "Quality_of_life": {
+          "f1": 0.23529411764705882,
+          "precision": 0.14285714285714285,
+          "recall": 0.6666666666666666,
+          "support": 3
+        },
+        "Cultural_identity": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 1
+        },
+        "Public_opinion": {
+          "f1": 0.8,
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "support": 2
+        },
+        "Political": {
+          "f1": 0.5714285714285714,
+          "precision": 0.75,
+          "recall": 0.46153846153846156,
+          "support": 13
+        },
+        "External_regulation_and_reputation": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 2
+        },
+        "None": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5
+        }
+      },
+      "micro_f1_ci95": [
+        0.2199945054945055,
+        0.46808510638297873
+      ],
+      "predictions": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "parse_failures": 0
     }
   },
   "raw_replies": [
@@ -7706,6 +9202,2096 @@
         0,
         0
       ]
+    },
+    {
+      "doc_id": "EN_M_TRAIN_1",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "prompt_eval_count": 1416
+    },
+    {
+      "doc_id": "EN_M_TRAIN_11",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\"]}",
+      "frames": [
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1363
+    },
+    {
+      "doc_id": "EN_M_TRAIN_13",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1403
+    },
+    {
+      "doc_id": "EN_M_TRAIN_14",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Crime_and_punishment\", \"Security_and_defense\"]}",
+      "frames": [
+        "Crime_and_punishment",
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1362
+    },
+    {
+      "doc_id": "EN_M_TRAIN_2",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "prompt_eval_count": 1408
+    },
+    {
+      "doc_id": "EN_M_TRAIN_21",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\"]}",
+      "frames": [
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1405
+    },
+    {
+      "doc_id": "EN_M_TRAIN_24",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\"]}",
+      "frames": [
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1407
+    },
+    {
+      "doc_id": "EN_M_TRAIN_27",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1406
+    },
+    {
+      "doc_id": "EN_M_TRAIN_28",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1415
+    },
+    {
+      "doc_id": "EN_M_TRAIN_34",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1363
+    },
+    {
+      "doc_id": "EN_M_TRAIN_35",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "prompt_eval_count": 1404
+    },
+    {
+      "doc_id": "EN_M_TRAIN_36",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "prompt_eval_count": 1411
+    },
+    {
+      "doc_id": "EN_M_TRAIN_39",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Crime_and_punishment\", \"Policy_prescription_and_evaluation\"]}",
+      "frames": [
+        "Crime_and_punishment",
+        "Policy_prescription_and_evaluation"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1399
+    },
+    {
+      "doc_id": "EN_M_TRAIN_4",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\"]}",
+      "frames": [
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1365
+    },
+    {
+      "doc_id": "EN_M_TRAIN_42",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1367
+    },
+    {
+      "doc_id": "EN_M_TRAIN_45",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "prompt_eval_count": 1402
+    },
+    {
+      "doc_id": "EN_M_TRAIN_48",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "prompt_eval_count": 1414
+    },
+    {
+      "doc_id": "EN_M_TRAIN_5",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Public_opinion\"]}",
+      "frames": [
+        "Public_opinion"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1407
+    },
+    {
+      "doc_id": "EN_M_TRAIN_52",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1403
+    },
+    {
+      "doc_id": "EN_M_TRAIN_56",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "prompt_eval_count": 1408
+    },
+    {
+      "doc_id": "EN_M_TRAIN_59",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1408
+    },
+    {
+      "doc_id": "EN_M_TRAIN_63",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Health_and_safety\"]}",
+      "frames": [
+        "Health_and_safety"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1369
+    },
+    {
+      "doc_id": "EN_M_TRAIN_64",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "prompt_eval_count": 1405
+    },
+    {
+      "doc_id": "EN_M_TRAIN_66",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Legality_Constitutionality_and_jurisprudence\"]}",
+      "frames": [
+        "Legality_Constitutionality_and_jurisprudence"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1397
+    },
+    {
+      "doc_id": "EN_M_TRAIN_67",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Policy_prescription_and_evaluation\"]}",
+      "frames": [
+        "Policy_prescription_and_evaluation"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1399
+    },
+    {
+      "doc_id": "EN_M_TRAIN_68",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1422
+    },
+    {
+      "doc_id": "EN_M_TRAIN_71",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1403
+    },
+    {
+      "doc_id": "EN_M_TRAIN_73",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Policy_prescription_and_evaluation\"]}",
+      "frames": [
+        "Policy_prescription_and_evaluation"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1403
+    },
+    {
+      "doc_id": "EN_M_TRAIN_75",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\"]}",
+      "frames": [
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1400
+    },
+    {
+      "doc_id": "EN_M_TRAIN_76",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "prompt_eval_count": 1405
+    },
+    {
+      "doc_id": "EN_M_TRAIN_77",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1410
+    },
+    {
+      "doc_id": "EN_M_TRAIN_78",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Public_opinion\"]}",
+      "frames": [
+        "Public_opinion"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1357
+    },
+    {
+      "doc_id": "EN_M_TRAIN_79",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\"]}",
+      "frames": [
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1402
+    },
+    {
+      "doc_id": "EN_M_TRAIN_8",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\", \"Health_and_safety\"]}",
+      "frames": [
+        "Health_and_safety",
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1409
+    },
+    {
+      "doc_id": "EN_M_TRAIN_82",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "prompt_eval_count": 1407
+    },
+    {
+      "doc_id": "EN_M_TRAIN_84",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Economic\"]}",
+      "frames": [
+        "Economic"
+      ],
+      "parse_ok": true,
+      "labels": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1418
+    },
+    {
+      "doc_id": "EN_M_TRAIN_89",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\"]}",
+      "frames": [
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1354
+    },
+    {
+      "doc_id": "EN_M_TRAIN_9",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Health_and_safety\", \"Quality_of_life\"]}",
+      "frames": [
+        "Health_and_safety",
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1400
+    },
+    {
+      "doc_id": "EN_M_TRAIN_91",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Morality\"]}",
+      "frames": [
+        "Morality"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1416
+    },
+    {
+      "doc_id": "EN_M_TRAIN_92",
+      "variant": "subtask_2a_title",
+      "raw_reply": "{\"frames\": [\"Health_and_safety\"]}",
+      "frames": [
+        "Health_and_safety"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1408
+    },
+    {
+      "doc_id": "EN_M_TRAIN_1",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 2182
+    },
+    {
+      "doc_id": "EN_M_TRAIN_11",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\", \"Health_and_safety\"]}",
+      "frames": [
+        "Health_and_safety",
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 2139
+    },
+    {
+      "doc_id": "EN_M_TRAIN_13",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 2178
+    },
+    {
+      "doc_id": "EN_M_TRAIN_14",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Crime_and_punishment\"]}",
+      "frames": [
+        "Crime_and_punishment"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1687
+    },
+    {
+      "doc_id": "EN_M_TRAIN_2",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "prompt_eval_count": 1887
+    },
+    {
+      "doc_id": "EN_M_TRAIN_21",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\"]}",
+      "frames": [
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 2171
+    },
+    {
+      "doc_id": "EN_M_TRAIN_24",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\"]}",
+      "frames": [
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1738
+    },
+    {
+      "doc_id": "EN_M_TRAIN_27",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 2075
+    },
+    {
+      "doc_id": "EN_M_TRAIN_28",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 2628
+    },
+    {
+      "doc_id": "EN_M_TRAIN_34",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1689
+    },
+    {
+      "doc_id": "EN_M_TRAIN_35",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "prompt_eval_count": 2067
+    },
+    {
+      "doc_id": "EN_M_TRAIN_36",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "prompt_eval_count": 2630
+    },
+    {
+      "doc_id": "EN_M_TRAIN_39",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Crime_and_punishment\", \"Policy_prescription_and_evaluation\"]}",
+      "frames": [
+        "Crime_and_punishment",
+        "Policy_prescription_and_evaluation"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1828
+    },
+    {
+      "doc_id": "EN_M_TRAIN_4",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\", \"Health_and_safety\", \"Quality_of_life\"]}",
+      "frames": [
+        "Health_and_safety",
+        "Quality_of_life",
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 2070
+    },
+    {
+      "doc_id": "EN_M_TRAIN_42",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1724
+    },
+    {
+      "doc_id": "EN_M_TRAIN_45",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "prompt_eval_count": 1958
+    },
+    {
+      "doc_id": "EN_M_TRAIN_48",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "prompt_eval_count": 2437
+    },
+    {
+      "doc_id": "EN_M_TRAIN_5",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Public_opinion\"]}",
+      "frames": [
+        "Public_opinion"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "prompt_eval_count": 2747
+    },
+    {
+      "doc_id": "EN_M_TRAIN_52",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 2345
+    },
+    {
+      "doc_id": "EN_M_TRAIN_56",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Morality\"]}",
+      "frames": [
+        "Morality"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1857
+    },
+    {
+      "doc_id": "EN_M_TRAIN_59",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Health_and_safety\"]}",
+      "frames": [
+        "Health_and_safety"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 2010
+    },
+    {
+      "doc_id": "EN_M_TRAIN_63",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Health_and_safety\"]}",
+      "frames": [
+        "Health_and_safety"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1992
+    },
+    {
+      "doc_id": "EN_M_TRAIN_64",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "prompt_eval_count": 2550
+    },
+    {
+      "doc_id": "EN_M_TRAIN_66",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Public_opinion\"]}",
+      "frames": [
+        "Public_opinion"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "prompt_eval_count": 2293
+    },
+    {
+      "doc_id": "EN_M_TRAIN_67",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1856
+    },
+    {
+      "doc_id": "EN_M_TRAIN_68",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1901
+    },
+    {
+      "doc_id": "EN_M_TRAIN_71",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1961
+    },
+    {
+      "doc_id": "EN_M_TRAIN_73",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1922
+    },
+    {
+      "doc_id": "EN_M_TRAIN_75",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\"]}",
+      "frames": [
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1978
+    },
+    {
+      "doc_id": "EN_M_TRAIN_76",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Political\"]}",
+      "frames": [
+        "Political"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "prompt_eval_count": 2346
+    },
+    {
+      "doc_id": "EN_M_TRAIN_77",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 2184
+    },
+    {
+      "doc_id": "EN_M_TRAIN_78",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Public_opinion\", \"Political\"]}",
+      "frames": [
+        "Political",
+        "Public_opinion"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0
+      ],
+      "prompt_eval_count": 2035
+    },
+    {
+      "doc_id": "EN_M_TRAIN_79",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\"]}",
+      "frames": [
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 2750
+    },
+    {
+      "doc_id": "EN_M_TRAIN_8",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Health_and_safety\"]}",
+      "frames": [
+        "Health_and_safety"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 2986
+    },
+    {
+      "doc_id": "EN_M_TRAIN_82",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Health_and_safety\", \"Policy_prescription_and_evaluation\"]}",
+      "frames": [
+        "Health_and_safety",
+        "Policy_prescription_and_evaluation"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1751
+    },
+    {
+      "doc_id": "EN_M_TRAIN_84",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Economic\"]}",
+      "frames": [
+        "Economic"
+      ],
+      "parse_ok": true,
+      "labels": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1806
+    },
+    {
+      "doc_id": "EN_M_TRAIN_89",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Security_and_defense\"]}",
+      "frames": [
+        "Security_and_defense"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 1921
+    },
+    {
+      "doc_id": "EN_M_TRAIN_9",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Health_and_safety\"]}",
+      "frames": [
+        "Health_and_safety"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 2703
+    },
+    {
+      "doc_id": "EN_M_TRAIN_91",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Health_and_safety\"]}",
+      "frames": [
+        "Health_and_safety"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 2073
+    },
+    {
+      "doc_id": "EN_M_TRAIN_92",
+      "variant": "subtask_2a_fulltext",
+      "raw_reply": "{\"frames\": [\"Quality_of_life\"]}",
+      "frames": [
+        "Quality_of_life"
+      ],
+      "parse_ok": true,
+      "labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "prompt_eval_count": 2178
     }
   ]
 }
