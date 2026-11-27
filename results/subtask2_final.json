@@ -775,6 +775,489 @@
         }
       }
     },
+    "sig_e1_text_only": {
+      "seeds": [
+        13,
+        42,
+        2026
+      ],
+      "scorer_mismatches": 0,
+      "dev": {
+        "seeds": [
+          13,
+          42,
+          2026
+        ],
+        "micro_mean": 0.39666666666666667,
+        "micro_std": 0.030641293851417062,
+        "macro_mean": 0.5077040041333126,
+        "hamming_mean": 0.1311111111111111
+      },
+      "test": {
+        "seeds": [
+          13,
+          42,
+          2026
+        ],
+        "micro_mean": 0.302772020411379,
+        "micro_std": 0.0346487693645662,
+        "micro_ci95": [
+          0.2137567118479601,
+          0.39285436845832133
+        ],
+        "macro_mean": 0.26059167778993,
+        "macro_std": 0.005906663980530441,
+        "hamming_mean": 0.15,
+        "per_label_f1": {
+          "Economic": 0.0,
+          "Capacity_and_resources": null,
+          "Morality": 0.0,
+          "Fairness_and_equality": 0.0,
+          "Legality_Constitutionality_and_jurisprudence": null,
+          "Policy_prescription_and_evaluation": 0.0,
+          "Crime_and_punishment": 0.48412698412698413,
+          "Security_and_defense": 0.44864121087031306,
+          "Health_and_safety": 0.044444444444444446,
+          "Quality_of_life": 0.09523809523809523,
+          "Cultural_identity": 0.0,
+          "Public_opinion": 0.2074074074074074,
+          "Political": 0.5207919165365974,
+          "External_regulation_and_reputation": 0.0,
+          "None": 0.10822510822510822
+        },
+        "support": {
+          "Economic": 1,
+          "Capacity_and_resources": 0,
+          "Morality": 3,
+          "Fairness_and_equality": 3,
+          "Legality_Constitutionality_and_jurisprudence": 0,
+          "Policy_prescription_and_evaluation": 1,
+          "Crime_and_punishment": 2,
+          "Security_and_defense": 10,
+          "Health_and_safety": 2,
+          "Quality_of_life": 3,
+          "Cultural_identity": 1,
+          "Public_opinion": 2,
+          "Political": 13,
+          "External_regulation_and_reputation": 2,
+          "None": 5
+        }
+      }
+    },
+    "sig_e2_vision_global": {
+      "seeds": [
+        13,
+        42,
+        2026
+      ],
+      "scorer_mismatches": 0,
+      "dev": {
+        "seeds": [
+          13,
+          42,
+          2026
+        ],
+        "micro_mean": 0.5464550264550264,
+        "micro_std": 0.01611525910755681,
+        "macro_mean": 0.6270763187429854,
+        "hamming_mean": 0.07333333333333335
+      },
+      "test": {
+        "seeds": [
+          13,
+          42,
+          2026
+        ],
+        "micro_mean": 0.3888683583805535,
+        "micro_std": 0.07018898295322405,
+        "micro_ci95": [
+          0.28976993225468406,
+          0.49719208669937504
+        ],
+        "macro_mean": 0.31664308768046373,
+        "macro_std": 0.06329600404211877,
+        "hamming_mean": 0.10444444444444445,
+        "per_label_f1": {
+          "Economic": 0.0,
+          "Capacity_and_resources": null,
+          "Morality": 0.0,
+          "Fairness_and_equality": 0.13333333333333333,
+          "Legality_Constitutionality_and_jurisprudence": null,
+          "Policy_prescription_and_evaluation": 0.0,
+          "Crime_and_punishment": 0.08333333333333333,
+          "Security_and_defense": 0.6148448043184885,
+          "Health_and_safety": 0.0,
+          "Quality_of_life": 0.3013468013468013,
+          "Cultural_identity": 0.0,
+          "Public_opinion": 0.6,
+          "Political": 0.758379784466741,
+          "External_regulation_and_reputation": 0.0,
+          "None": 0.2584082584082584
+        },
+        "support": {
+          "Economic": 1,
+          "Capacity_and_resources": 0,
+          "Morality": 3,
+          "Fairness_and_equality": 3,
+          "Legality_Constitutionality_and_jurisprudence": 0,
+          "Policy_prescription_and_evaluation": 1,
+          "Crime_and_punishment": 2,
+          "Security_and_defense": 10,
+          "Health_and_safety": 2,
+          "Quality_of_life": 3,
+          "Cultural_identity": 1,
+          "Public_opinion": 2,
+          "Political": 13,
+          "External_regulation_and_reputation": 2,
+          "None": 5
+        }
+      }
+    },
+    "sig_e3_vision_region_gdino": {
+      "seeds": [
+        13,
+        42,
+        2026
+      ],
+      "scorer_mismatches": 0,
+      "dev": {
+        "seeds": [
+          13,
+          42,
+          2026
+        ],
+        "micro_mean": 0.5271824629271438,
+        "micro_std": 0.04676529097233463,
+        "macro_mean": 0.6022145755479088,
+        "hamming_mean": 0.07444444444444444
+      },
+      "test": {
+        "seeds": [
+          13,
+          42,
+          2026
+        ],
+        "micro_mean": 0.4464825750582932,
+        "micro_std": 0.04147055762600924,
+        "micro_ci95": [
+          0.322093323500598,
+          0.5712860997840218
+        ],
+        "macro_mean": 0.3158502330397755,
+        "macro_std": 0.01456847099413884,
+        "hamming_mean": 0.08888888888888889,
+        "per_label_f1": {
+          "Economic": 0.0,
+          "Capacity_and_resources": 0.0,
+          "Morality": 0.0,
+          "Fairness_and_equality": 0.13333333333333333,
+          "Legality_Constitutionality_and_jurisprudence": null,
+          "Policy_prescription_and_evaluation": 0.0,
+          "Crime_and_punishment": 0.0,
+          "Security_and_defense": 0.5396825396825397,
+          "Health_and_safety": 0.19017094017094016,
+          "Quality_of_life": 0.2545454545454546,
+          "Cultural_identity": 0.0,
+          "Public_opinion": 0.8888888888888888,
+          "Political": 0.835707502374169,
+          "External_regulation_and_reputation": 0.0,
+          "None": 0.22875816993464052
+        },
+        "support": {
+          "Economic": 1,
+          "Capacity_and_resources": 0,
+          "Morality": 3,
+          "Fairness_and_equality": 3,
+          "Legality_Constitutionality_and_jurisprudence": 0,
+          "Policy_prescription_and_evaluation": 1,
+          "Crime_and_punishment": 2,
+          "Security_and_defense": 10,
+          "Health_and_safety": 2,
+          "Quality_of_life": 3,
+          "Cultural_identity": 1,
+          "Public_opinion": 2,
+          "Political": 13,
+          "External_regulation_and_reputation": 2,
+          "None": 5
+        }
+      }
+    },
+    "sig_e4_fusion_global_asl": {
+      "seeds": [
+        13,
+        42,
+        2026
+      ],
+      "scorer_mismatches": 0,
+      "dev": {
+        "seeds": [
+          13,
+          42,
+          2026
+        ],
+        "micro_mean": 0.5651471984805317,
+        "micro_std": 0.034291023518548326,
+        "macro_mean": 0.6311527978194644,
+        "hamming_mean": 0.07555555555555556
+      },
+      "test": {
+        "seeds": [
+          13,
+          42,
+          2026
+        ],
+        "micro_mean": 0.4296194506679944,
+        "micro_std": 0.014933177294988886,
+        "micro_ci95": [
+          0.32113877334129265,
+          0.5409369850199334
+        ],
+        "macro_mean": 0.34094391347264913,
+        "macro_std": 0.032028077659138066,
+        "hamming_mean": 0.10944444444444446,
+        "per_label_f1": {
+          "Economic": 0.0,
+          "Capacity_and_resources": null,
+          "Morality": 0.0,
+          "Fairness_and_equality": 0.0,
+          "Legality_Constitutionality_and_jurisprudence": null,
+          "Policy_prescription_and_evaluation": 0.0,
+          "Crime_and_punishment": 0.1717171717171717,
+          "Security_and_defense": 0.7388167388167388,
+          "Health_and_safety": 0.0,
+          "Quality_of_life": 0.3378787878787879,
+          "Cultural_identity": 0.05128205128205129,
+          "Public_opinion": 0.7238095238095239,
+          "Political": 0.7208538587848933,
+          "External_regulation_and_reputation": 0.13333333333333333,
+          "None": 0.23646723646723644
+        },
+        "support": {
+          "Economic": 1,
+          "Capacity_and_resources": 0,
+          "Morality": 3,
+          "Fairness_and_equality": 3,
+          "Legality_Constitutionality_and_jurisprudence": 0,
+          "Policy_prescription_and_evaluation": 1,
+          "Crime_and_punishment": 2,
+          "Security_and_defense": 10,
+          "Health_and_safety": 2,
+          "Quality_of_life": 3,
+          "Cultural_identity": 1,
+          "Public_opinion": 2,
+          "Political": 13,
+          "External_regulation_and_reputation": 2,
+          "None": 5
+        }
+      }
+    },
+    "sig_e5_late_fusion_asl": {
+      "seeds": [
+        13,
+        42,
+        2026
+      ],
+      "scorer_mismatches": 0,
+      "dev": {
+        "seeds": [
+          13,
+          42,
+          2026
+        ],
+        "micro_mean": 0.5281967213114754,
+        "micro_std": 0.02462729437142812,
+        "macro_mean": 0.551558927637359,
+        "hamming_mean": 0.08777777777777779
+      },
+      "test": {
+        "seeds": [
+          13,
+          42,
+          2026
+        ],
+        "micro_mean": 0.3934424603174603,
+        "micro_std": 0.03407931159476363,
+        "micro_ci95": [
+          0.28878203195255303,
+          0.5047344353894471
+        ],
+        "macro_mean": 0.2867885462535712,
+        "macro_std": 0.011080831365890186,
+        "hamming_mean": 0.11277777777777777,
+        "per_label_f1": {
+          "Economic": 0.0,
+          "Capacity_and_resources": null,
+          "Morality": 0.0,
+          "Fairness_and_equality": 0.0,
+          "Legality_Constitutionality_and_jurisprudence": null,
+          "Policy_prescription_and_evaluation": 0.0,
+          "Crime_and_punishment": 0.0,
+          "Security_and_defense": 0.6771929824561402,
+          "Health_and_safety": 0.06842105263157895,
+          "Quality_of_life": 0.16666666666666666,
+          "Cultural_identity": 0.0,
+          "Public_opinion": 0.5444444444444444,
+          "Political": 0.7154734179751082,
+          "External_regulation_and_reputation": 0.0,
+          "None": 0.12962962962962962
+        },
+        "support": {
+          "Economic": 1,
+          "Capacity_and_resources": 0,
+          "Morality": 3,
+          "Fairness_and_equality": 3,
+          "Legality_Constitutionality_and_jurisprudence": 0,
+          "Policy_prescription_and_evaluation": 1,
+          "Crime_and_punishment": 2,
+          "Security_and_defense": 10,
+          "Health_and_safety": 2,
+          "Quality_of_life": 3,
+          "Cultural_identity": 1,
+          "Public_opinion": 2,
+          "Political": 13,
+          "External_regulation_and_reputation": 2,
+          "None": 5
+        }
+      }
+    },
+    "sig_e6_fusion_gdino_bce": {
+      "seeds": [
+        13,
+        42,
+        2026
+      ],
+      "scorer_mismatches": 0,
+      "dev": {
+        "seeds": [
+          13,
+          42,
+          2026
+        ],
+        "micro_mean": 0.5144927536231885,
+        "micro_std": 0.01024792436502242,
+        "macro_mean": 0.48718133718133716,
+        "hamming_mean": 0.08
+      },
+      "test": {
+        "seeds": [
+          13,
+          42,
+          2026
+        ],
+        "micro_mean": 0.40075268646697215,
+        "micro_std": 0.01199070581754419,
+        "micro_ci95": [
+          0.2874354200013713,
+          0.5176669129460282
+        ],
+        "macro_mean": 0.31612806946140276,
+        "macro_std": 0.02243064752135638,
+        "hamming_mean": 0.10444444444444445,
+        "per_label_f1": {
+          "Economic": 0.2222222222222222,
+          "Capacity_and_resources": null,
+          "Morality": 0.0,
+          "Fairness_and_equality": 0.0,
+          "Legality_Constitutionality_and_jurisprudence": null,
+          "Policy_prescription_and_evaluation": 0.0,
+          "Crime_and_punishment": 0.0,
+          "Security_and_defense": 0.5833333333333334,
+          "Health_and_safety": 0.05555555555555555,
+          "Quality_of_life": 0.31746031746031744,
+          "Cultural_identity": 0.0,
+          "Public_opinion": 0.5608465608465608,
+          "Political": 0.7747252747252747,
+          "External_regulation_and_reputation": 0.0,
+          "None": 0.22777777777777777
+        },
+        "support": {
+          "Economic": 1,
+          "Capacity_and_resources": 0,
+          "Morality": 3,
+          "Fairness_and_equality": 3,
+          "Legality_Constitutionality_and_jurisprudence": 0,
+          "Policy_prescription_and_evaluation": 1,
+          "Crime_and_punishment": 2,
+          "Security_and_defense": 10,
+          "Health_and_safety": 2,
+          "Quality_of_life": 3,
+          "Cultural_identity": 1,
+          "Public_opinion": 2,
+          "Political": 13,
+          "External_regulation_and_reputation": 2,
+          "None": 5
+        }
+      }
+    },
+    "sig_e7_fusion_gdino_asl": {
+      "seeds": [
+        13,
+        42,
+        2026
+      ],
+      "scorer_mismatches": 0,
+      "dev": {
+        "seeds": [
+          13,
+          42,
+          2026
+        ],
+        "micro_mean": 0.5128495842781557,
+        "micro_std": 0.012971279139630037,
+        "macro_mean": 0.5620434177296922,
+        "hamming_mean": 0.09333333333333334
+      },
+      "test": {
+        "seeds": [
+          13,
+          42,
+          2026
+        ],
+        "micro_mean": 0.4215994133387811,
+        "micro_std": 0.033467164528023854,
+        "micro_ci95": [
+          0.3128667052030133,
+          0.530549036697324
+        ],
+        "macro_mean": 0.31046612758141207,
+        "macro_std": 0.04525063451559583,
+        "hamming_mean": 0.11888888888888889,
+        "per_label_f1": {
+          "Economic": 0.0,
+          "Capacity_and_resources": 0.0,
+          "Morality": 0.0,
+          "Fairness_and_equality": 0.13333333333333333,
+          "Legality_Constitutionality_and_jurisprudence": null,
+          "Policy_prescription_and_evaluation": 0.0,
+          "Crime_and_punishment": 0.17777777777777778,
+          "Security_and_defense": 0.7037681159420289,
+          "Health_and_safety": 0.08636977058029689,
+          "Quality_of_life": 0.29074074074074074,
+          "Cultural_identity": 0.0,
+          "Public_opinion": 0.5814814814814815,
+          "Political": 0.7592227695675972,
+          "External_regulation_and_reputation": 0.1111111111111111,
+          "None": 0.14652014652014653
+        },
+        "support": {
+          "Economic": 1,
+          "Capacity_and_resources": 0,
+          "Morality": 3,
+          "Fairness_and_equality": 3,
+          "Legality_Constitutionality_and_jurisprudence": 0,
+          "Policy_prescription_and_evaluation": 1,
+          "Crime_and_punishment": 2,
+          "Security_and_defense": 10,
+          "Health_and_safety": 2,
+          "Quality_of_life": 3,
+          "Cultural_identity": 1,
+          "Public_opinion": 2,
+          "Political": 13,
+          "External_regulation_and_reputation": 2,
+          "None": 5
+        }
+      }
+    },
     "text_lr": {
       "seeds": [
         0
@@ -848,7 +1331,7 @@
     }
   },
   "selection": {
-    "best_model": "qwen_2a_fulltext",
+    "best_model": "sig_e4_fusion_global_asl",
     "best_trained_model": null,
     "rule": "docs/preregistration.md",
     "exploratory_not_selectable": [
@@ -859,24 +1342,24 @@
     {
       "spec_a": "best",
       "spec_b": "most_frequent",
-      "a": "qwen_2a_fulltext",
+      "a": "sig_e4_fusion_global_asl",
       "b": "most_frequent",
-      "diff_mean": 0.04497098646034814,
+      "diff_mean": 0.13416490521344893,
       "ci95": [
-        -0.10441861391716566,
-        0.19547354432543926
+        0.0038831881856243463,
+        0.26798203831990614
       ],
       "status": "ok"
     },
     {
       "spec_a": "best",
       "spec_b": "qwen_image_only",
-      "a": "qwen_2a_fulltext",
+      "a": "sig_e4_fusion_global_asl",
       "b": "qwen_image_only",
-      "diff_mean": -0.07624113475177308,
+      "diff_mean": 0.01295278400132771,
       "ci95": [
-        -0.1555959481694776,
-        -0.008942829766847682
+        -0.09558049328091939,
+        0.1261123563881273
       ],
       "status": "ok"
     },
