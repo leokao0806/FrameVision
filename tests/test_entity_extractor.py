@@ -2,7 +2,35 @@ import os
 import glob
 import pytest
 from PIL import Image
-from src.entity_extractor import SalientEntityExtractor, extract_salient_regions
+from src.entity_extractor import (
+    DEFAULT_PROMPT,
+    SalientEntityExtractor,
+    extract_salient_regions,
+    select_distinct_boxes,
+)
+
+
+def test_prompt_is_frame_neutral():
+    assert DEFAULT_PROMPT == "person. crowd. face. sign. text. building. vehicle. object."
+    extractor = SalientEntityExtractor(device="cpu")
+    assert extractor.prompt == DEFAULT_PROMPT
+
+
+def test_select_distinct_boxes_dedupes_high_iou_and_orders_by_score():
+    cands = [
+        {"box": [0, 0, 100, 100], "score": 0.9, "area": 10000},
+        {"box": [2, 2, 100, 100], "score": 0.8, "area": 9604},  # IoU > 0.7 with first
+        {"box": [200, 200, 300, 300], "score": 0.7, "area": 10000},
+    ]
+    picked = select_distinct_boxes(cands, top_k=3, iou_thresh=0.7)
+    assert picked == [[0, 0, 100, 100], [200, 200, 300, 300]]
+    assert select_distinct_boxes(cands, top_k=1, iou_thresh=0.7) == [[0, 0, 100, 100]]
+    assert select_distinct_boxes(cands, top_k=0, iou_thresh=0.7) == []
+
+
+def test_top_k_zero_returns_empty():
+    img = Image.new("RGB", (64, 64))
+    assert extract_salient_regions(img, top_k=0) == ([], [])
 
 
 def test_extract_salient_regions_returns_k_crops():
