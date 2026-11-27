@@ -2,7 +2,7 @@
 """
 02_extract_features.py
 Batch feature extraction CLI script for SemEval-2027 Task 9 Subtask 2.
-Extracts multimodal pre-features (SigLIP visual tokens and DeBERTa-v3 text tokens)
+Extracts multimodal pre-features (SigLIP visual tokens and SigLIP text tokens)
 and caches them to disk as PyTorch tensor files (.pt).
 """
 
@@ -58,7 +58,7 @@ def discover_all_samples(data_root: str) -> List[Dict]:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Extract multimodal features (SigLIP + DeBERTa-v3) and cache to disk."
+        description="Extract multimodal features (unified SigLIP vision + text) and cache to disk."
     )
     parser.add_argument(
         "--data_root",
@@ -180,8 +180,8 @@ def main():
                 "id": doc_id,
                 "image_name": sample["image_name"],
                 "visual_tokens": feat_dict["visual_tokens"].detach().cpu(),  # (1+K, 768) float32
-                "text_tokens": feat_dict["text_tokens"].detach().cpu(),      # (256, 768) float32
-                "text_mask": feat_dict["text_mask"].detach().cpu(),          # (256,) int64
+                "text_tokens": feat_dict["text_tokens"].detach().cpu(),      # (64, 768) float32
+                "text_mask": feat_dict["text_mask"].detach().cpu(),          # (64,) int64
                 "target": target.detach().cpu(),                              # (14,) float32
                 "labels": sample["labels"],                                  # List[str]
             }
