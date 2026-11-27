@@ -195,34 +195,35 @@ def test_ablation_table_formatting():
 
 
 def test_run_ablation_suite_dry_run(tmp_path):
-    """
-    Runs run_ablation_suite with dry_run=True and verifies:
-      - Returns list of 5 ablation experiment dictionaries
-      - Output markdown report file ablation_results.md is generated
-      - Content of report contains the table and baselines
-    """
+    """Dry run returns the 7 experiments with seed mean/std and writes the report."""
     report_dir = tmp_path / "reports"
-    results = run_ablation_suite(
-        report_dir=str(report_dir),
-        dry_run=True,
-    )
+    results = run_ablation_suite(report_dir=str(report_dir), dry_run=True, seeds=[13, 42])
 
-    assert isinstance(results, list)
-    assert len(results) == 5
+    assert len(results) == 7
+    names = [r["name"] for r in results]
+    for i in range(1, 8):
+        assert any(n.startswith(f"Exp {i}:") for n in names)
+    assert any("Global + Text" in n for n in names)
+    assert any("Late Fusion" in n for n in names)
+    for r in results:
+        for k in ("micro_f1_mean", "micro_f1_std", "macro_f1_mean", "macro_f1_std"):
+            assert k in r
+        assert r["seeds"] == [13, 42]
 
-    exp_names = [r["name"] for r in results]
-    assert any("Exp 1" in name or "text_only" in name.lower() for name in exp_names)
-    assert any("Exp 2" in name or "vision_global" in name.lower() for name in exp_names)
-    assert any("Exp 3" in name or "vision_region" in name.lower() for name in exp_names)
-    assert any("Exp 4" in name or "fusion_bce" in name.lower() for name in exp_names)
-    assert any("Exp 5" in name or "fusion_asl" in name.lower() for name in exp_names)
-
-    report_path = report_dir / "ablation_results.md"
-    assert os.path.exists(report_path)
-    content = report_path.read_text(encoding="utf-8")
+    content = (report_dir / "ablation_results_gdino_siglip.md").read_text(encoding="utf-8")
     assert "| Model / Setting | Micro F1 (Primary) | Macro F1 | Hamming Loss | Notes / Status |" in content
-    assert "Image LR (SigLIP)" in content
-    assert "Qwen2.5-VL" in content
+    assert "Qwen2.5-VL (Image only)" in content
+    assert " ± " in content
+
+
+def test_aggregate_seed_results_mean_and_std():
+    agg = _ablation_mod.aggregate_seed_results([
+        {"micro_f1": 0.4, "macro_f1": 0.2, "hamming_loss": 0.1, "dev_micro": 0.5, "seed": 1},
+        {"micro_f1": 0.5, "macro_f1": 0.3, "hamming_loss": 0.2, "dev_micro": 0.5, "seed": 2},
+    ])
+    assert agg["micro_f1_mean"] == pytest.approx(0.45)
+    assert agg["micro_f1_std"] == pytest.approx(0.0707106, abs=1e-5)
+    assert agg["seeds"] == [1, 2]
 
 
 def test_train_unimodal_or_ablation_dry_run(mock_ablation_env):
@@ -234,7 +235,7 @@ def test_train_unimodal_or_ablation_dry_run(mock_ablation_env):
       - fusion_bce
       - fusion_asl
     """
-    models_to_test = ["text_only", "vision_global", "vision_region", "fusion_bce", "fusion_asl"]
+    models_to_test = ["text_only", "vision_global", "vision_region", "fusion_global", "late_fusion", "fusion_bce", "fusion_asl"]
     base_ckpt = mock_ablation_env["tmp_path"] / "checkpoints_ablation"
 
     for model_type in models_to_test:
@@ -252,7 +253,17 @@ def test_train_unimodal_or_ablation_dry_run(mock_ablation_env):
             num_heads=2,
             checkpoint_dir=str(ckpt_dir),
             device="cpu",
+            seed=13,
+            predictions_root=str(base_ckpt / "preds"),
+            exp_slug=f"sig_{model_type}",
         )
+
+        pred_dir = base_ckpt / "preds" / f"sig_{model_type}" / "seed13"
+        for fname in ("dev.tsv", "test.tsv", "dev.probs.json", "test.probs.json"):
+            assert (pred_dir / fname).exists(), f"{fname} missing for {model_type}"
+        probs_payload = json.loads((pred_dir / "test.probs.json").read_text())
+        assert set(probs_payload) == {"image_names", "classes", "probs", "threshold"}
+        assert len(probs_payload["image_names"]) == 2
 
         assert isinstance(res, dict)
         for key in ["model_type", "micro_f1", "macro_f1", "hamming_loss", "best_threshold", "checkpoint_path"]:
@@ -283,4 +294,4 @@ def test_ablation_suite_cli(tmp_path):
         check=True,
     )
     assert "Ablation Suite Completed" in res.stdout or "ablation" in res.stdout.lower()
-    assert os.path.exists(report_dir / "ablation_results.md")
+    assert os.path.exists(report_dir / "ablation_results_gdino_siglip.md")
