@@ -1,0 +1,1 @@
+{"doc_id": "EN_M_TRAIN_39", "variant": "subtask_2a_fulltext", "raw_reply": "{\"frames\": [\"Crime_and_punishment\", \"Policy_prescription_and_evaluation\"]}", "frames": ["Crime_and_punishment", "Policy_prescription_and_evaluation"], "parse_ok": true, "labels": [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0], "prompt_eval_count": 1828}

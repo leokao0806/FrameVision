@@ -1,0 +1,963 @@
+{
+  "split": {
+    "train_en": 708,
+    "train_en_second_chunk": 456,
+    "train_multilingual": 8568,
+    "dev": 161,
+    "test": 432,
+    "test_none": 123,
+    "dev_articles": 20,
+    "test_articles": 40
+  },
+  "models": {
+    "Random (training prior)": {
+      "micro_f1": 0.13031187832262686,
+      "macro_f1": 0.09353243657751217,
+      "macro_f1_present": 0.09353243657751217,
+      "hamming_loss": 0.17020956790123454
+    },
+    "Most frequent label": {
+      "micro_f1": 0.14354995150339475,
+      "macro_f1": 0.019499341238471673,
+      "macro_f1_present": 0.019499341238471673,
+      "micro_precision": 0.1712962962962963,
+      "micro_recall": 0.12353923205342238,
+      "hamming_loss": 0.13626543209876543,
+      "n_examples": 432,
+      "per_label": {
+        "Economic": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 22
+        },
+        "Capacity_and_resources": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 26
+        },
+        "Morality": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 27
+        },
+        "Fairness_and_equality": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 25
+        },
+        "Legality_Constitutionality_and_jurisprudence": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 24
+        },
+        "Policy_prescription_and_evaluation": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 24
+        },
+        "Crime_and_punishment": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 25
+        },
+        "Security_and_defense": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 92
+        },
+        "Health_and_safety": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 32
+        },
+        "Quality_of_life": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 39
+        },
+        "Cultural_identity": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 9
+        },
+        "Public_opinion": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 20
+        },
+        "Political": {
+          "f1": 0.2924901185770751,
+          "precision": 0.1712962962962963,
+          "recall": 1.0,
+          "support": 74
+        },
+        "External_regulation_and_reputation": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 37
+        },
+        "None": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 123
+        }
+      },
+      "micro_f1_ci95": [
+        0.10803438315977675,
+        0.18079704850964345
+      ]
+    },
+    "Always None": {
+      "micro_f1": 0.23860329776915615,
+      "macro_f1": 0.02954954954954955,
+      "macro_f1_present": 0.02954954954954955,
+      "micro_precision": 0.2847222222222222,
+      "micro_recall": 0.20534223706176963,
+      "hamming_loss": 0.12114197530864197,
+      "n_examples": 432,
+      "per_label": {
+        "Economic": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 22
+        },
+        "Capacity_and_resources": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 26
+        },
+        "Morality": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 27
+        },
+        "Fairness_and_equality": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 25
+        },
+        "Legality_Constitutionality_and_jurisprudence": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 24
+        },
+        "Policy_prescription_and_evaluation": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 24
+        },
+        "Crime_and_punishment": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 25
+        },
+        "Security_and_defense": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 92
+        },
+        "Health_and_safety": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 32
+        },
+        "Quality_of_life": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 39
+        },
+        "Cultural_identity": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 9
+        },
+        "Public_opinion": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 20
+        },
+        "Political": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 74
+        },
+        "External_regulation_and_reputation": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 37
+        },
+        "None": {
+          "f1": 0.44324324324324327,
+          "precision": 0.2847222222222222,
+          "recall": 1.0,
+          "support": 123
+        }
+      },
+      "micro_f1_ci95": [
+        0.2,
+        0.2771640328957402
+      ],
+      "dev_micro_f1": 0.24489795918367346
+    },
+    "TF-IDF + LR": {
+      "micro_f1": 0.25302663438256656,
+      "macro_f1": 0.18612002403388442,
+      "macro_f1_present": 0.18612002403388442,
+      "micro_precision": 0.19848053181386516,
+      "micro_recall": 0.34891485809682804,
+      "hamming_loss": 0.1904320987654321,
+      "n_examples": 432,
+      "per_label": {
+        "Economic": {
+          "f1": 0.20869565217391303,
+          "precision": 0.12903225806451613,
+          "recall": 0.5454545454545454,
+          "support": 22
+        },
+        "Capacity_and_resources": {
+          "f1": 0.22727272727272727,
+          "precision": 0.16129032258064516,
+          "recall": 0.38461538461538464,
+          "support": 26
+        },
+        "Morality": {
+          "f1": 0.044444444444444446,
+          "precision": 0.05555555555555555,
+          "recall": 0.037037037037037035,
+          "support": 27
+        },
+        "Fairness_and_equality": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 25
+        },
+        "Legality_Constitutionality_and_jurisprudence": {
+          "f1": 0.3,
+          "precision": 0.21428571428571427,
+          "recall": 0.5,
+          "support": 24
+        },
+        "Policy_prescription_and_evaluation": {
+          "f1": 0.18045112781954886,
+          "precision": 0.11009174311926606,
+          "recall": 0.5,
+          "support": 24
+        },
+        "Crime_and_punishment": {
+          "f1": 0.09523809523809523,
+          "precision": 0.06779661016949153,
+          "recall": 0.16,
+          "support": 25
+        },
+        "Security_and_defense": {
+          "f1": 0.4,
+          "precision": 0.3063583815028902,
+          "recall": 0.5760869565217391,
+          "support": 92
+        },
+        "Health_and_safety": {
+          "f1": 0.208,
+          "precision": 0.13978494623655913,
+          "recall": 0.40625,
+          "support": 32
+        },
+        "Quality_of_life": {
+          "f1": 0.265625,
+          "precision": 0.19101123595505617,
+          "recall": 0.4358974358974359,
+          "support": 39
+        },
+        "Cultural_identity": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 9
+        },
+        "Public_opinion": {
+          "f1": 0.07692307692307693,
+          "precision": 0.16666666666666666,
+          "recall": 0.05,
+          "support": 20
+        },
+        "Political": {
+          "f1": 0.35587188612099646,
+          "precision": 0.24154589371980675,
+          "recall": 0.6756756756756757,
+          "support": 74
+        },
+        "External_regulation_and_reputation": {
+          "f1": 0.30927835051546393,
+          "precision": 0.25,
+          "recall": 0.40540540540540543,
+          "support": 37
+        },
+        "None": {
+          "f1": 0.12,
+          "precision": 0.3333333333333333,
+          "recall": 0.07317073170731707,
+          "support": 123
+        }
+      },
+      "micro_f1_ci95": [
+        0.21668159424901726,
+        0.2886159718566184
+      ],
+      "threshold": 0.2,
+      "dev_micro_f1": 0.28885400313971743
+    },
+    "Frozen DeBERTa-v3 + LR": {
+      "micro_f1": 0.2144212523719165,
+      "macro_f1": 0.10646417875177604,
+      "macro_f1_present": 0.10646417875177604,
+      "micro_precision": 0.24835164835164836,
+      "micro_recall": 0.18864774624373956,
+      "hamming_loss": 0.12777777777777777,
+      "n_examples": 432,
+      "per_label": {
+        "Economic": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 22
+        },
+        "Capacity_and_resources": {
+          "f1": 0.13043478260869565,
+          "precision": 0.15,
+          "recall": 0.11538461538461539,
+          "support": 26
+        },
+        "Morality": {
+          "f1": 0.06896551724137931,
+          "precision": 0.5,
+          "recall": 0.037037037037037035,
+          "support": 27
+        },
+        "Fairness_and_equality": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 25
+        },
+        "Legality_Constitutionality_and_jurisprudence": {
+          "f1": 0.1875,
+          "precision": 0.375,
+          "recall": 0.125,
+          "support": 24
+        },
+        "Policy_prescription_and_evaluation": {
+          "f1": 0.05555555555555555,
+          "precision": 0.08333333333333333,
+          "recall": 0.041666666666666664,
+          "support": 24
+        },
+        "Crime_and_punishment": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 25
+        },
+        "Security_and_defense": {
+          "f1": 0.07272727272727272,
+          "precision": 0.2222222222222222,
+          "recall": 0.043478260869565216,
+          "support": 92
+        },
+        "Health_and_safety": {
+          "f1": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 32
+        },
+        "Quality_of_life": {
+          "f1": 0.2222222222222222,
+          "precision": 0.4,
+          "recall": 0.15384615384615385,
+          "support": 39
+        },
+        "Cultural_identity": {
+          "f1": 0.16666666666666666,
+          "precision": 0.3333333333333333,
+          "recall": 0.1111111111111111,
+          "support": 9
+        },
+        "Public_opinion": {
+          "f1": 0.08,
+          "precision": 0.2,
+          "recall": 0.05,
+          "support": 20
+        },
+        "Political": {
+          "f1": 0.08602150537634409,
+          "precision": 0.21052631578947367,
+          "recall": 0.05405405405405406,
+          "support": 74
+        },
+        "External_regulation_and_reputation": {
+          "f1": 0.125,
+          "precision": 0.2727272727272727,
+          "recall": 0.08108108108108109,
+          "support": 37
+        },
+        "None": {
+          "f1": 0.40186915887850466,
+          "precision": 0.2819672131147541,
+          "recall": 0.6991869918699187,
+          "support": 123
+        }
+      },
+      "micro_f1_ci95": [
+        0.18435754189944134,
+        0.24485606322833736
+      ],
+      "threshold": 0.9500000000000001,
+      "dev_micro_f1": 0.23383084577114427
+    },
+    "Starter XLM-RoBERTa": {
+      "micro_f1": 0.32046655514026473,
+      "macro_f1": 0.3056924771110755,
+      "macro_f1_present": 0.3056924771110755,
+      "hamming_loss": 0.14356995884773663,
+      "dev_micro_f1": 0.31354591426394784,
+      "micro_f1_std": 0.0050762786900874395,
+      "macro_f1_std": 0.009862460932851886,
+      "runs": [
+        {
+          "seed": 13,
+          "dev_macro_f1": 0.29389210833726753,
+          "epoch": 2,
+          "threshold": 0.5,
+          "dev_micro_f1": 0.284,
+          "micro_f1": 0.3140364789849326,
+          "macro_f1": 0.29486780722864503,
+          "macro_f1_present": 0.29486780722864503,
+          "micro_precision": 0.2990936555891239,
+          "micro_recall": 0.330550918196995,
+          "hamming_loss": 0.13348765432098766,
+          "n_examples": 432
+        },
+        {
+          "seed": 42,
+          "dev_macro_f1": 0.30033731509930744,
+          "epoch": 4,
+          "threshold": 0.5,
+          "dev_micro_f1": 0.31316725978647686,
+          "micro_f1": 0.32644628099173556,
+          "macro_f1": 0.3187220356232742,
+          "macro_f1_present": 0.3187220356232742,
+          "micro_precision": 0.27784290738569756,
+          "micro_recall": 0.39565943238731216,
+          "hamming_loss": 0.15092592592592594,
+          "n_examples": 432
+        },
+        {
+          "seed": 2026,
+          "dev_macro_f1": 0.3110667686696115,
+          "epoch": 6,
+          "threshold": 0.5,
+          "dev_micro_f1": 0.3434704830053667,
+          "micro_f1": 0.3209169054441261,
+          "macro_f1": 0.3034875884813072,
+          "macro_f1_present": 0.3034875884813072,
+          "micro_precision": 0.2810539523212045,
+          "micro_recall": 0.3739565943238731,
+          "hamming_loss": 0.14629629629629629,
+          "n_examples": 432
+        }
+      ],
+      "micro_f1_ci95_seed42": [
+        0.2935209986991956,
+        0.35859247737149375
+      ]
+    },
+    "Fine-tuned DeBERTa-v3 (BCE)": {
+      "micro_f1": 0.29709647895682206,
+      "macro_f1": 0.2599554246999956,
+      "macro_f1_present": 0.2599554246999956,
+      "hamming_loss": 0.14099794238683128,
+      "dev_micro_f1": 0.35606289069335384,
+      "micro_f1_std": 0.015279655397608512,
+      "macro_f1_std": 0.019493152067820034,
+      "runs": [
+        {
+          "seed": 13,
+          "dev_micro_f1": 0.36217303822937624,
+          "threshold": 0.1,
+          "epoch": 8,
+          "micro_f1": 0.2906474820143885,
+          "macro_f1": 0.2486443592123093,
+          "macro_f1_present": 0.2486443592123093,
+          "micro_precision": 0.2553729456384324,
+          "micro_recall": 0.337228714524207,
+          "hamming_loss": 0.1521604938271605,
+          "n_examples": 432
+        },
+        {
+          "seed": 42,
+          "dev_micro_f1": 0.35876288659793815,
+          "threshold": 0.2,
+          "epoch": 6,
+          "micro_f1": 0.2824601366742597,
+          "macro_f1": 0.24383897282004555,
+          "macro_f1_present": 0.24383897282004555,
+          "micro_precision": 0.2590529247910863,
+          "micro_recall": 0.3105175292153589,
+          "hamming_loss": 0.14583333333333334,
+          "n_examples": 432
+        },
+        {
+          "seed": 2026,
+          "dev_micro_f1": 0.34725274725274724,
+          "threshold": 0.35000000000000003,
+          "epoch": 8,
+          "micro_f1": 0.3181818181818182,
+          "macro_f1": 0.287382942067632,
+          "macro_f1_present": 0.287382942067632,
+          "micro_precision": 0.32088285229202035,
+          "micro_recall": 0.31552587646076796,
+          "hamming_loss": 0.125,
+          "n_examples": 432
+        }
+      ],
+      "micro_f1_ci95_seed42": [
+        0.24083111658379314,
+        0.32154622442501074
+      ]
+    },
+    "Fine-tuned DeBERTa-v3 (ASL)": {
+      "micro_f1": 0.27761194091817026,
+      "macro_f1": 0.17175358264315096,
+      "macro_f1_present": 0.17175358264315096,
+      "hamming_loss": 0.12494855967078189,
+      "dev_micro_f1": 0.32421489150295885,
+      "micro_f1_std": 0.017062446830690782,
+      "macro_f1_std": 0.04933150114137423,
+      "runs": [
+        {
+          "seed": 13,
+          "dev_micro_f1": 0.352112676056338,
+          "threshold": 0.6000000000000001,
+          "epoch": 9,
+          "micro_f1": 0.30148992112182293,
+          "macro_f1": 0.23217606163575857,
+          "macro_f1_present": 0.23217606163575857,
+          "micro_precision": 0.3173431734317343,
+          "micro_recall": 0.2871452420701169,
+          "hamming_loss": 0.12299382716049383,
+          "n_examples": 432
+        },
+        {
+          "seed": 42,
+          "dev_micro_f1": 0.27411167512690354,
+          "threshold": 0.6500000000000001,
+          "epoch": 2,
+          "micro_f1": 0.2686849574266793,
+          "macro_f1": 0.11133905637896327,
+          "macro_f1_present": 0.11133905637896327,
+          "micro_precision": 0.31004366812227074,
+          "micro_recall": 0.2370617696160267,
+          "hamming_loss": 0.11929012345679012,
+          "n_examples": 432
+        },
+        {
+          "seed": 2026,
+          "dev_micro_f1": 0.3464203233256351,
+          "threshold": 0.55,
+          "epoch": 2,
+          "micro_f1": 0.2626609442060086,
+          "macro_f1": 0.17174562991473105,
+          "macro_f1_present": 0.17174562991473105,
+          "micro_precision": 0.2703180212014134,
+          "micro_recall": 0.25542570951585974,
+          "hamming_loss": 0.13256172839506172,
+          "n_examples": 432
+        }
+      ],
+      "micro_f1_ci95_seed42": [
+        0.22971401322797197,
+        0.30431054261787316
+      ]
+    }
+  },
+  "selected_on_dev": "Fine-tuned DeBERTa-v3 (BCE)",
+  "selected_per_label_mean_f1": {
+    "Economic": 0.3000320666987334,
+    "Capacity_and_resources": 0.15502450980392157,
+    "Morality": 0.10440251572327046,
+    "Fairness_and_equality": 0.16211067268708731,
+    "Legality_Constitutionality_and_jurisprudence": 0.31915535444947213,
+    "Policy_prescription_and_evaluation": 0.24444444444444444,
+    "Crime_and_punishment": 0.23384615384615381,
+    "Security_and_defense": 0.43501272415807657,
+    "Health_and_safety": 0.2410494869807709,
+    "Quality_of_life": 0.37298760258425007,
+    "Cultural_identity": 0.15384615384615385,
+    "Public_opinion": 0.4045683911164066,
+    "Political": 0.13401565322095124,
+    "External_regulation_and_reputation": 0.3519250526255289,
+    "None": 0.28691058831471294
+  },
+  "selected_support": {
+    "Economic": 22,
+    "Capacity_and_resources": 26,
+    "Morality": 27,
+    "Fairness_and_equality": 25,
+    "Legality_Constitutionality_and_jurisprudence": 24,
+    "Policy_prescription_and_evaluation": 24,
+    "Crime_and_punishment": 25,
+    "Security_and_defense": 92,
+    "Health_and_safety": 32,
+    "Quality_of_life": 39,
+    "Cultural_identity": 9,
+    "Public_opinion": 20,
+    "Political": 74,
+    "External_regulation_and_reputation": 37,
+    "None": 123
+  },
+  "tfidf_per_label": {
+    "Economic": {
+      "f1": 0.20869565217391303,
+      "precision": 0.12903225806451613,
+      "recall": 0.5454545454545454,
+      "support": 22
+    },
+    "Capacity_and_resources": {
+      "f1": 0.22727272727272727,
+      "precision": 0.16129032258064516,
+      "recall": 0.38461538461538464,
+      "support": 26
+    },
+    "Morality": {
+      "f1": 0.044444444444444446,
+      "precision": 0.05555555555555555,
+      "recall": 0.037037037037037035,
+      "support": 27
+    },
+    "Fairness_and_equality": {
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "support": 25
+    },
+    "Legality_Constitutionality_and_jurisprudence": {
+      "f1": 0.3,
+      "precision": 0.21428571428571427,
+      "recall": 0.5,
+      "support": 24
+    },
+    "Policy_prescription_and_evaluation": {
+      "f1": 0.18045112781954886,
+      "precision": 0.11009174311926606,
+      "recall": 0.5,
+      "support": 24
+    },
+    "Crime_and_punishment": {
+      "f1": 0.09523809523809523,
+      "precision": 0.06779661016949153,
+      "recall": 0.16,
+      "support": 25
+    },
+    "Security_and_defense": {
+      "f1": 0.4,
+      "precision": 0.3063583815028902,
+      "recall": 0.5760869565217391,
+      "support": 92
+    },
+    "Health_and_safety": {
+      "f1": 0.208,
+      "precision": 0.13978494623655913,
+      "recall": 0.40625,
+      "support": 32
+    },
+    "Quality_of_life": {
+      "f1": 0.265625,
+      "precision": 0.19101123595505617,
+      "recall": 0.4358974358974359,
+      "support": 39
+    },
+    "Cultural_identity": {
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "support": 9
+    },
+    "Public_opinion": {
+      "f1": 0.07692307692307693,
+      "precision": 0.16666666666666666,
+      "recall": 0.05,
+      "support": 20
+    },
+    "Political": {
+      "f1": 0.35587188612099646,
+      "precision": 0.24154589371980675,
+      "recall": 0.6756756756756757,
+      "support": 74
+    },
+    "External_regulation_and_reputation": {
+      "f1": 0.30927835051546393,
+      "precision": 0.25,
+      "recall": 0.40540540540540543,
+      "support": 37
+    },
+    "None": {
+      "f1": 0.12,
+      "precision": 0.3333333333333333,
+      "recall": 0.07317073170731707,
+      "support": 123
+    }
+  },
+  "mismatch_matrix": [
+    [
+      0,
+      2,
+      1,
+      1,
+      0,
+      5,
+      1,
+      6,
+      0,
+      1,
+      0,
+      0,
+      1,
+      7
+    ],
+    [
+      1,
+      0,
+      3,
+      1,
+      0,
+      4,
+      2,
+      10,
+      1,
+      3,
+      0,
+      0,
+      1,
+      5
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      2,
+      0,
+      3,
+      5,
+      3,
+      3,
+      0,
+      3,
+      2,
+      2
+    ],
+    [
+      0,
+      1,
+      2,
+      0,
+      11,
+      4,
+      3,
+      6,
+      0,
+      3,
+      0,
+      4,
+      3,
+      4
+    ],
+    [
+      0,
+      0,
+      1,
+      1,
+      0,
+      2,
+      3,
+      3,
+      1,
+      0,
+      0,
+      2,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      2,
+      1,
+      2,
+      0,
+      1,
+      6,
+      0,
+      1,
+      1,
+      3,
+      2,
+      3
+    ],
+    [
+      0,
+      0,
+      2,
+      0,
+      2,
+      2,
+      0,
+      2,
+      0,
+      0,
+      0,
+      2,
+      1,
+      0
+    ],
+    [
+      0,
+      1,
+      4,
+      1,
+      1,
+      0,
+      10,
+      0,
+      6,
+      2,
+      0,
+      6,
+      5,
+      5
+    ],
+    [
+      0,
+      0,
+      2,
+      3,
+      2,
+      2,
+      5,
+      1,
+      0,
+      4,
+      0,
+      2,
+      6,
+      2
+    ],
+    [
+      0,
+      0,
+      1,
+      1,
+      1,
+      4,
+      3,
+      2,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      2,
+      1,
+      1,
+      1,
+      0,
+      2,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      4,
+      1,
+      5,
+      9,
+      7,
+      15,
+      0,
+      2,
+      0,
+      10,
+      0,
+      16
+    ],
+    [
+      0,
+      1,
+      2,
+      2,
+      0,
+      1,
+      0,
+      4,
+      0,
+      5,
+      0,
+      1,
+      3,
+      0
+    ]
+  ]
+}

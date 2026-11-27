@@ -38,3 +38,13 @@ cache/
 # Archives
 *.zip
 *.tar.gz
+
+# Final unify (Task 1)
+baselines/data
+baselines/results/cache/
+baselines/results/official_scoring/
+report/*.docx
+report/*.pdf
+report/*.zip
+.superpowers/
+report/final_report.built.md

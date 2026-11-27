@@ -1,0 +1,261 @@
+"""
+Unit Tests for the NLP Framing Analysis Pipeline
+CS 5134/6034 NLP Fall 2026 - Team FrameVision
+Authors: Leo Kao, En-Shuo Zhang
+"""
+
+import hashlib
+import json
+import os
+import re
+import sys
+import tempfile
+import unittest
+
+import numpy as np
+import torch
+
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
+from src.data_loader import NUM_CLASSES, clean_frames, load_official_data, split_article_paragraphs
+from src.loss import AsymmetricLoss
+from src.metrics import add_none_column, bootstrap_micro_difference, bootstrap_micro_f1, compute_multilabel_metrics, compute_mismatch_matrix
+from src.models.cross_attention_model import RegionAwareCrossModalAttention
+from src.models.linear_baselines import tfidf_fit_predict
+from src.models.vlm_pipeline import VARIANTS, build_prompt, parse_frames
+from src.official_scorer import score_subtask1, score_subtask2
+from src.splits import LINKED_ARTICLES, N_DEV_ARTICLES, N_TEST_ARTICLES, TRIAL_ARTICLES, make_course_split
+
+
+class OfficialDataCase(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.paragraphs, cls.documents = load_official_data()
+        cls.second_en_docs = [d for d in cls.documents if d["lang"] == "EN" and d["source"] == "second_chunk"]
+        cls.second_en_paragraphs = [p for p in cls.paragraphs if p["lang"] == "EN" and p["source"] == "second_chunk"]
+        cls.split = make_course_split([d["doc_id"] for d in cls.second_en_docs])
+
+
+class TestData(OfficialDataCase):
+    def test_counts_match_release(self):
+        self.assertEqual(NUM_CLASSES, 14)
+        self.assertEqual(len(self.second_en_docs), 97)
+        self.assertEqual(sum(1 for d in self.documents if d["source"] == "first_chunk"), 400)
+        self.assertEqual(sum(1 for d in self.documents if d["source"] == "trial"), 5)
+        self.assertEqual({p["lang"] for p in self.paragraphs if p["source"] == "trial"}, {"RU"})
+
+    def test_no_framing_marks_are_empty(self):
+        self.assertEqual(clean_frames(["-"]), [])
+        self.assertEqual(clean_frames(["No framing", ""]), [])
+        self.assertEqual(clean_frames(["Political", "No framing"]), ["Political"])
+        self.assertFalse({"-", "No framing"} & {f for p in self.paragraphs for f in p["frames"]})
+
+    def test_second_chunk_trial_labels_match_trial_release(self):
+        by_id = {d["doc_id"]: d for d in self.second_en_docs}
+        self.assertEqual(by_id["EN_TRIAL_5"]["frames"], ["Public_opinion"])
+        self.assertEqual(by_id["EN_TRAIL_3"]["frames"], [])
+
+    def test_every_image_file_exists(self):
+        for doc in self.documents:
+            self.assertTrue(os.path.exists(doc["image_path"]), doc["image_path"])
+
+    def test_first_chunk_has_no_gold_text_frames(self):
+        for doc in self.documents:
+            self.assertEqual(doc["has_text_frames"], doc["source"] != "first_chunk")
+
+    def test_article_paragraph_split(self):
+        self.assertEqual(split_article_paragraphs("Title\n\nOne\r\n\r\nTwo\n"), ["Title", "One", "Two"])
+
+
+class TestSplits(OfficialDataCase):
+    def test_parts_are_disjoint_and_complete(self):
+        parts = [set(self.split[k]) for k in ("train", "dev", "test")]
+        self.assertFalse(parts[0] & parts[1] or parts[0] & parts[2] or parts[1] & parts[2])
+        self.assertEqual(sum(map(len, parts)), 97)
+        self.assertEqual(len(parts[1]), N_DEV_ARTICLES)
+        self.assertEqual(len(parts[2]), N_TEST_ARTICLES)
+
+    def test_trial_articles_stay_in_training(self):
+        self.assertTrue(set(TRIAL_ARTICLES) <= set(self.split["train"]))
+
+    def test_linked_articles_stay_together(self):
+        for group in LINKED_ARTICLES:
+            homes = [next(k for k, docs in self.split.items() if doc in docs) for doc in group]
+            self.assertEqual(len(set(homes)), 1)
+
+    def test_split_is_repeatable(self):
+        ids = list(reversed([d["doc_id"] for d in self.second_en_docs]))
+        self.assertEqual(make_course_split(ids), self.split)
+
+    def test_no_exact_copy_across_train_and_held_out(self):
+        def norm(text):
+            return re.sub(r"\W+", " ", text.lower()).strip()
+
+        def image_hash(doc):
+            with open(doc["image_path"], "rb") as f:
+                return hashlib.sha256(f.read()).hexdigest()
+
+        held_out = set(self.split["dev"] + self.split["test"])
+        held_paragraphs = [p for p in self.paragraphs if p["doc_id"] in held_out]
+        train_paragraphs = [p for p in self.paragraphs if p["doc_id"] not in held_out]
+        held_docs = [d for d in self.documents if d["doc_id"] in held_out]
+        train_docs = [d for d in self.documents if d["doc_id"] not in held_out]
+        # Very short paragraphs, such as a repeated byline, are not treated as copies.
+        held_texts = {norm(p["text"]) for p in held_paragraphs if len(norm(p["text"])) > 40}
+        self.assertFalse(held_texts & {norm(p["text"]) for p in train_paragraphs})
+        self.assertFalse({norm(d["text"]) for d in held_docs} & {norm(d["text"]) for d in train_docs})
+        self.assertFalse({image_hash(d) for d in held_docs} & {image_hash(d) for d in train_docs})
+
+    def test_tfidf_vocabulary_excludes_evaluation_text(self):
+        y = np.zeros((4, NUM_CLASSES), dtype=int)
+        y[:2, 0] = 1
+        probs_a = tfidf_fit_predict(["aa bb", "aa cc", "dd ee", "dd ff"], y, [["zzz"]])[0]
+        probs_b = tfidf_fit_predict(["aa bb", "aa cc", "dd ee", "dd ff"], y, [["qqq"]])[0]
+        np.testing.assert_allclose(probs_a, probs_b)
+
+
+class TestMetrics(OfficialDataCase):
+    def _assert_agreement(self, scorer, records, tag):
+        y_true = np.vstack([r["labels"] for r in records])
+        rng = np.random.RandomState(0)
+        y_pred = (rng.rand(*y_true.shape) < 0.1).astype(int)
+        micro, macro = scorer(records, y_pred, tag)
+        local = compute_multilabel_metrics(y_true, y_pred)
+        self.assertAlmostEqual(micro, local["micro_f1"], places=9)
+        self.assertAlmostEqual(macro, local["macro_f1"], places=9)
+
+    def test_local_metrics_agree_with_official_scorers(self):
+        self._assert_agreement(score_subtask1, self.second_en_paragraphs, "unit_test")
+        self._assert_agreement(score_subtask2, self.second_en_docs, "unit_test")
+
+    def test_none_label_is_scored(self):
+        y_true = np.zeros((2, NUM_CLASSES), dtype=int)
+        y_pred = np.zeros((2, NUM_CLASSES), dtype=int)
+        y_true[0, 0] = 1
+        y_pred[0, 0] = 1
+        self.assertEqual(add_none_column(y_true)[:, -1].tolist(), [0, 1])
+        self.assertEqual(compute_multilabel_metrics(y_true, y_pred)["micro_f1"], 1.0)
+
+    def test_wrong_empty_prediction_is_penalized(self):
+        y_true = np.zeros((1, NUM_CLASSES), dtype=int)
+        y_pred = np.zeros((1, NUM_CLASSES), dtype=int)
+        y_pred[0, 3] = 1
+        self.assertEqual(compute_multilabel_metrics(y_true, y_pred)["micro_f1"], 0.0)
+
+    def test_article_bootstrap_of_perfect_predictions(self):
+        y = np.zeros((4, NUM_CLASSES), dtype=int)
+        y[:2, 0] = 1
+        self.assertEqual(bootstrap_micro_f1(y, y, ["a", "a", "b", "b"], n_boot=50), (1.0, 1.0))
+        self.assertEqual(bootstrap_micro_difference(y, y, y, ["a", "a", "b", "b"], n_boot=50), (0.0, 0.0))
+
+    def test_mismatch_matrix_shape(self):
+        y_true = np.zeros((1, NUM_CLASSES), dtype=int)
+        y_pred = np.zeros((1, NUM_CLASSES), dtype=int)
+        y_true[0, 1] = 1
+        y_pred[0, 2] = 1
+        matrix = compute_mismatch_matrix(y_true, y_pred)
+        self.assertEqual(matrix[1, 2], 1)
+
+
+class TestVLM(unittest.TestCase):
+    def setUp(self):
+        self.doc = {"text": "ARTICLE BODY", "text_frames": ["Political"]}
+
+    def test_only_2b_sees_gold_text_frames(self):
+        self.assertNotIn("Human-annotated", build_prompt(self.doc, "subtask_2a"))
+        self.assertIn("Human-annotated", build_prompt(self.doc, "subtask_2b"))
+        self.assertNotIn("ARTICLE BODY", build_prompt(self.doc, "image_only"))
+
+    def test_parser_rejects_bad_output(self):
+        self.assertEqual(parse_frames('{"frames": ["Political", "Made_up"]}'), (["Political"], True))
+        self.assertEqual(parse_frames("not json"), ([], False))
+
+    def test_existing_prompts_unchanged(self):
+        # Cached replies in results/runs are keyed by variant, so the old prompts must stay byte-identical.
+        with open(os.path.join(project_root, "tests", "fixtures", "prompts_before_e12.json"), encoding="utf-8") as f:
+            fixture = json.load(f)
+        for variant, prompt in fixture["prompts"].items():
+            self.assertEqual(build_prompt(fixture["doc"], variant), prompt, variant)
+
+    def test_v2_prompt_offers_none(self):
+        self.assertIn("image_only_v2", VARIANTS)
+        self.assertIn('{"frames": ["None"]}', build_prompt(self.doc, "image_only_v2"))
+        self.assertNotIn("Article text", build_prompt(self.doc, "image_only_v2"))
+        self.assertNotIn("ARTICLE BODY", build_prompt(self.doc, "image_only_v2"))
+
+    def test_v2_changes_only_the_last_paragraph(self):
+        v1 = build_prompt(self.doc, "image_only").split("\n\n")
+        v2 = build_prompt(self.doc, "image_only_v2").split("\n\n")
+        self.assertEqual(v2[:-1], v1[:-1])
+        self.assertEqual(v2[-1], (
+            "None: the image shows no clear visual evidence for any category above (for example, a generic "
+            "portrait, a logo, or scenery unrelated to the issue).\n"
+            "Select the framings conveyed by the IMAGE itself. Choose only framings with clear visual evidence. "
+            'If no category has clear visual evidence, answer {"frames": ["None"]}. Answer with JSON only, '
+            'in the form {"frames": ["Category_name"]}.'))
+
+    def test_parse_none_is_valid_empty(self):
+        self.assertEqual(parse_frames('{"frames": ["None"]}'), ([], True))
+
+    def _fixture_doc(self):
+        with open(os.path.join(project_root, "tests", "fixtures", "prompts_before_e12.json"), encoding="utf-8") as f:
+            return json.load(f)["doc"]
+
+    def test_title_variant_has_title_only(self):
+        p = build_prompt(self._fixture_doc(), "subtask_2a_title")
+        self.assertIn("subtask_2a_title", VARIANTS)
+        self.assertIn("Article title (it may be in any language):\nA Title", p)
+        self.assertNotIn("First paragraph.", p)
+
+    def test_fulltext_variant_is_not_truncated(self):
+        doc = self._fixture_doc()
+        self.assertIn("subtask_2a_fulltext", VARIANTS)
+        self.assertIn("Article text (it may be in any language):\n" + doc["text"], build_prompt(doc, "subtask_2a_fulltext"))
+        self.assertNotIn(" END", build_prompt(doc, "subtask_2a"))
+
+    def test_e12_variants_share_everything_else_with_2a(self):
+        doc = self._fixture_doc()
+        base = build_prompt(doc, "subtask_2a").split("\n\n")
+        for variant in ("subtask_2a_title", "subtask_2a_fulltext"):
+            parts = build_prompt(doc, variant).split("\n\n")
+            self.assertEqual(parts[:2], base[:2], variant)
+            self.assertEqual(parts[-1], base[-1], variant)
+            self.assertNotIn("Human-annotated", build_prompt(doc, variant))
+
+    def test_query_vlm_keeps_prompt_eval_count(self):
+        from unittest import mock
+        from PIL import Image
+        import src.models.vlm_pipeline as vlm
+
+        with tempfile.TemporaryDirectory() as tmp:
+            image_path = os.path.join(tmp, "img.png")
+            Image.new("RGB", (8, 8)).save(image_path)
+            doc = {"doc_id": "D1", "image_path": image_path, "text": "T", "text_frames": []}
+            for payload, expected in (({"prompt_eval_count": 1234}, 1234), ({}, None)):
+                response = mock.Mock()
+                response.json.return_value = {"message": {"content": '{"frames": ["Political"]}'}, **payload}
+                with mock.patch.object(vlm.requests, "post", return_value=response):
+                    reply = vlm.query_vlm(doc, "subtask_2a_fulltext")
+                self.assertEqual(reply["prompt_eval_count"], expected)
+                self.assertEqual(reply["frames"], ["Political"])
+
+
+class TestModels(unittest.TestCase):
+    def test_asymmetric_loss(self):
+        logits = torch.randn(8, NUM_CLASSES, requires_grad=True)
+        targets = (torch.rand(8, NUM_CLASSES) > 0.7).float()
+        loss = AsymmetricLoss(gamma_neg=4, gamma_pos=1, clip=0.05)(logits, targets)
+        self.assertTrue(torch.isfinite(loss))
+        loss.backward()
+        self.assertIsNotNone(logits.grad)
+
+    def test_cross_attention_prototype_forward(self):
+        model = RegionAwareCrossModalAttention(text_dim=1024, vision_dim=768)
+        batch = {"text_feat": torch.randn(2, 1024), "region_feat": torch.randn(2, 5, 768), "vision_feat": torch.randn(2, 768)}
+        self.assertEqual(model(batch).shape, (2, NUM_CLASSES))
+
+
+if __name__ == "__main__":
+    unittest.main()
