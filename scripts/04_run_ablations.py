@@ -4,19 +4,24 @@
 Automated Ablation Benchmark Suite & Markdown Report Generator
 for SemEval-2027 Task 9 Subtask 2.
 
-Runs systematic ablation experiments:
-  - Exp 1: Text-Only (DeBERTa-v3 + ASL)
-  - Exp 2: Vision-Only Global (SigLIP Global + ASL)
-  - Exp 3: Vision-Only Region Attention (SigLIP Global + K Regions + ASL)
-  - Exp 4: Multimodal Cross-Attention with BCE Loss
-  - Exp 5: Multimodal Cross-Attention with ASL (Proposed Full Model)
+Runs 7 ablation experiments on the unified Grounding-DINO + SigLIP pipeline, each answering
+one question, across multiple seeds (mean +/- std):
+  - Exp 1: Text-Only (SigLIP text + ASL)
+  - Exp 2: Vision-Only Global (SigLIP global + ASL)
+  - Exp 3: Vision-Only Region (SigLIP global + Grounding-DINO regions + ASL)
+  - Exp 4: Global + Text Cross-Attention, no regions (ASL)
+  - Exp 5: Late Fusion (global image + text probability average, ASL)
+  - Exp 6: Full Cross-Modal (Grounding-DINO regions + text, BCE)
+  - Exp 7: Full Cross-Modal (Grounding-DINO regions + text, ASL)
 
-Outputs GitHub Flavored Markdown comparison table directly comparable
-against the team's Intermediate Report Table 1 baselines.
+Per-seed predictions are exported as predictions/subtask2/<slug>/seed<k>/{dev,test}.{tsv,probs.json}
+and a Markdown comparison table (with Qwen2.5-VL reference rows) is written to reports/.
 """
 
 import argparse
+import json
 import os
+import random
 import sys
 from typing import Any, Dict, List, Optional, Union
 import numpy as np
@@ -146,11 +151,75 @@ def format_ablation_markdown_table(
         name = r.get("name") or r.get("model_type") or r.get("setting") or "Experiment"
         micro = _fmt_metric(r.get("micro_f1") if "micro_f1" in r else r.get("test_micro", r.get("micro")))
         macro = _fmt_metric(r.get("macro_f1") if "macro_f1" in r else r.get("test_macro", r.get("macro")))
+        if r.get("micro_f1_std") is not None:
+            micro = f"{micro} ± {_fmt_metric(r['micro_f1_std'])}"
+        if r.get("macro_f1_std") is not None:
+            macro = f"{macro} ± {_fmt_metric(r['macro_f1_std'])}"
         hamming = _fmt_metric(r.get("hamming_loss") if "hamming_loss" in r else r.get("hamming"))
         notes = r.get("notes") or r.get("status") or "Completed"
         lines.append(f"| {name} | {micro} | {macro} | {hamming} | {notes} |")
 
     return "\n".join(lines)
+
+
+EXPERIMENTS: List[Dict[str, str]] = [
+    {"model_type": "text_only", "loss_type": "asl", "slug": "sig_e1_text_only",
+     "name": "Exp 1: Text-Only (SigLIP text + ASL)"},
+    {"model_type": "vision_global", "loss_type": "asl", "slug": "sig_e2_vision_global",
+     "name": "Exp 2: Vision-Only Global (SigLIP + ASL)"},
+    {"model_type": "vision_region", "loss_type": "asl", "slug": "sig_e3_vision_region_gdino",
+     "name": "Exp 3: Vision-Only Global + Grounding-DINO Regions (ASL)"},
+    {"model_type": "fusion_global", "loss_type": "asl", "slug": "sig_e4_fusion_global_asl",
+     "name": "Exp 4: Global + Text Cross-Attention, no regions (ASL)"},
+    {"model_type": "late_fusion", "loss_type": "asl", "slug": "sig_e5_late_fusion_asl",
+     "name": "Exp 5: Late Fusion (global image + text, ASL)"},
+    {"model_type": "fusion_bce", "loss_type": "bce", "slug": "sig_e6_fusion_gdino_bce",
+     "name": "Exp 6: Full Cross-Modal, Grounding-DINO (BCE)"},
+    {"model_type": "fusion_asl", "loss_type": "asl", "slug": "sig_e7_fusion_gdino_asl",
+     "name": "Exp 7: Full Cross-Modal, Grounding-DINO (ASL)"},
+]
+DEFAULT_SEEDS: List[int] = [13, 42, 2026]
+
+
+def _set_seed(seed: int) -> None:
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+
+
+def _write_probs_json(path: str, image_names: List[str], classes: List[str], probs: Any, threshold: float) -> None:
+    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(
+            {
+                "image_names": list(image_names),
+                "classes": list(classes),
+                "probs": np.asarray(probs, dtype=float).tolist(),
+                "threshold": float(threshold),
+            },
+            f,
+        )
+
+
+def aggregate_seed_results(per_seed: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """Averages per-seed results; micro_f1/macro_f1/hamming_loss hold the means, *_std the sample std."""
+    def _mean_std(key: str):
+        vals = np.array([float(r[key]) for r in per_seed], dtype=float)
+        return float(vals.mean()), float(vals.std(ddof=1)) if len(vals) > 1 else 0.0
+
+    out = dict(per_seed[0])
+    for key, prefix in (("micro_f1", "micro_f1"), ("macro_f1", "macro_f1"), ("hamming_loss", "hamming_loss"),
+                        ("dev_micro", "dev_micro")):
+        m, sd = _mean_std(key)
+        out[key] = m
+        out[f"{prefix}_mean"] = m
+        out[f"{prefix}_std"] = sd
+    out["hamming"] = out["hamming_loss"]
+    out["test_micro"] = out["micro_f1"]
+    out["test_macro"] = out["macro_f1"]
+    out["seeds"] = [r.get("seed") for r in per_seed]
+    out["notes"] = f"mean ± std over {len(per_seed)} seeds"
+    return out
 
 
 def train_unimodal_or_ablation(
@@ -168,13 +237,19 @@ def train_unimodal_or_ablation(
     dropout: float = 0.1,
     checkpoint_dir: str = "checkpoints/ablations",
     device: Optional[Any] = None,
+    seed: int = 42,
+    predictions_root: Optional[str] = None,
+    exp_slug: Optional[str] = None,
+    exp_name: Optional[str] = None,
     **kwargs,
 ) -> Dict[str, Any]:
     """
     Trains and evaluates a specific unimodal baseline or cross-modal ablation variant.
 
     Args:
-        model_type: One of 'text_only', 'vision_global', 'vision_region', 'fusion_bce', 'fusion_asl'.
+        model_type: One of 'text_only', 'vision_global', 'vision_region', 'fusion_global', 'late_fusion', 'fusion_bce', 'fusion_asl'.
+        seed: Random seed (model init, shuffling).
+        predictions_root: If set, exports predictions/<exp_slug>/seed<seed>/{dev,test}.{tsv,probs.json} there.
         loss_type: 'asl' or 'bce'. (For 'fusion_bce', automatically defaults to 'bce').
         feature_dir: Directory containing cached .pt features.
         split_file: Path to course_split.json.
@@ -200,15 +275,10 @@ def train_unimodal_or_ablation(
         effective_loss = loss_type.lower().strip()
 
     # Determine human-friendly name
-    display_names = {
-        "text_only": "Exp 1: Text-Only (DeBERTa-v3 + ASL)",
-        "vision_global": "Exp 2: Vision-Only Global (SigLIP Global + ASL)",
-        "vision_region": "Exp 3: Vision-Only Region Attention (SigLIP Global + K Regions + ASL)",
-        "fusion_bce": "Exp 4: Multimodal Cross-Attention (BCE Loss)",
-        "fusion_asl": "Exp 5: Multimodal Cross-Attention (ASL Full Model)",
-        "late_fusion": "Baseline: Late Fusion (Image + Text)",
-    }
-    exp_name = display_names.get(mt, f"Ablation ({mt})")
+    display_names = {e["model_type"]: e["name"] for e in EXPERIMENTS}
+    if exp_name is None:
+        exp_name = display_names.get(mt, f"Ablation ({mt})")
+    _set_seed(seed)
 
     # 1. Resolve Accelerator Device
     if device is None:
@@ -226,8 +296,8 @@ def train_unimodal_or_ablation(
     # 2. Setup Checkpoint Directory
     checkpoint_dir = _resolve_path(checkpoint_dir)
     os.makedirs(checkpoint_dir, exist_ok=True)
-    checkpoint_path = os.path.join(checkpoint_dir, f"best_{mt}.pt")
-    predictions_tsv_path = os.path.join(checkpoint_dir, f"predictions_{mt}.tsv")
+    checkpoint_path = os.path.join(checkpoint_dir, f"best_{mt}_seed{seed}.pt")
+    predictions_tsv_path = os.path.join(checkpoint_dir, f"predictions_{mt}_seed{seed}.tsv")
 
     # 3. Load Cached Datasets & Loaders
     train_dataset = CachedFramingDataset(
@@ -294,7 +364,7 @@ def train_unimodal_or_ablation(
             num_classes=num_classes,
             dropout=dropout,
         ).to(resolved_device)
-    elif mt in ("fusion_bce", "fusion_asl", "cross_modal"):
+    elif mt in ("fusion_bce", "fusion_asl", "fusion_global", "cross_modal"):
         model = CrossModalFramingModel(
             text_dim=768,
             vision_dim=768,
@@ -342,6 +412,9 @@ def train_unimodal_or_ablation(
             return model(t_tokens, text_mask=t_mask)
         elif mt in ("vision_global", "vision_region"):
             return model(v_tokens)
+        elif mt == "fusion_global":
+            logits, _ = model(v_tokens[:, :1, :], t_tokens, text_mask=t_mask)
+            return logits
         elif mt in ("fusion_bce", "fusion_asl", "cross_modal"):
             logits, _ = model(v_tokens, t_tokens, text_mask=t_mask)
             return logits
@@ -417,6 +490,24 @@ def train_unimodal_or_ablation(
         calibrated_threshold = best_threshold
 
     model.eval()
+
+    def _collect(loader):
+        names, plist = [], []
+        with torch.no_grad():
+            for batch in loader:
+                plist.append(torch.sigmoid(_forward(batch)).cpu())
+                names.extend(batch["image_name"])
+        return names, (torch.cat(plist, dim=0) if plist else torch.zeros(0, num_classes))
+
+    pred_dir = None
+    if predictions_root is not None and exp_slug is not None:
+        pred_dir = os.path.join(_resolve_path(predictions_root), exp_slug, f"seed{seed}")
+        dev_names, dev_all_probs = _collect(dev_loader)
+        export_predictions_tsv(dev_names, dev_all_probs, calibrated_threshold, class_names,
+                               os.path.join(pred_dir, "dev.tsv"))
+        _write_probs_json(os.path.join(pred_dir, "dev.probs.json"), dev_names, class_names,
+                          dev_all_probs.numpy(), calibrated_threshold)
+
     test_image_names = []
     test_probs_list = []
     test_targets_list = []
@@ -440,6 +531,11 @@ def train_unimodal_or_ablation(
             class_names=class_names,
             out_path=predictions_tsv_path,
         )
+        if pred_dir is not None:
+            export_predictions_tsv(test_image_names, torch.from_numpy(all_test_probs), calibrated_threshold,
+                                   class_names, os.path.join(pred_dir, "test.tsv"))
+            _write_probs_json(os.path.join(pred_dir, "test.probs.json"), test_image_names, class_names,
+                              all_test_probs, calibrated_threshold)
 
         pred_bin = (all_test_probs >= calibrated_threshold).astype(int)
         target_bin = (all_test_targets >= 0.5).astype(int)
@@ -460,6 +556,7 @@ def train_unimodal_or_ablation(
 
     return {
         "model_type": mt,
+        "seed": seed,
         "name": exp_name,
         "loss_type": effective_loss,
         "best_epoch": best_epoch,
@@ -480,11 +577,14 @@ def train_unimodal_or_ablation(
 
 
 def run_ablation_suite(
-    feature_dir: str = "cache/features",
+    feature_dir: str = "cache/features_gdino_siglip",
     split_file: str = "course_split.json",
     data_root: str = "data_official",
     report_dir: str = "reports",
-    checkpoint_dir: str = "checkpoints/ablations",
+    checkpoint_dir: str = "checkpoints/ablations_gdino_siglip",
+    predictions_root: str = "predictions/subtask2",
+    report_name: str = "ablation_results_gdino_siglip.md",
+    seeds: Optional[List[int]] = None,
     epochs: int = 15,
     batch_size: int = 16,
     lr: float = 1e-4,
@@ -495,159 +595,69 @@ def run_ablation_suite(
     **kwargs,
 ) -> List[Dict[str, Any]]:
     """
-    Runs the 5 ablation experiments and saves a markdown benchmark report:
-      1. Exp 1: Text-Only (DeBERTa-v3 + ASL)
-      2. Exp 2: Vision-Only Global (SigLIP Global + ASL)
-      3. Exp 3: Vision-Only Region Attention (SigLIP Global + K Regions + ASL)
-      4. Exp 4: Multimodal Cross-Attention with BCE Loss
-      5. Exp 5: Multimodal Cross-Attention with ASL (Proposed Full Model)
-
-    Args:
-        feature_dir: Directory containing cached .pt features.
-        split_file: Path to course_split.json.
-        data_root: Path to official data root.
-        report_dir: Output directory for ablation_results.md.
-        checkpoint_dir: Directory to save model checkpoints.
-        epochs: Training epochs per model variant.
-        batch_size: Batch size.
-        lr: Learning rate.
-        embed_dim: Hidden projection dimension.
-        num_heads: Attention heads.
-        device: Device to train on.
-        dry_run: If True, generates mock benchmark entries without full training.
+    Runs the 7 ablation experiments over `seeds` (default [13, 42, 2026]) and writes a
+    Markdown report with mean +/- std plus per-seed prediction exports.
 
     Returns:
-        List of result dictionaries for each ablation experiment.
+        One aggregated result dict per experiment (micro_f1_mean/_std, macro_f1_mean/_std, ...).
     """
+    seeds = list(seeds) if seeds else list(DEFAULT_SEEDS)
     report_dir = _resolve_path(report_dir)
     os.makedirs(report_dir, exist_ok=True)
-    report_path = os.path.join(report_dir, "ablation_results.md")
+    report_path = os.path.join(report_dir, report_name)
 
+    results: List[Dict[str, Any]] = []
     if dry_run:
         print("[*] Running ablation suite in dry_run mode...")
-        results = [
-            {
-                "name": "Exp 1: Text-Only (DeBERTa-v3 + ASL)",
-                "model_type": "text_only",
-                "loss_type": "asl",
-                "best_epoch": 1,
-                "best_threshold": 0.50,
-                "dev_micro": 0.315,
-                "dev_macro": 0.245,
-                "micro_f1": 0.320,
-                "macro_f1": 0.250,
-                "test_micro": 0.320,
-                "test_macro": 0.250,
-                "hamming_loss": 0.110,
-                "hamming": 0.110,
-                "notes": "Text modality only (dry run)",
-                "status": "PASS",
-            },
-            {
-                "name": "Exp 2: Vision-Only Global (SigLIP Global + ASL)",
-                "model_type": "vision_global",
-                "loss_type": "asl",
-                "best_epoch": 1,
-                "best_threshold": 0.48,
-                "dev_micro": 0.350,
-                "dev_macro": 0.280,
-                "micro_f1": 0.355,
-                "macro_f1": 0.285,
-                "test_micro": 0.355,
-                "test_macro": 0.285,
-                "hamming_loss": 0.105,
-                "hamming": 0.105,
-                "notes": "Global visual token only (dry run)",
-                "status": "PASS",
-            },
-            {
-                "name": "Exp 3: Vision-Only Region Attention (SigLIP Global + K Regions + ASL)",
-                "model_type": "vision_region",
-                "loss_type": "asl",
-                "best_epoch": 1,
-                "best_threshold": 0.46,
-                "dev_micro": 0.375,
-                "dev_macro": 0.305,
-                "micro_f1": 0.380,
-                "macro_f1": 0.310,
-                "test_micro": 0.380,
-                "test_macro": 0.310,
-                "hamming_loss": 0.095,
-                "hamming": 0.095,
-                "notes": "Global + region tokens with self-attention (dry run)",
-                "status": "PASS",
-            },
-            {
-                "name": "Exp 4: Multimodal Cross-Attention (BCE Loss)",
-                "model_type": "fusion_bce",
-                "loss_type": "bce",
-                "best_epoch": 1,
-                "best_threshold": 0.44,
-                "dev_micro": 0.390,
-                "dev_macro": 0.320,
-                "micro_f1": 0.395,
-                "macro_f1": 0.325,
-                "test_micro": 0.395,
-                "test_macro": 0.325,
-                "hamming_loss": 0.090,
-                "hamming": 0.090,
-                "notes": "Cross-attention with BCE loss (dry run)",
-                "status": "PASS",
-            },
-            {
-                "name": "Exp 5: Multimodal Cross-Attention (ASL Full Model)",
-                "model_type": "fusion_asl",
-                "loss_type": "asl",
-                "best_epoch": 1,
-                "best_threshold": 0.42,
-                "dev_micro": 0.440,
-                "dev_macro": 0.370,
-                "micro_f1": 0.448,
-                "macro_f1": 0.375,
-                "test_micro": 0.448,
-                "test_macro": 0.375,
-                "hamming_loss": 0.076,
-                "hamming": 0.076,
-                "notes": "Proposed full cross-modal model with ASL (dry run)",
-                "status": "PASS",
-            },
-        ]
+        for i, exp in enumerate(EXPERIMENTS):
+            base = 0.30 + 0.02 * i
+            per_seed = [
+                {
+                    **exp, "name": exp["name"], "seed": sd, "best_epoch": 1, "best_threshold": 0.5,
+                    "dev_micro": base - 0.01, "dev_macro": base - 0.05,
+                    "micro_f1": base + 0.002 * j, "macro_f1": base - 0.04 + 0.002 * j,
+                    "hamming_loss": 0.12 - 0.004 * i, "status": "PASS",
+                }
+                for j, sd in enumerate(seeds)
+            ]
+            agg = aggregate_seed_results(per_seed)
+            agg["notes"] = "dry run; " + agg["notes"]
+            results.append(agg)
     else:
-        configs = [
-            ("text_only", "asl"),
-            ("vision_global", "asl"),
-            ("vision_region", "asl"),
-            ("fusion_bce", "bce"),
-            ("fusion_asl", "asl"),
-        ]
-        results = []
-        for mt, lt in configs:
-            print(f"\n=======================================================")
-            print(f"[*] Running Ablation: {mt.upper()} (loss: {lt.upper()})")
-            print(f"=======================================================")
-            exp_ckpt = os.path.join(checkpoint_dir, mt)
-            res = train_unimodal_or_ablation(
-                model_type=mt,
-                loss_type=lt,
-                feature_dir=feature_dir,
-                split_file=split_file,
-                data_root=data_root,
-                epochs=epochs,
-                batch_size=batch_size,
-                lr=lr,
-                embed_dim=embed_dim,
-                num_heads=num_heads,
-                checkpoint_dir=exp_ckpt,
-                device=device,
-                **kwargs,
-            )
-            results.append(res)
+        for exp in EXPERIMENTS:
+            per_seed = []
+            for sd in seeds:
+                print(f"\n=======================================================")
+                print(f"[*] {exp['name']} | seed {sd}")
+                print(f"=======================================================")
+                per_seed.append(
+                    train_unimodal_or_ablation(
+                        model_type=exp["model_type"],
+                        loss_type=exp["loss_type"],
+                        feature_dir=feature_dir,
+                        split_file=split_file,
+                        data_root=data_root,
+                        epochs=epochs,
+                        batch_size=batch_size,
+                        lr=lr,
+                        embed_dim=embed_dim,
+                        num_heads=num_heads,
+                        checkpoint_dir=os.path.join(checkpoint_dir, exp["slug"]),
+                        device=device,
+                        seed=sd,
+                        predictions_root=predictions_root,
+                        exp_slug=exp["slug"],
+                        exp_name=exp["name"],
+                        **kwargs,
+                    )
+                )
+            results.append(aggregate_seed_results(per_seed))
 
     md_table = format_ablation_markdown_table(results)
+    report_content = f"""# SemEval-2027 Task 9 Subtask 2 - Grounding-DINO + SigLIP Ablations
 
-    report_content = f"""# SemEval-2027 Task 9 Subtask 2 - Ablation Benchmark Results
-
-Comparison of proposed cross-modal framing architecture against unimodal baselines and team Intermediate Report Table 1 benchmarks.
+Seven experiments, each answering one question; scores are mean ± std over seeds {seeds}.
+Qwen2.5-VL rows are En-Shuo's zero-shot baselines for reference.
 
 {md_table}
 """
@@ -663,11 +673,13 @@ def main():
     parser = argparse.ArgumentParser(
         description="SemEval-2027 Task 9 Subtask 2 Ablation Runner & Report Generator"
     )
-    parser.add_argument("--feature_dir", type=str, default="cache/features", help="Path to cached .pt features")
+    parser.add_argument("--feature_dir", type=str, default="cache/features_gdino_siglip", help="Path to cached .pt features")
     parser.add_argument("--split_file", type=str, default="course_split.json", help="Path to course_split.json")
     parser.add_argument("--data_root", type=str, default="data_official", help="Path to official data root")
     parser.add_argument("--report_dir", type=str, default="reports", help="Directory to save ablation_results.md")
-    parser.add_argument("--checkpoint_dir", type=str, default="checkpoints/ablations", help="Directory for checkpoints")
+    parser.add_argument("--checkpoint_dir", type=str, default="checkpoints/ablations_gdino_siglip", help="Directory for checkpoints")
+    parser.add_argument("--predictions_root", type=str, default="predictions/subtask2", help="Root for per-seed prediction exports")
+    parser.add_argument("--seeds", type=int, nargs="+", default=DEFAULT_SEEDS, help="Random seeds (default: 13 42 2026)")
     parser.add_argument("--epochs", type=int, default=15, help="Number of training epochs per ablation")
     parser.add_argument("--batch_size", type=int, default=16, help="Training batch size")
     parser.add_argument("--lr", type=float, default=1e-4, help="Learning rate")
@@ -683,6 +695,8 @@ def main():
         data_root=args.data_root,
         report_dir=args.report_dir,
         checkpoint_dir=args.checkpoint_dir,
+        predictions_root=args.predictions_root,
+        seeds=args.seeds,
         epochs=args.epochs,
         batch_size=args.batch_size,
         lr=args.lr,

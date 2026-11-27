@@ -1,19 +1,20 @@
 """
 entity_extractor.py
-Salient semantic entity extractor with deterministic crop fallback for SemEval-2027 Task 9.
-Uses Faster R-CNN MobileNetV3-Large 320 FPN to detect salient foreground entities
-and extracts Top-K localized region crops with coordinate bounding boxes.
+Open-vocabulary entity extractor with deterministic crop fallback for SemEval-2027 Task 9.
+Uses Grounding-DINO with a frame-neutral physical prompt to detect entities and extracts
+Top-K localized region crops with coordinate bounding boxes.
 """
 
-import os
-from typing import List, Optional, Sequence, Tuple
+import warnings
+from typing import Dict, List, Optional, Sequence, Tuple
 from PIL import Image
 import torch
-import torchvision.transforms.functional as TF
-from torchvision.models.detection import (
-    fasterrcnn_mobilenet_v3_large_320_fpn,
-    FasterRCNN_MobileNet_V3_Large_320_FPN_Weights,
-)
+from transformers import AutoModelForZeroShotObjectDetection, AutoProcessor
+
+DEFAULT_MODEL_NAME = "IDEA-Research/grounding-dino-tiny"
+# Frame-neutral physical prompt: no framing-category words, so the detector only decomposes
+# the photo into physical entities and never encodes a human prior about the answer labels.
+DEFAULT_PROMPT = "person. crowd. face. sign. text. building. vehicle. object."
 
 
 def _clamp_box(box: Sequence[float], w: int, h: int) -> List[int]:
@@ -25,17 +26,41 @@ def _clamp_box(box: Sequence[float], w: int, h: int) -> List[int]:
     return [x1, y1, x2, y2]
 
 
+def _box_iou(a: Sequence[int], b: Sequence[int]) -> float:
+    ix1, iy1 = max(a[0], b[0]), max(a[1], b[1])
+    ix2, iy2 = min(a[2], b[2]), min(a[3], b[3])
+    inter = max(0, ix2 - ix1) * max(0, iy2 - iy1)
+    union = (a[2] - a[0]) * (a[3] - a[1]) + (b[2] - b[0]) * (b[3] - b[1]) - inter
+    return inter / union if union > 0 else 0.0
+
+
+def select_distinct_boxes(
+    candidates: List[Dict], top_k: int, iou_thresh: float = 0.7
+) -> List[List[int]]:
+    """Sorts candidates by (score, area) desc and keeps up to top_k boxes with pairwise IoU <= iou_thresh."""
+    if top_k <= 0:
+        return []
+    ordered = sorted(candidates, key=lambda c: (c["score"], c["area"]), reverse=True)
+    selected: List[List[int]] = []
+    for c in ordered:
+        if all(_box_iou(c["box"], s) <= iou_thresh for s in selected):
+            selected.append(c["box"])
+        if len(selected) == top_k:
+            break
+    return selected
+
+
 class SalientEntityExtractor:
     """
-    Lightweight object detection backbone for salient foreground entity extraction.
-    Loads fasterrcnn_mobilenet_v3_large_320_fpn with automatic hardware acceleration
-    (MPS on Mac, CUDA on NVIDIA GPU, CPU fallback).
+    Open-vocabulary entity extractor built on Grounding-DINO with a frame-neutral prompt.
+    Runs on MPS/CUDA when available and falls back to CPU once if the accelerator fails.
     """
 
     def __init__(
         self,
         device: Optional[str] = None,
-        weights: Optional[FasterRCNN_MobileNet_V3_Large_320_FPN_Weights] = None,
+        model_name: str = DEFAULT_MODEL_NAME,
+        prompt: str = DEFAULT_PROMPT,
     ):
         if device is None:
             if torch.backends.mps.is_available():
@@ -47,28 +72,47 @@ class SalientEntityExtractor:
         else:
             self.device = torch.device(device)
 
-        if weights is None:
-            weights = FasterRCNN_MobileNet_V3_Large_320_FPN_Weights.DEFAULT
-
-        self.model = fasterrcnn_mobilenet_v3_large_320_fpn(weights=weights)
+        self.prompt = prompt
+        self.processor = AutoProcessor.from_pretrained(model_name)
+        self.model = AutoModelForZeroShotObjectDetection.from_pretrained(model_name)
         self.model.to(self.device)
         self.model.eval()
+
+    def _detect(self, img_rgb: Image.Image, conf_thresh: float) -> List[Dict]:
+        w, h = img_rgb.size
+        inputs = self.processor(images=img_rgb, text=self.prompt, return_tensors="pt")
+        inputs = {k: v.to(self.device) for k, v in inputs.items()}
+        with torch.no_grad():
+            outputs = self.model(**inputs)
+        try:
+            results = self.processor.post_process_grounded_object_detection(
+                outputs, inputs["input_ids"], threshold=conf_thresh,
+                text_threshold=conf_thresh, target_sizes=[(h, w)],
+            )[0]
+        except TypeError:  # older transformers name
+            results = self.processor.post_process_grounded_object_detection(
+                outputs, inputs["input_ids"], box_threshold=conf_thresh,
+                text_threshold=conf_thresh, target_sizes=[(h, w)],
+            )[0]
+        candidates = []
+        for box, score in zip(results["boxes"].detach().cpu().tolist(), results["scores"].detach().cpu().tolist()):
+            clamped = _clamp_box(box, w, h)
+            candidates.append({
+                "box": clamped,
+                "score": float(score),
+                "area": (clamped[2] - clamped[0]) * (clamped[3] - clamped[1]),
+            })
+        return candidates
 
     def extract_regions(
         self,
         img: Image.Image,
         top_k: int = 3,
-        conf_thresh: float = 0.3,
+        conf_thresh: float = 0.25,
     ) -> Tuple[List[Image.Image], List[List[int]]]:
         """
-        Runs object detection on `img`, selects confident bounding boxes, and returns
-        Top-K crops along with integer bounding box coordinates [x1, y1, x2, y2].
-
-        If fewer than top_k detections meet conf_thresh, fills remaining slots with
-        deterministic multi-scale focal crops:
-          Fallback 1: Center focal crop [0.15*w, 0.15*h, 0.85*w, 0.85*h]
-          Fallback 2: Upper focus / headline region [0.05*w, 0.05*h, 0.95*w, 0.60*h]
-          Fallback 3: Golden-ratio center-left crop [0.05*w, 0.20*h, 0.70*w, 0.80*h]
+        Detects entities matching the frame-neutral prompt and returns Top-K distinct crops with
+        integer boxes [x1, y1, x2, y2]. Missing slots are filled with deterministic focal crops.
         """
         if top_k <= 0:
             return [], []
@@ -78,38 +122,17 @@ class SalientEntityExtractor:
         if w <= 0 or h <= 0:
             raise ValueError(f"Invalid image dimensions: {w}x{h}")
 
-        img_tensor = TF.to_tensor(img_rgb).to(self.device)
+        try:
+            candidates = self._detect(img_rgb, conf_thresh)
+        except RuntimeError as e:
+            if self.device.type == "cpu":
+                raise
+            warnings.warn(f"Grounding-DINO failed on {self.device} ({e}); falling back to CPU.")
+            self.device = torch.device("cpu")
+            self.model.to(self.device)
+            candidates = self._detect(img_rgb, conf_thresh)
 
-        with torch.no_grad():
-            preds = self.model([img_tensor])[0]
-
-        boxes_t = preds["boxes"].detach().cpu()
-        scores_t = preds["scores"].detach().cpu()
-
-        # Collect detections above confidence threshold
-        candidates = []
-        for i in range(len(scores_t)):
-            score = float(scores_t[i])
-            if score >= conf_thresh:
-                raw_box = boxes_t[i].tolist()
-                clamped = _clamp_box(raw_box, w, h)
-                area = (clamped[2] - clamped[0]) * (clamped[3] - clamped[1])
-                candidates.append({
-                    "box": clamped,
-                    "score": score,
-                    "area": area,
-                })
-
-        # Sort candidate detections by confidence score descending, then area descending
-        candidates.sort(key=lambda c: (c["score"], c["area"]), reverse=True)
-
-        selected_boxes: List[List[int]] = []
-        for c in candidates:
-            # Avoid duplicate identical boxes
-            if c["box"] not in selected_boxes:
-                selected_boxes.append(c["box"])
-            if len(selected_boxes) == top_k:
-                break
+        selected_boxes = select_distinct_boxes(candidates, top_k=top_k, iou_thresh=0.7)
 
         # Fallback multi-scale focal crops if < top_k detections
         fallback_ratios = [
@@ -147,11 +170,13 @@ def get_shared_extractor(device: Optional[str] = None) -> SalientEntityExtractor
 def extract_salient_regions(
     img: Image.Image,
     top_k: int = 3,
-    conf_thresh: float = 0.3,
+    conf_thresh: float = 0.25,
     device: Optional[str] = None,
 ) -> Tuple[List[Image.Image], List[List[int]]]:
     """
     Convenience wrapper function calling the shared singleton SalientEntityExtractor.
     """
+    if top_k <= 0:
+        return [], []
     extractor = get_shared_extractor(device=device)
     return extractor.extract_regions(img, top_k=top_k, conf_thresh=conf_thresh)

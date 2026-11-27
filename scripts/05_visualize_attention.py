@@ -262,6 +262,12 @@ def main(args: Optional[argparse.Namespace] = None):
     except Exception:
         pass
 
+    if sample_text_map:
+        feature_files = [
+            p for p in feature_files
+            if os.path.splitext(os.path.basename(p))[0] in sample_text_map
+        ]
+
     processed = 0
     for feat_path in feature_files:
         if processed >= args.num_samples:

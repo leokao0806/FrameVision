@@ -1,7 +1,7 @@
 """
 feature_extractor.py
-Multimodal feature extractor using SigLIP (vision) and DeBERTa-v3 (text)
-for SemEval-2027 Task 9 Subtask 2.
+Multimodal feature extractor using a single SigLIP checkpoint for both vision and text
+(shared, aligned 768-d space) for SemEval-2027 Task 9 Subtask 2.
 Extracts pooled visual representations for global image and K localized crops,
 along with full-sequence token representations for accompanying text.
 """
@@ -17,15 +17,15 @@ class FeatureExtractor:
     Multimodal feature extractor extracting:
       1. SigLIP vision tokens: (1+K, 768) float32 pooled representations
          (1 global image + K salient crops).
-      2. DeBERTa-v3 text tokens: (256, 768) float32 last_hidden_state representations
-         and (256,) int64 attention mask.
+      2. SigLIP text tokens: (64, 768) float32 last_hidden_state representations
+         and (64,) int64 mask (1 = real token, 0 = padding).
     """
 
     def __init__(
         self,
         vision_model_name: str = "google/siglip-base-patch16-224",
-        text_model_name: str = "microsoft/deberta-v3-base",
-        max_text_len: int = 256,
+        text_model_name: str = "google/siglip-base-patch16-224",
+        max_text_len: int = 64,
         device: Optional[str] = None,
     ):
         if device is None:
@@ -55,9 +55,13 @@ class FeatureExtractor:
         for p in self.vision_model.parameters():
             p.requires_grad = False
 
-        # 2. Text tokenizer & model
+        # 2. Text tokenizer & model (reuse the SigLIP text tower when the checkpoint is shared)
         self.tokenizer = AutoTokenizer.from_pretrained(text_model_name)
-        self.text_model = AutoModel.from_pretrained(text_model_name)
+        if text_model_name == vision_model_name and hasattr(base_vision, "text_model"):
+            self.text_model = base_vision.text_model
+        else:
+            base_text = AutoModel.from_pretrained(text_model_name)
+            self.text_model = base_text.text_model if hasattr(base_text, "text_model") else base_text
         self.text_model.to(self.device)
         self.text_model.eval()
         for p in self.text_model.parameters():
@@ -100,19 +104,24 @@ class FeatureExtractor:
         # Preprocess text
         if text is None:
             text = ""
+        # SigLIP was trained on lowercased text padded to max_length.
         t_inputs = self.tokenizer(
-            text,
+            text.lower(),
             max_length=self.max_text_len,
             padding="max_length",
             truncation=True,
             return_tensors="pt",
         )
-        t_inputs = {k: v.to(self.device) for k, v in t_inputs.items()}
+        input_ids = t_inputs["input_ids"].to(self.device)
+        # SigLIP's pad token equals its EOS token, so (input_ids != pad_id) would drop the EOS (and
+        # everything for empty text). Count real tokens from an unpadded encoding instead.
+        n_real = len(self.tokenizer(text.lower(), max_length=self.max_text_len, truncation=True)["input_ids"])
+        text_mask = torch.zeros(self.max_text_len, dtype=torch.int64, device=self.device)
+        text_mask[: max(1, n_real)] = 1
 
-        t_out = self.text_model(**t_inputs)
-        # out.last_hidden_state.squeeze(0) has shape (max_text_len, 768)
+        t_out = self.text_model(input_ids=input_ids)
+        # last_hidden_state.squeeze(0) has shape (max_text_len, 768)
         text_tokens = t_out.last_hidden_state.squeeze(0).to(dtype=torch.float32)
-        text_mask = t_inputs["attention_mask"].squeeze(0).to(dtype=torch.int64)
 
         return {
             "visual_tokens": visual_tokens,
@@ -126,8 +135,8 @@ _SHARED_FEATURE_EXTRACTOR: Optional[FeatureExtractor] = None
 
 def get_shared_feature_extractor(
     vision_model_name: str = "google/siglip-base-patch16-224",
-    text_model_name: str = "microsoft/deberta-v3-base",
-    max_text_len: int = 256,
+    text_model_name: str = "google/siglip-base-patch16-224",
+    max_text_len: int = 64,
     device: Optional[str] = None,
 ) -> FeatureExtractor:
     """Returns or creates a shared singleton FeatureExtractor instance."""
